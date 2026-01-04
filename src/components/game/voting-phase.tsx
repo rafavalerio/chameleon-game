@@ -44,6 +44,7 @@ export function VotingPhase() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         className="flex-shrink-0 pt-6 pb-4 px-4 text-center space-y-2 border-b border-border/50 bg-background/95 backdrop-blur-sm"
+        style={{ paddingTop: 'max(1.5rem, calc(env(safe-area-inset-top) + 1.5rem))', paddingLeft: 'max(1rem, env(safe-area-inset-left))', paddingRight: 'max(1rem, env(safe-area-inset-right))' }}
       >
         <motion.div
           initial={{ scale: 0, rotate: -10 }}
@@ -59,7 +60,10 @@ export function VotingPhase() {
       </motion.div>
 
       {/* Scrollable Content */}
-      <div className="flex-1 overflow-y-auto px-4 py-6">
+      <div 
+        className="flex-1 overflow-y-auto px-4 py-6"
+        style={{ paddingLeft: 'max(1rem, env(safe-area-inset-left))', paddingRight: 'max(1rem, env(safe-area-inset-right))' }}
+      >
       <AnimatePresence mode="wait">
         {currentVoterId && currentVoter ? (
           /* Voting selection */
@@ -210,13 +214,16 @@ export function VotingPhase() {
 
       {/* Fixed Footer */}
       {allVoted && (
-        <div className="flex-shrink-0 px-4 pt-4 pb-6 border-t border-border/50 bg-background/95 backdrop-blur-sm">
+        <div 
+          className="flex-shrink-0 px-4 pt-4 pb-6 border-t border-border/50 bg-background/95 backdrop-blur-sm"
+          style={{ paddingBottom: 'max(1.5rem, calc(env(safe-area-inset-bottom) + 1.5rem))', paddingLeft: 'max(1rem, env(safe-area-inset-left))', paddingRight: 'max(1rem, env(safe-area-inset-right))' }}
+        >
           <Button
             onClick={handleCalculateResults}
             className="w-full h-14 text-lg font-semibold bg-gradient-to-r from-game-purple to-game-pink hover:from-game-pink hover:to-game-purple border-2 border-game-pink/30"
             size="lg"
           >
-            Reveal the Chameleon! 🦎
+                  Reveal the Chameleon! 🦎
           </Button>
         </div>
       )}

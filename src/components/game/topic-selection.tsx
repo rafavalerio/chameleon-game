@@ -34,7 +34,8 @@ export function TopicSelection() {
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        className="flex-shrink-0 pt-6 pb-4 px-4 text-center space-y-2 border-b border-border/50 bg-background/95 backdrop-blur-sm"
+        className="flex-shrink-0 pt-6 pb-4 px-4 text-center space-y-2 border-b border-border/50 bg-background/95 backdrop-blur-sm safe-area-header"
+        style={{ paddingTop: 'max(1.5rem, calc(env(safe-area-inset-top) + 1.5rem))', paddingLeft: 'max(1rem, env(safe-area-inset-left))', paddingRight: 'max(1rem, env(safe-area-inset-right))' }}
       >
         <motion.div
           initial={{ scale: 0, rotate: -180 }}
@@ -50,25 +51,30 @@ export function TopicSelection() {
       </motion.div>
 
       {/* Scrollable Content */}
-      <div className="flex-1 overflow-y-auto px-4 py-6">
+      <div 
+        className="flex-1 overflow-y-auto px-4 py-6"
+        style={{ paddingLeft: 'max(1rem, env(safe-area-inset-left))', paddingRight: 'max(1rem, env(safe-area-inset-right))' }}
+      >
         <motion.div
           variants={container}
           initial="hidden"
           animate="show"
-          className="grid grid-cols-2 gap-3"
+          className="grid grid-cols-2 gap-3 auto-rows-fr"
         >
           {topics.map((topic) => (
-            <motion.div key={topic.id} variants={item}>
+            <motion.div key={topic.id} variants={item} className="h-full">
               <Card
                 onClick={() => handleSelectTopic(topic)}
-                className="p-4 cursor-pointer transition-all duration-200 hover:scale-[1.02] active:scale-[0.98] border-2 border-border/60 hover:border-primary/50"
+                className="h-full p-4 cursor-pointer transition-all duration-200 hover:scale-[1.02] active:scale-[0.98] border-2 border-border/60 hover:border-primary/50 flex flex-col"
               >
-                <div className="text-center space-y-2">
+                <div className="text-center space-y-2 flex flex-col flex-1 justify-between">
                   <span className="text-4xl block">{topic.emoji}</span>
-                  <h3 className="font-semibold text-base">{topic.name}</h3>
-                  <p className="text-xs text-muted-foreground line-clamp-2">
-                    {topic.description}
-                  </p>
+                  <div className="flex-1 flex flex-col justify-center">
+                    <h3 className="font-semibold text-base">{topic.name}</h3>
+                    <p className="text-xs text-muted-foreground line-clamp-2 mt-1">
+                      {topic.description}
+                    </p>
+                  </div>
                 </div>
               </Card>
             </motion.div>

@@ -42,7 +42,7 @@ export function Game() {
   };
 
   return (
-    <div className="h-screen flex flex-col overflow-hidden safe-area-inset">
+    <div className="h-screen flex flex-col overflow-hidden" style={{ paddingTop: 'env(safe-area-inset-top)', paddingBottom: 'env(safe-area-inset-bottom)' }}>
       {/* Main content */}
       <main className="flex-1 overflow-hidden">
         <AnimatePresence mode="wait">

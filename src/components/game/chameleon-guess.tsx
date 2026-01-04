@@ -42,6 +42,7 @@ export function ChameleonGuess() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         className="flex-shrink-0 pt-6 pb-4 px-4 text-center space-y-3 border-b border-border/50 bg-background/95 backdrop-blur-sm"
+        style={{ paddingTop: 'max(1.5rem, calc(env(safe-area-inset-top) + 1.5rem))', paddingLeft: 'max(1rem, env(safe-area-inset-left))', paddingRight: 'max(1rem, env(safe-area-inset-right))' }}
       >
         <motion.div
           initial={{ scale: 0 }}
@@ -62,7 +63,10 @@ export function ChameleonGuess() {
       </motion.div>
 
       {/* Scrollable Content */}
-      <div className="flex-1 overflow-y-auto px-4 py-6 space-y-6">
+      <div 
+        className="flex-1 overflow-y-auto px-4 py-6 space-y-6"
+        style={{ paddingLeft: 'max(1rem, env(safe-area-inset-left))', paddingRight: 'max(1rem, env(safe-area-inset-right))' }}
+      >
         {/* Topic hint */}
         <Card className="border-2 border-chameleon/20 bg-chameleon/5">
           <CardContent className="p-4 text-center">

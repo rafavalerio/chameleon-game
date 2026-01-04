@@ -186,10 +186,22 @@
   * {
     @apply border-border outline-ring/50;
   }
+  html {
+    font-family: var(--font-geist-sans), system-ui, -apple-system, sans-serif;
+  }
   body {
     @apply bg-background text-foreground antialiased;
+    font-family: var(--font-geist-sans), system-ui, -apple-system, sans-serif;
     font-feature-settings: "rlig" 1, "calt" 1;
     -webkit-tap-highlight-color: transparent;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  /* Optimize emoji rendering */
+  .text-6xl, .text-5xl, .text-4xl, .text-3xl, .text-2xl {
+    font-variant-emoji: emoji;
+    -webkit-font-feature-settings: "liga" 1, "kern" 1;
+    font-feature-settings: "liga" 1, "kern" 1;
   }
 }
 
@@ -213,10 +225,38 @@
 
 /* PWA safe area insets for notched devices */
 @supports (padding: max(0px)) {
+  :root {
+    --safe-area-inset-top: env(safe-area-inset-top, 0px);
+    --safe-area-inset-right: env(safe-area-inset-right, 0px);
+    --safe-area-inset-bottom: env(safe-area-inset-bottom, 0px);
+    --safe-area-inset-left: env(safe-area-inset-left, 0px);
+  }
+
   .safe-area-inset {
-    padding-left: max(1rem, env(safe-area-inset-left));
-    padding-right: max(1rem, env(safe-area-inset-right));
-    padding-bottom: max(1rem, env(safe-area-inset-bottom));
+    padding-top: max(0px, var(--safe-area-inset-top));
+    padding-right: max(0px, var(--safe-area-inset-right));
+    padding-bottom: max(0px, var(--safe-area-inset-bottom));
+    padding-left: max(0px, var(--safe-area-inset-left));
+  }
+
+  /* Safe area for fixed headers */
+  .safe-area-header {
+    padding-top: max(1.5rem, calc(var(--safe-area-inset-top) + 1.5rem));
+    padding-left: max(1rem, var(--safe-area-inset-left));
+    padding-right: max(1rem, var(--safe-area-inset-right));
+  }
+
+  /* Safe area for fixed footers */
+  .safe-area-footer {
+    padding-bottom: max(1.5rem, calc(var(--safe-area-inset-bottom) + 1.5rem));
+    padding-left: max(1rem, var(--safe-area-inset-left));
+    padding-right: max(1rem, var(--safe-area-inset-right));
+  }
+
+  /* Safe area for scrollable content */
+  .safe-area-content {
+    padding-left: max(1rem, var(--safe-area-inset-left));
+    padding-right: max(1rem, var(--safe-area-inset-right));
   }
 }
 

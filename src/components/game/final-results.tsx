@@ -28,6 +28,7 @@ export function FinalResults() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         className="flex-shrink-0 pt-6 pb-4 px-4 text-center space-y-4 border-b border-border/50 bg-background/95 backdrop-blur-sm"
+        style={{ paddingTop: 'max(1.5rem, calc(env(safe-area-inset-top) + 1.5rem))', paddingLeft: 'max(1rem, env(safe-area-inset-left))', paddingRight: 'max(1rem, env(safe-area-inset-right))' }}
       >
         <motion.div
           initial={{ scale: 0.8, opacity: 0 }}
@@ -44,7 +45,10 @@ export function FinalResults() {
       </motion.div>
 
       {/* Scrollable Content */}
-      <div className="flex-1 overflow-y-auto px-4 py-6 space-y-6">
+      <div 
+        className="flex-1 overflow-y-auto px-4 py-6 space-y-6"
+        style={{ paddingLeft: 'max(1rem, env(safe-area-inset-left))', paddingRight: 'max(1rem, env(safe-area-inset-right))' }}
+      >
 
       {/* Chameleon reveal */}
       <Card className="border-2 border-chameleon/30 bg-gradient-to-br from-chameleon/10 to-chameleon/5 overflow-hidden">
@@ -195,7 +199,10 @@ export function FinalResults() {
       </div>
 
       {/* Fixed Footer */}
-      <div className="flex-shrink-0 px-4 pt-4 pb-6 border-t border-border/50 bg-background/95 backdrop-blur-sm space-y-3">
+      <div 
+        className="flex-shrink-0 px-4 pt-4 pb-6 border-t border-border/50 bg-background/95 backdrop-blur-sm space-y-3"
+        style={{ paddingBottom: 'max(1.5rem, calc(env(safe-area-inset-bottom) + 1.5rem))', paddingLeft: 'max(1rem, env(safe-area-inset-left))', paddingRight: 'max(1rem, env(safe-area-inset-right))' }}
+      >
         <Button
           onClick={newRound}
           className="w-full h-14 text-lg font-semibold bg-gradient-to-r from-chameleon to-chameleon-dark hover:from-chameleon-dark hover:to-chameleon border-2 border-chameleon-dark/30"

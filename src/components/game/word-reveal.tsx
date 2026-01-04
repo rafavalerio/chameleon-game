@@ -44,6 +44,7 @@ export function WordReveal() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         className="flex-shrink-0 pt-6 pb-4 px-4 text-center space-y-2 border-b border-border/50 bg-background/95 backdrop-blur-sm"
+        style={{ paddingTop: 'max(1.5rem, calc(env(safe-area-inset-top) + 1.5rem))', paddingLeft: 'max(1rem, env(safe-area-inset-left))', paddingRight: 'max(1rem, env(safe-area-inset-right))' }}
       >
         <div className="flex items-center justify-center gap-2 text-lg font-semibold">
           <span className="text-2xl">{state.currentTopic?.emoji}</span>
@@ -62,7 +63,10 @@ export function WordReveal() {
       </motion.div>
 
       {/* Scrollable Content */}
-      <div className="flex-1 overflow-y-auto px-4 py-6">
+      <div 
+        className="flex-1 overflow-y-auto px-4 py-6"
+        style={{ paddingLeft: 'max(1rem, env(safe-area-inset-left))', paddingRight: 'max(1rem, env(safe-area-inset-right))' }}
+      >
 
       <AnimatePresence mode="wait">
         {currentRevealingPlayer ? (

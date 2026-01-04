@@ -54,15 +54,11 @@ export function PlayerSetup() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         className="flex-shrink-0 pt-6 pb-4 px-4 text-center space-y-2 border-b border-border/50 bg-background/95 backdrop-blur-sm"
+        style={{ paddingTop: 'max(1.5rem, calc(env(safe-area-inset-top) + 1.5rem))', paddingLeft: 'max(1rem, env(safe-area-inset-left))', paddingRight: 'max(1rem, env(safe-area-inset-right))' }}
       >
-        <motion.div
-          initial={{ scale: 0 }}
-          animate={{ scale: 1 }}
-          transition={{ type: "spring", delay: 0.2 }}
-          className="text-6xl"
-        >
+        <div className="text-6xl" style={{ fontVariantEmoji: 'emoji' }}>
           🦎
-        </motion.div>
+        </div>
         <h1 className="text-3xl font-bold bg-gradient-to-r from-chameleon to-game-purple bg-clip-text text-transparent">
           Chameleon
         </h1>
@@ -70,7 +66,10 @@ export function PlayerSetup() {
       </motion.div>
 
       {/* Scrollable Content */}
-      <div className="flex-1 overflow-y-auto px-4 py-6">
+      <div 
+        className="flex-1 overflow-y-auto px-4 py-6"
+        style={{ paddingLeft: 'max(1rem, env(safe-area-inset-left))', paddingRight: 'max(1rem, env(safe-area-inset-right))' }}
+      >
         <Card className="border-2 border-border/80">
           <CardHeader className="pb-3">
             <CardTitle className="flex items-center gap-2 text-lg">
@@ -115,31 +114,32 @@ export function PlayerSetup() {
                     No players yet. Add at least {GAME_CONFIG.MIN_PLAYERS} players.
                   </motion.p>
                 ) : (
-                  state.players.map((player, index) => (
-                    <motion.div
-                      key={player.id}
-                      initial={{ opacity: 0, x: -20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      exit={{ opacity: 0, x: 20, transition: { duration: 0.2 } }}
-                      transition={{ delay: index * 0.05 }}
-                      className="flex items-center gap-3 p-3 rounded-xl bg-muted/50 group"
+                state.players.map((player, index) => (
+                  <motion.div
+                    key={player.id}
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: 20, transition: { duration: 0.2 } }}
+                    transition={{ delay: index * 0.05 }}
+                    className="flex items-center gap-3 p-3 rounded-xl bg-muted/50 group"
+                  >
+                    <div
+                      className={`w-10 h-10 rounded-full ${playerColors[index % playerColors.length]} flex items-center justify-center text-white font-semibold text-sm border-2 border-white/20`}
                     >
-                      <div
-                        className={`w-10 h-10 rounded-full ${playerColors[index % playerColors.length]} flex items-center justify-center text-white font-semibold text-sm border-2 border-white/20`}
-                      >
-                        {player.name.charAt(0).toUpperCase()}
-                      </div>
-                      <span className="flex-1 font-medium">{player.name}</span>
-                      <Button
-                        variant="ghost"
-                        size="icon"
-                        onClick={() => removePlayer(player.id)}
-                        className="opacity-0 group-hover:opacity-100 transition-opacity h-8 w-8 text-muted-foreground hover:text-destructive"
-                      >
-                        <X className="w-4 h-4" />
-                      </Button>
-                    </motion.div>
-                  ))
+                      {player.name.charAt(0).toUpperCase()}
+                    </div>
+                    <span className="flex-1 font-medium">{player.name}</span>
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      onClick={() => removePlayer(player.id)}
+                      className="h-8 w-8 text-muted-foreground hover:text-destructive hover:bg-destructive/10 transition-colors shrink-0"
+                      aria-label={`Remove ${player.name}`}
+                    >
+                      <X className="w-4 h-4" />
+                    </Button>
+                  </motion.div>
+                ))
                 )}
               </AnimatePresence>
             </div>
@@ -160,7 +160,10 @@ export function PlayerSetup() {
       </div>
 
       {/* Fixed Footer */}
-      <div className="flex-shrink-0 px-4 pt-4 pb-6 border-t border-border/50 bg-background/95 backdrop-blur-sm">
+      <div 
+        className="flex-shrink-0 px-4 pt-4 pb-6 border-t border-border/50 bg-background/95 backdrop-blur-sm"
+        style={{ paddingBottom: 'max(1.5rem, calc(env(safe-area-inset-bottom) + 1.5rem))', paddingLeft: 'max(1rem, env(safe-area-inset-left))', paddingRight: 'max(1rem, env(safe-area-inset-right))' }}
+      >
         <Button
           onClick={startTopicSelection}
           disabled={!canStart}
