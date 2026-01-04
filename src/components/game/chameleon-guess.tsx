@@ -15,13 +15,18 @@ export function ChameleonGuess() {
   const secretWord = state.secretWord;
 
   // Select 6 words: the secret word + 5 random others
+  // Ensure secretWord exists before proceeding
+  if (!secretWord) {
+    return null;
+  }
+
   const otherWords = topicWords.filter((word) => word !== secretWord);
   const randomOtherWords = [...otherWords]
     .sort(() => Math.random() - 0.5)
     .slice(0, 5);
   
   // Combine secret word with 5 random words and shuffle
-  const wordOptions = [secretWord, ...randomOtherWords].sort(
+  const wordOptions: string[] = [secretWord, ...randomOtherWords].sort(
     () => Math.random() - 0.5
   );
 
