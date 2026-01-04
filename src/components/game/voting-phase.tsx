@@ -2,15 +2,17 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Vote, Check, Users, User } from "lucide-react";
+import { Vote, Check, Users, User, RotateCcw } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { useGame } from "@/lib/game-context";
 
 export function VotingPhase() {
-  const { state, castVote, calculateResults } = useGame();
+  const { state, castVote, calculateResults, resetGame } = useGame();
   const [currentVoterId, setCurrentVoterId] = useState<string | null>(null);
+  const [showResetDialog, setShowResetDialog] = useState(false);
 
   const playersWhoHaventVoted = state.players.filter((p) => !p.votedFor);
   const allVoted = playersWhoHaventVoted.length === 0;
@@ -32,6 +34,11 @@ export function VotingPhase() {
     calculateResults();
   };
 
+  const handleReset = () => {
+    resetGame();
+    setShowResetDialog(false);
+  };
+
   // Get vote counts for display after everyone voted
   const getVoteCount = (playerId: string): number => {
     return state.players.filter((p) => p.votedFor === playerId).length;
@@ -43,9 +50,18 @@ export function VotingPhase() {
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        className="flex-shrink-0 pt-4 pb-4 px-4 text-center space-y-2 border-b border-border/50 bg-background/95 backdrop-blur-sm"
+        className="flex-shrink-0 pt-4 pb-4 px-4 text-center space-y-2 border-b border-border/50 bg-background/95 backdrop-blur-sm relative"
         style={{ paddingTop: 'max(1rem, calc(env(safe-area-inset-top) + 1rem))', paddingLeft: 'max(1rem, env(safe-area-inset-left))', paddingRight: 'max(1rem, env(safe-area-inset-right))' }}
       >
+        <Button
+          variant="outline"
+          size="icon"
+          onClick={() => setShowResetDialog(true)}
+          className="absolute top-4 right-4 h-8 w-8 text-muted-foreground hover:text-destructive border-2"
+          aria-label="Reset game"
+        >
+          <RotateCcw className="w-4 h-4" />
+        </Button>
         <motion.div
           initial={{ scale: 0, rotate: -10 }}
           animate={{ scale: 1, rotate: 0 }}
@@ -227,6 +243,31 @@ export function VotingPhase() {
           </Button>
         </div>
       )}
+
+      <Dialog open={showResetDialog} onOpenChange={setShowResetDialog}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Reset Game?</DialogTitle>
+            <DialogDescription>
+              Are you sure you want to reset the game? This will return you to the player setup screen and all progress will be lost.
+            </DialogDescription>
+          </DialogHeader>
+          <DialogFooter>
+            <Button
+              variant="outline"
+              onClick={() => setShowResetDialog(false)}
+            >
+              Cancel
+            </Button>
+            <Button
+              variant="destructive"
+              onClick={handleReset}
+            >
+              Reset Game
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }

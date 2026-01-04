@@ -2,16 +2,18 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Eye, EyeOff, Check, ChevronRight } from "lucide-react";
+import { Eye, EyeOff, Check, ChevronRight, RotateCcw } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { useGame } from "@/lib/game-context";
 
 export function WordReveal() {
-  const { state, revealWord } = useGame();
+  const { state, revealWord, resetGame } = useGame();
   const [showingWord, setShowingWord] = useState(false);
   const [currentRevealingPlayer, setCurrentRevealingPlayer] = useState<string | null>(null);
+  const [showResetDialog, setShowResetDialog] = useState(false);
 
   const unrevealedPlayers = state.players.filter((p) => !p.hasRevealed);
   const revealedCount = state.players.length - unrevealedPlayers.length;
@@ -37,15 +39,29 @@ export function WordReveal() {
   const currentPlayer = state.players.find((p) => p.id === currentRevealingPlayer);
   const isChameleon = currentPlayer?.isChameleon ?? false;
 
+  const handleReset = () => {
+    resetGame();
+    setShowResetDialog(false);
+  };
+
   return (
     <div className="h-full flex flex-col max-w-md mx-auto">
       {/* Fixed Header */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        className="flex-shrink-0 pt-4 pb-4 px-4 text-center space-y-2 border-b border-border/50 bg-background/95 backdrop-blur-sm"
+        className="flex-shrink-0 pt-4 pb-4 px-4 text-center space-y-2 border-b border-border/50 bg-background/95 backdrop-blur-sm relative"
         style={{ paddingTop: 'max(1rem, calc(env(safe-area-inset-top) + 1rem))', paddingLeft: 'max(1rem, env(safe-area-inset-left))', paddingRight: 'max(1rem, env(safe-area-inset-right))' }}
       >
+        <Button
+          variant="outline"
+          size="icon"
+          onClick={() => setShowResetDialog(true)}
+          className="absolute top-4 right-4 h-8 w-8 text-muted-foreground hover:text-destructive border-2"
+          aria-label="Reset game"
+        >
+          <RotateCcw className="w-4 h-4" />
+        </Button>
         <div className="flex items-center justify-center gap-2 text-lg font-semibold">
           <span className="text-2xl">{state.currentTopic?.emoji}</span>
           <span>{state.currentTopic?.name}</span>
@@ -222,6 +238,31 @@ export function WordReveal() {
         )}
       </AnimatePresence>
       </div>
+
+      <Dialog open={showResetDialog} onOpenChange={setShowResetDialog}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Reset Game?</DialogTitle>
+            <DialogDescription>
+              Are you sure you want to reset the game? This will return you to the player setup screen and all progress will be lost.
+            </DialogDescription>
+          </DialogHeader>
+          <DialogFooter>
+            <Button
+              variant="outline"
+              onClick={() => setShowResetDialog(false)}
+            >
+              Cancel
+            </Button>
+            <Button
+              variant="destructive"
+              onClick={handleReset}
+            >
+              Reset Game
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }

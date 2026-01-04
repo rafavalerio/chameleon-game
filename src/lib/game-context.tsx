@@ -41,6 +41,7 @@ export interface GameState {
 type GameAction =
   | { type: "ADD_PLAYER"; name: string }
   | { type: "REMOVE_PLAYER"; id: string }
+  | { type: "CLEAR_PLAYERS" }
   | { type: "START_TOPIC_SELECTION" }
   | { type: "SELECT_TOPIC"; topic: Topic }
   | { type: "REVEAL_WORD"; playerId: string }
@@ -54,27 +55,76 @@ type GameAction =
   | { type: "RESET_GAME" };
 
 // Initial state
-const initialState: GameState = {
-  phase: "setup",
-  players: [],
-  currentTopic: null,
-  secretWord: null,
-  questions: [],
-  currentPlayerIndex: 0,
-  roundNumber: 1,
-  chameleonId: null,
-  eliminatedPlayerId: null,
-  chameleonGuessedCorrectly: null,
-};
+function getInitialState(): GameState {
+  return {
+    phase: "setup",
+    players: loadPlayersFromStorage(),
+    currentTopic: null,
+    secretWord: null,
+    questions: [],
+    currentPlayerIndex: 0,
+    roundNumber: 1,
+    chameleonId: null,
+    eliminatedPlayerId: null,
+    chameleonGuessedCorrectly: null,
+  };
+}
 
 // Helper to generate unique IDs
 function generateId(): string {
   return Math.random().toString(36).substring(2, 9);
 }
 
+// LocalStorage helpers
+const PLAYERS_STORAGE_KEY = "chameleon-game-players";
+
+function savePlayersToStorage(players: Player[]): void {
+  if (typeof window !== "undefined") {
+    try {
+      const playersData = players.map((p) => ({ id: p.id, name: p.name }));
+      localStorage.setItem(PLAYERS_STORAGE_KEY, JSON.stringify(playersData));
+    } catch (error) {
+      console.error("Failed to save players to localStorage:", error);
+    }
+  }
+}
+
+function loadPlayersFromStorage(): Player[] {
+  if (typeof window !== "undefined") {
+    try {
+      const stored = localStorage.getItem(PLAYERS_STORAGE_KEY);
+      if (stored) {
+        const playersData = JSON.parse(stored);
+        return playersData.map((p: { id: string; name: string }) => ({
+          id: p.id,
+          name: p.name,
+          score: 0,
+          hasRevealed: false,
+          isChameleon: false,
+          votedFor: null,
+        }));
+      }
+    } catch (error) {
+      console.error("Failed to load players from localStorage:", error);
+    }
+  }
+  return [];
+}
+
 // Helper to select random chameleon
 function selectRandomChameleon(players: Player[]): string {
-  const randomIndex = Math.floor(Math.random() * players.length);
+  if (players.length === 0) {
+    throw new Error("Cannot select chameleon from empty players array");
+  }
+  // Use crypto.getRandomValues for better randomness if available, otherwise fallback to Math.random
+  let randomIndex: number;
+  if (typeof crypto !== "undefined" && crypto.getRandomValues) {
+    const randomArray = new Uint32Array(1);
+    crypto.getRandomValues(randomArray);
+    randomIndex = randomArray[0] % players.length;
+  } else {
+    randomIndex = Math.floor(Math.random() * players.length);
+  }
   return players[randomIndex].id;
 }
 
@@ -121,16 +171,28 @@ function gameReducer(state: GameState, action: GameAction): GameState {
         isChameleon: false,
         votedFor: null,
       };
+      const updatedPlayers = [...state.players, newPlayer];
+      savePlayersToStorage(updatedPlayers);
       return {
         ...state,
-        players: [...state.players, newPlayer],
+        players: updatedPlayers,
       };
     }
 
     case "REMOVE_PLAYER": {
+      const updatedPlayers = state.players.filter((p) => p.id !== action.id);
+      savePlayersToStorage(updatedPlayers);
       return {
         ...state,
-        players: state.players.filter((p) => p.id !== action.id),
+        players: updatedPlayers,
+      };
+    }
+
+    case "CLEAR_PLAYERS": {
+      savePlayersToStorage([]);
+      return {
+        ...state,
+        players: [],
       };
     }
 
@@ -145,16 +207,30 @@ function gameReducer(state: GameState, action: GameAction): GameState {
     }
 
     case "SELECT_TOPIC": {
+      // Ensure we have enough players
+      if (state.players.length < GAME_CONFIG.MIN_PLAYERS) {
+        return state;
+      }
+      
+      // Select a random chameleon
       const chameleonId = selectRandomChameleon(state.players);
       const secretWord = getRandomWord(action.topic);
       const questions = getRandomQuestions(action.topic, state.players.length);
       
+      // Reset all players and assign chameleon status
       const updatedPlayers = state.players.map((player) => ({
         ...player,
         hasRevealed: false,
         isChameleon: player.id === chameleonId,
         votedFor: null,
       }));
+      
+      // Verify chameleon was assigned correctly
+      const chameleonExists = updatedPlayers.some((p) => p.isChameleon);
+      if (!chameleonExists) {
+        console.error("Failed to assign chameleon - this should not happen");
+        return state;
+      }
       
       return {
         ...state,
@@ -231,6 +307,12 @@ function gameReducer(state: GameState, action: GameAction): GameState {
     }
 
     case "CALCULATE_RESULTS": {
+      // Ensure we have a chameleon assigned
+      if (!state.chameleonId) {
+        console.error("Cannot calculate results - no chameleon assigned");
+        return state;
+      }
+      
       const eliminatedId = countVotes(state.players);
       const chameleonCaught = eliminatedId === state.chameleonId;
       
@@ -261,6 +343,12 @@ function gameReducer(state: GameState, action: GameAction): GameState {
     }
 
     case "CHAMELEON_GUESS": {
+      // Ensure we have a chameleon
+      if (!state.chameleonId) {
+        console.error("Cannot process chameleon guess - no chameleon assigned");
+        return state;
+      }
+      
       let updatedPlayers = state.players;
       
       if (action.correct) {
@@ -274,6 +362,13 @@ function gameReducer(state: GameState, action: GameAction): GameState {
         );
       }
       
+      // Verify chameleon exists in updated players
+      const chameleonExists = updatedPlayers.some((p) => p.isChameleon);
+      if (!chameleonExists) {
+        console.error("Chameleon not found in players - this should not happen");
+        return state;
+      }
+      
       return {
         ...state,
         players: updatedPlayers,
@@ -283,6 +378,15 @@ function gameReducer(state: GameState, action: GameAction): GameState {
     }
 
     case "NEW_ROUND": {
+      // Ensure we have enough players for a new round
+      if (state.players.length < GAME_CONFIG.MIN_PLAYERS) {
+        return {
+          ...state,
+          phase: "setup",
+        };
+      }
+      
+      // Reset all players for the new round (chameleon will be selected when topic is chosen)
       const resetPlayers = state.players.map((player) => ({
         ...player,
         hasRevealed: false,
@@ -306,7 +410,12 @@ function gameReducer(state: GameState, action: GameAction): GameState {
     }
 
     case "RESET_GAME": {
-      return initialState;
+      // Preserve players from localStorage
+      const savedPlayers = loadPlayersFromStorage();
+      return {
+        ...getInitialState(),
+        players: savedPlayers,
+      };
     }
 
     default:
@@ -321,6 +430,7 @@ interface GameContextType {
   // Helper functions
   addPlayer: (name: string) => void;
   removePlayer: (id: string) => void;
+  clearPlayers: () => void;
   startTopicSelection: () => void;
   selectTopic: (topic: Topic) => void;
   revealWord: (playerId: string) => void;
@@ -337,13 +447,14 @@ const GameContext = createContext<GameContextType | undefined>(undefined);
 
 // Provider
 export function GameProvider({ children }: { children: ReactNode }) {
-  const [state, dispatch] = useReducer(gameReducer, initialState);
+  const [state, dispatch] = useReducer(gameReducer, getInitialState());
 
   const contextValue: GameContextType = {
     state,
     dispatch,
     addPlayer: (name: string) => dispatch({ type: "ADD_PLAYER", name }),
     removePlayer: (id: string) => dispatch({ type: "REMOVE_PLAYER", id }),
+    clearPlayers: () => dispatch({ type: "CLEAR_PLAYERS" }),
     startTopicSelection: () => dispatch({ type: "START_TOPIC_SELECTION" }),
     selectTopic: (topic: Topic) => dispatch({ type: "SELECT_TOPIC", topic }),
     revealWord: (playerId: string) => dispatch({ type: "REVEAL_WORD", playerId }),

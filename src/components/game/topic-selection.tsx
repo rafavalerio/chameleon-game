@@ -1,8 +1,11 @@
 "use client";
 
+import { useState } from "react";
 import { motion } from "framer-motion";
-import { Sparkles } from "lucide-react";
+import { Sparkles, RotateCcw } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { useGame } from "@/lib/game-context";
 import { topics, Topic } from "@/lib/game-data";
 
@@ -22,10 +25,16 @@ const item = {
 };
 
 export function TopicSelection() {
-  const { state, selectTopic } = useGame();
+  const { state, selectTopic, resetGame } = useGame();
+  const [showResetDialog, setShowResetDialog] = useState(false);
 
   const handleSelectTopic = (topic: Topic) => {
     selectTopic(topic);
+  };
+
+  const handleReset = () => {
+    resetGame();
+    setShowResetDialog(false);
   };
 
   return (
@@ -34,9 +43,18 @@ export function TopicSelection() {
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        className="flex-shrink-0 pt-4 pb-4 px-4 text-center space-y-2 border-b border-border/50 bg-background/95 backdrop-blur-sm safe-area-header"
+        className="flex-shrink-0 pt-4 pb-4 px-4 text-center space-y-2 border-b border-border/50 bg-background/95 backdrop-blur-sm safe-area-header relative"
         style={{ paddingTop: 'max(1rem, calc(env(safe-area-inset-top) + 1rem))', paddingLeft: 'max(1rem, env(safe-area-inset-left))', paddingRight: 'max(1rem, env(safe-area-inset-right))' }}
       >
+        <Button
+          variant="outline"
+          size="icon"
+          onClick={() => setShowResetDialog(true)}
+          className="absolute top-4 right-4 h-8 w-8 text-muted-foreground hover:text-destructive border-2"
+          aria-label="Reset game"
+        >
+          <RotateCcw className="w-4 h-4" />
+        </Button>
         <motion.div
           initial={{ scale: 0, rotate: -180 }}
           animate={{ scale: 1, rotate: 0 }}
@@ -81,6 +99,31 @@ export function TopicSelection() {
           ))}
         </motion.div>
       </div>
+
+      <Dialog open={showResetDialog} onOpenChange={setShowResetDialog}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Reset Game?</DialogTitle>
+            <DialogDescription>
+              Are you sure you want to reset the game? This will return you to the player setup screen and all progress will be lost.
+            </DialogDescription>
+          </DialogHeader>
+          <DialogFooter>
+            <Button
+              variant="outline"
+              onClick={() => setShowResetDialog(false)}
+            >
+              Cancel
+            </Button>
+            <Button
+              variant="destructive"
+              onClick={handleReset}
+            >
+              Reset Game
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }

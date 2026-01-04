@@ -2,10 +2,11 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Plus, X, Users, Play } from "lucide-react";
+import { Plus, X, Users, Play, Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { useGame } from "@/lib/game-context";
 import { GAME_CONFIG } from "@/lib/game-config";
 
@@ -23,8 +24,9 @@ const playerColors = [
 ];
 
 export function PlayerSetup() {
-  const { state, addPlayer, removePlayer, startTopicSelection } = useGame();
+  const { state, addPlayer, removePlayer, clearPlayers, startTopicSelection } = useGame();
   const [newPlayerName, setNewPlayerName] = useState("");
+  const [showClearDialog, setShowClearDialog] = useState(false);
 
   const handleAddPlayer = () => {
     const trimmedName = newPlayerName.trim();
@@ -70,13 +72,26 @@ export function PlayerSetup() {
         className="flex-1 overflow-y-auto px-4 py-6"
         style={{ paddingLeft: 'max(1rem, env(safe-area-inset-left))', paddingRight: 'max(1rem, env(safe-area-inset-right))' }}
       >
-        <Card className="border-2 border-border/80">
-          <CardHeader className="pb-3">
+      <Card className="border-2 border-border/80">
+        <CardHeader className="pb-3">
+          <div className="flex items-center justify-between">
             <CardTitle className="flex items-center gap-2 text-lg">
               <Users className="w-5 h-5 text-primary" />
               Players ({state.players.length}/{GAME_CONFIG.MAX_PLAYERS})
             </CardTitle>
-          </CardHeader>
+            {state.players.length > 0 && (
+              <Button
+                variant="outline"
+                size="icon"
+                onClick={() => setShowClearDialog(true)}
+                className="h-8 w-8 text-muted-foreground hover:text-destructive border-2"
+                aria-label="Clear all players"
+              >
+                <Trash2 className="w-4 h-4" />
+              </Button>
+            )}
+          </div>
+        </CardHeader>
           <CardContent className="space-y-4">
             {/* Add player input */}
             <div className="flex gap-3 items-stretch">
@@ -174,6 +189,34 @@ export function PlayerSetup() {
           Start Game
         </Button>
       </div>
+
+      <Dialog open={showClearDialog} onOpenChange={setShowClearDialog}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Clear All Players?</DialogTitle>
+            <DialogDescription>
+              Are you sure you want to remove all players? This action cannot be undone.
+            </DialogDescription>
+          </DialogHeader>
+          <DialogFooter>
+            <Button
+              variant="outline"
+              onClick={() => setShowClearDialog(false)}
+            >
+              Cancel
+            </Button>
+            <Button
+              variant="destructive"
+              onClick={() => {
+                clearPlayers();
+                setShowClearDialog(false);
+              }}
+            >
+              Clear All Players
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
