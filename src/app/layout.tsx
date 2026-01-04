@@ -44,10 +44,20 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
+      { url: "/icons/chameleon.png", sizes: "16x16", type: "image/png" },
+      { url: "/icons/chameleon.png", sizes: "32x32", type: "image/png" },
       { url: "/icons/chameleon.png", sizes: "192x192", type: "image/png" },
       { url: "/icons/chameleon.png", sizes: "512x512", type: "image/png" },
     ],
     apple: [
+      { url: "/icons/chameleon.png", sizes: "57x57", type: "image/png" },
+      { url: "/icons/chameleon.png", sizes: "60x60", type: "image/png" },
+      { url: "/icons/chameleon.png", sizes: "72x72", type: "image/png" },
+      { url: "/icons/chameleon.png", sizes: "76x76", type: "image/png" },
+      { url: "/icons/chameleon.png", sizes: "114x114", type: "image/png" },
+      { url: "/icons/chameleon.png", sizes: "120x120", type: "image/png" },
+      { url: "/icons/chameleon.png", sizes: "144x144", type: "image/png" },
+      { url: "/icons/chameleon.png", sizes: "152x152", type: "image/png" },
       { url: "/icons/chameleon.png", sizes: "180x180", type: "image/png" },
     ],
   },
@@ -73,11 +83,23 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning className={`${geistSans.variable} ${geistMono.variable}`}>
       <head>
+        {/* Favicon */}
+        <link rel="icon" type="image/png" sizes="32x32" href="/icons/chameleon.png" />
+        <link rel="icon" type="image/png" sizes="16x16" href="/icons/chameleon.png" />
+        <link rel="shortcut icon" href="/icons/chameleon.png" />
         {/* iOS specific meta tags for home screen app */}
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
         <meta name="apple-mobile-web-app-title" content="Chameleon" />
-        <link rel="apple-touch-icon" href="/icons/chameleon.png" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/icons/chameleon.png" />
+        <link rel="apple-touch-icon" sizes="152x152" href="/icons/chameleon.png" />
+        <link rel="apple-touch-icon" sizes="144x144" href="/icons/chameleon.png" />
+        <link rel="apple-touch-icon" sizes="120x120" href="/icons/chameleon.png" />
+        <link rel="apple-touch-icon" sizes="114x114" href="/icons/chameleon.png" />
+        <link rel="apple-touch-icon" sizes="76x76" href="/icons/chameleon.png" />
+        <link rel="apple-touch-icon" sizes="72x72" href="/icons/chameleon.png" />
+        <link rel="apple-touch-icon" sizes="60x60" href="/icons/chameleon.png" />
+        <link rel="apple-touch-icon" sizes="57x57" href="/icons/chameleon.png" />
         {/* Prevent iOS from styling phone numbers as links */}
         <meta name="format-detection" content="telephone=no" />
       </head>

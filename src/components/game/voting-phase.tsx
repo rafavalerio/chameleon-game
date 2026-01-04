@@ -43,8 +43,8 @@ export function VotingPhase() {
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        className="flex-shrink-0 pt-6 pb-4 px-4 text-center space-y-2 border-b border-border/50 bg-background/95 backdrop-blur-sm"
-        style={{ paddingTop: 'max(1.5rem, calc(env(safe-area-inset-top) + 1.5rem))', paddingLeft: 'max(1rem, env(safe-area-inset-left))', paddingRight: 'max(1rem, env(safe-area-inset-right))' }}
+        className="flex-shrink-0 pt-4 pb-4 px-4 text-center space-y-2 border-b border-border/50 bg-background/95 backdrop-blur-sm"
+        style={{ paddingTop: 'max(1rem, calc(env(safe-area-inset-top) + 1rem))', paddingLeft: 'max(1rem, env(safe-area-inset-left))', paddingRight: 'max(1rem, env(safe-area-inset-right))' }}
       >
         <motion.div
           initial={{ scale: 0, rotate: -10 }}
