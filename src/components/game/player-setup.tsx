@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
 import { Plus, X, Users, Play, Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -58,10 +59,17 @@ export function PlayerSetup() {
         className="flex-shrink-0 pt-3 pb-3 px-4 text-center space-y-2 border-b border-border/50 bg-background/95 backdrop-blur-sm"
         style={{ paddingTop: 'max(0.5rem, calc(env(safe-area-inset-top) + 0.5rem))', paddingLeft: 'max(1rem, env(safe-area-inset-left))', paddingRight: 'max(1rem, env(safe-area-inset-right))' }}
       >
-        <div className="text-6xl" style={{ fontVariantEmoji: 'emoji' }}>
-          🦎
+        <div className="flex justify-center">
+          <Image
+            src="/chameleon-logo.png"
+            alt="Chameleon"
+            width={80}
+            height={80}
+            className="w-20 h-20"
+            priority
+          />
         </div>
-        <h1 className="text-3xl font-bold bg-gradient-to-r from-chameleon to-game-purple bg-clip-text text-transparent">
+        <h1 className="text-3xl font-bold bg-gradient-to-r from-chameleon-dark to-chameleon bg-clip-text text-transparent">
           Chameleon
         </h1>
         <p className="text-muted-foreground">Add players to start the game</p>

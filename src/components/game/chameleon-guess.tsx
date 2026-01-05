@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
+import Image from "next/image";
 import { HelpCircle, Sparkles, RotateCcw } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -66,9 +67,15 @@ export function ChameleonGuess() {
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}
           transition={{ type: "spring", duration: 0.6 }}
-          className="text-6xl"
+          className="flex justify-center"
         >
-          🦎
+          <Image
+            src="/chameleon-logo.png"
+            alt="Chameleon"
+            width={80}
+            height={80}
+            className="w-20 h-20"
+          />
         </motion.div>
         <h2 className="text-2xl font-bold">Chameleon&apos;s Last Chance!</h2>
         <p className="text-muted-foreground">

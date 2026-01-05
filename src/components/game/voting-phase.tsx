@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
 import { Vote, Check, Users, User, RotateCcw } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -240,7 +241,16 @@ export function VotingPhase() {
             className="w-full h-14 text-lg font-semibold bg-gradient-to-r from-game-purple to-game-pink hover:from-game-pink hover:to-game-purple border-2 border-game-pink/30"
             size="lg"
           >
-                  Reveal the Chameleon! 🦎
+                  <span className="flex items-center gap-2">
+                    Reveal the Chameleon!
+                    <Image
+                      src="/chameleon-logo.png"
+                      alt="Chameleon"
+                      width={20}
+                      height={20}
+                      className="w-5 h-5"
+                    />
+                  </span>
           </Button>
         </div>
       )}

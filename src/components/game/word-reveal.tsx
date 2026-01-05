@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
 import { Eye, EyeOff, Check, ChevronRight, RotateCcw } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -123,7 +124,15 @@ export function WordReveal() {
                       >
                         {isChameleon ? (
                           <>
-                            <span className="text-5xl mb-4 block">🦎</span>
+                            <div className="flex justify-center mb-4">
+                              <Image
+                                src="/chameleon-logo.png"
+                                alt="Chameleon"
+                                width={64}
+                                height={64}
+                                className="w-16 h-16"
+                              />
+                            </div>
                             <p className="text-2xl font-bold text-chameleon">
                               You are the
                             </p>

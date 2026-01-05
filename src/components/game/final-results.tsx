@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
+import Image from "next/image";
 import { Trophy, RotateCcw, Home, Check, X, Crown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -52,10 +53,19 @@ export function FinalResults() {
           initial={{ scale: 0.8, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           transition={{ type: "spring", duration: 0.6 }}
+          className="flex justify-center"
         >
-          <div className="text-6xl">
-            {chameleonWasCaught ? "🎉" : "🦎"}
-          </div>
+          {chameleonWasCaught ? (
+            <div className="text-6xl">🎉</div>
+          ) : (
+            <Image
+              src="/chameleon-logo.png"
+              alt="Chameleon"
+              width={80}
+              height={80}
+              className="w-20 h-20"
+            />
+          )}
         </motion.div>
         <h2 className="text-2xl font-bold">
           {chameleonWasCaught ? "Chameleon Caught!" : "Chameleon Wins!"}
@@ -73,8 +83,14 @@ export function FinalResults() {
         <CardContent className="p-5 space-y-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <div className="w-12 h-12 rounded-full bg-chameleon/20 flex items-center justify-center">
-                <span className="text-2xl">🦎</span>
+              <div className="w-12 h-12 rounded-full bg-chameleon/20 flex items-center justify-center overflow-hidden">
+                <Image
+                  src="/chameleon-logo.png"
+                  alt="Chameleon"
+                  width={32}
+                  height={32}
+                  className="w-8 h-8"
+                />
               </div>
               <div>
                 <p className="text-sm text-muted-foreground">The chameleon was</p>
@@ -168,7 +184,13 @@ export function FinalResults() {
                     </span>
                     <span className="font-medium">{player.name}</span>
                     {isChameleon && (
-                      <span className="text-sm">🦎</span>
+                      <Image
+                        src="/chameleon-logo.png"
+                        alt="Chameleon"
+                        width={16}
+                        height={16}
+                        className="w-4 h-4"
+                      />
                     )}
                     {isLeader && (
                       <Crown className="w-4 h-4 text-game-yellow" />
