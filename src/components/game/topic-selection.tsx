@@ -50,7 +50,7 @@ export function TopicSelection() {
           variant="outline"
           size="icon"
           onClick={() => setShowResetDialog(true)}
-          className="absolute h-8 w-8 text-muted-foreground hover:text-destructive border-2"
+          className="absolute h-8 w-8 text-muted-foreground hover:text-foreground hover:bg-muted border border-border/60"
           style={{ top: 'max(0.5rem, calc(env(safe-area-inset-top) + 0.5rem))', right: 'max(0.75rem, calc(env(safe-area-inset-right) + 0.75rem))' }}
           aria-label="Reset game"
         >
@@ -84,7 +84,7 @@ export function TopicSelection() {
             <motion.div key={topic.id} variants={item} className="h-full">
               <Card
                 onClick={() => handleSelectTopic(topic)}
-                className="h-full p-4 cursor-pointer transition-all duration-200 hover:scale-[1.02] active:scale-[0.98] border-2 border-border/60 hover:border-primary/50 flex flex-col"
+                className="h-full p-4 cursor-pointer transition-all duration-200 hover:scale-[1.02] active:scale-[0.98] active:bg-game-purple/10 active:border-game-purple/40 border border-border/60 hover:border-chameleon-dark/40 hover:bg-chameleon-dark/5 flex flex-col"
               >
                 <div className="text-center space-y-2 flex flex-col flex-1 justify-between">
                   <span className="text-4xl block">{topic.emoji}</span>

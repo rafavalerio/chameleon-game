@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import Image from "next/image";
 import { Vote, Check, Users, User, RotateCcw } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -58,7 +57,7 @@ export function VotingPhase() {
           variant="outline"
           size="icon"
           onClick={() => setShowResetDialog(true)}
-          className="absolute h-8 w-8 text-muted-foreground hover:text-destructive border-2"
+          className="absolute h-8 w-8 text-muted-foreground hover:text-foreground hover:bg-muted border border-border/60"
           style={{ top: 'max(0.5rem, calc(env(safe-area-inset-top) + 0.5rem))', right: 'max(0.75rem, calc(env(safe-area-inset-right) + 0.75rem))' }}
           aria-label="Reset game"
         >
@@ -91,7 +90,7 @@ export function VotingPhase() {
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.95 }}
           >
-            <Card className="border-2 border-primary/40">
+            <Card className="border border-border/60">
               <CardHeader className="pb-2">
                 <CardTitle className="text-center text-lg">
                   {currentVoter.name}&apos;s Vote
@@ -112,7 +111,7 @@ export function VotingPhase() {
                       <Button
                         onClick={() => handleVote(player.id)}
                         variant="outline"
-                        className="w-full h-12 justify-start text-base border-2 hover:border-destructive/50 hover:bg-destructive/5"
+                        className="w-full h-12 justify-start text-base border border-border/60 hover:border-chameleon-dark/40 hover:bg-chameleon-dark/5"
                       >
                         <User className="w-5 h-5 mr-3 text-muted-foreground" />
                         {player.name}
@@ -155,7 +154,7 @@ export function VotingPhase() {
                       <Button
                         onClick={() => handleStartVoting(player.id)}
                         variant="outline"
-                        className="w-full h-14 justify-between text-base border-2 hover:border-primary/30 hover:bg-primary/5"
+                        className="w-full h-14 justify-between text-base border border-border/60 hover:border-chameleon-dark/40 hover:bg-chameleon-dark/5"
                       >
                         <span className="flex items-center gap-3">
                           <Users className="w-5 h-5 text-muted-foreground" />
@@ -192,7 +191,7 @@ export function VotingPhase() {
               </>
             ) : (
               /* All voted - show summary */
-              <Card className="border-2 border-primary/20">
+              <Card className="border border-border/60">
                 <CardContent className="p-6 space-y-4">
                   <div className="text-center">
                     <span className="text-4xl block mb-2">🗳️</span>
@@ -238,19 +237,10 @@ export function VotingPhase() {
         >
           <Button
             onClick={handleCalculateResults}
-            className="w-full h-14 text-lg font-semibold bg-gradient-to-r from-game-purple to-game-pink hover:from-game-pink hover:to-game-purple border-2 border-game-pink/30"
+            className="w-full h-14 text-lg font-semibold bg-chameleon-dark text-white hover:bg-chameleon-dark/90"
             size="lg"
           >
-                  <span className="flex items-center gap-2">
-                    Reveal the Chameleon!
-                    <Image
-                      src="/chameleon-logo.png"
-                      alt="Chameleon"
-                      width={20}
-                      height={20}
-                      className="w-5 h-5"
-                    />
-                  </span>
+            Reveal the Chameleon!
           </Button>
         </div>
       )}

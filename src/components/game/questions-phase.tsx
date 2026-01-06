@@ -9,6 +9,19 @@ import { Progress } from "@/components/ui/progress";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { useGame } from "@/lib/game-context";
 
+const playerColors = [
+  "bg-game-purple",
+  "bg-game-pink",
+  "bg-game-blue",
+  "bg-game-orange",
+  "bg-game-green",
+  "bg-game-yellow",
+  "bg-primary",
+  "bg-accent",
+  "bg-chart-1",
+  "bg-chart-2",
+];
+
 export function QuestionsPhase() {
   const { state, nextQuestion, startVoting, resetGame } = useGame();
   const [showResetDialog, setShowResetDialog] = useState(false);
@@ -17,6 +30,8 @@ export function QuestionsPhase() {
   const currentPlayer = state.players[state.currentPlayerIndex];
   const isLastQuestion = state.currentPlayerIndex >= state.players.length - 1;
   const progress = ((state.currentPlayerIndex + 1) / state.players.length) * 100;
+  const playerColorIndex = state.players.findIndex((p) => p.id === currentPlayer.id);
+  const playerColorClass = playerColors[playerColorIndex % playerColors.length];
 
   const handleNext = () => {
     if (isLastQuestion) {
@@ -44,7 +59,7 @@ export function QuestionsPhase() {
           variant="outline"
           size="icon"
           onClick={() => setShowResetDialog(true)}
-          className="absolute h-8 w-8 text-muted-foreground hover:text-destructive border-2"
+          className="absolute h-8 w-8 text-muted-foreground hover:text-foreground hover:bg-muted border border-border/60"
           style={{ top: 'max(0.5rem, calc(env(safe-area-inset-top) + 0.5rem))', right: 'max(0.75rem, calc(env(safe-area-inset-right) + 0.75rem))' }}
           aria-label="Reset game"
         >
@@ -84,16 +99,16 @@ export function QuestionsPhase() {
           animate={{ opacity: 1, x: 0 }}
           exit={{ opacity: 0, x: -20 }}
         >
-          <Card className="border-2 border-primary/40">
+          <Card className="border border-border/60">
             <CardContent className="p-6 space-y-6">
               <div className="text-center">
                 <motion.div
                   initial={{ scale: 0.8, opacity: 0 }}
                   animate={{ scale: 1, opacity: 1 }}
                   transition={{ delay: 0.1 }}
-                  className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-br from-primary/20 to-primary/10 mb-3"
+                  className={`inline-flex items-center justify-center w-16 h-16 rounded-full ${playerColorClass} text-white mb-3`}
                 >
-                  <span className="text-2xl font-bold text-primary">
+                  <span className="text-2xl font-bold">
                     {currentPlayer.name.charAt(0).toUpperCase()}
                   </span>
                 </motion.div>
@@ -105,7 +120,7 @@ export function QuestionsPhase() {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2 }}
-                className="p-5 rounded-xl bg-gradient-to-br from-game-yellow/20 to-game-orange/10 border border-game-yellow/20"
+                className="p-5 rounded-xl bg-chameleon-dark/5 border border-chameleon-dark/20"
               >
                 <p className="text-lg font-medium text-center leading-relaxed">
                   &ldquo;{currentQuestion}&rdquo;
@@ -142,11 +157,7 @@ export function QuestionsPhase() {
       >
         <Button
           onClick={handleNext}
-          className={`w-full h-14 text-lg font-semibold ${
-            isLastQuestion
-              ? "bg-gradient-to-r from-game-purple to-game-pink hover:from-game-pink hover:to-game-purple"
-              : ""
-          }`}
+          className="w-full h-14 text-lg font-semibold bg-chameleon-dark text-white hover:bg-chameleon-dark/90"
           size="lg"
         >
           {isLastQuestion ? (

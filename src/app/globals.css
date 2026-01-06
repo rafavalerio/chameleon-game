@@ -273,3 +273,20 @@ html, body {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* Mobile button press feedback */
+button, [role="button"], [data-slot="button"] {
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+/* Purple press effect for outline and ghost buttons on mobile */
+@media (hover: none) and (pointer: coarse) {
+  button[data-variant="outline"]:active,
+  button[data-variant="ghost"]:active,
+  [data-slot="button"][data-variant="outline"]:active,
+  [data-slot="button"][data-variant="ghost"]:active {
+    background-color: oklch(0.6 0.25 290 / 0.1);
+    border-color: oklch(0.6 0.25 290 / 0.4);
+  }
+}

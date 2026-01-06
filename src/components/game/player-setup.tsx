@@ -80,7 +80,7 @@ export function PlayerSetup() {
         className="flex-1 overflow-y-auto px-4 py-4"
         style={{ paddingLeft: 'max(1rem, env(safe-area-inset-left))', paddingRight: 'max(1rem, env(safe-area-inset-right))' }}
       >
-      <Card className="border-2 border-border/80">
+      <Card className="border border-border/60">
         <CardHeader className="pb-1">
           <div className="flex items-center justify-between">
             <CardTitle className="flex items-center gap-2 text-lg">
@@ -92,7 +92,7 @@ export function PlayerSetup() {
                 variant="outline"
                 size="icon"
                 onClick={() => setShowClearDialog(true)}
-                className="h-8 w-8 text-muted-foreground hover:text-destructive border-2"
+                className="h-8 w-8 text-muted-foreground hover:text-foreground hover:bg-muted border border-border/60"
                 aria-label="Clear all players"
               >
                 <Trash2 className="w-4 h-4" />
@@ -156,7 +156,7 @@ export function PlayerSetup() {
                       variant="ghost"
                       size="icon"
                       onClick={() => removePlayer(player.id)}
-                      className="h-8 w-8 text-muted-foreground hover:text-destructive hover:bg-destructive/10 transition-colors shrink-0"
+                      className="h-8 w-8 text-muted-foreground hover:text-foreground hover:bg-muted transition-colors shrink-0"
                       aria-label={`Remove ${player.name}`}
                     >
                       <X className="w-4 h-4" />
@@ -190,7 +190,7 @@ export function PlayerSetup() {
         <Button
           onClick={startTopicSelection}
           disabled={!canStart}
-          className="w-full h-14 text-lg font-semibold bg-gradient-to-r from-chameleon to-chameleon-dark hover:from-chameleon-dark hover:to-chameleon border-2 border-chameleon-dark/30 disabled:opacity-50"
+          className="w-full h-14 text-lg font-semibold bg-chameleon-dark text-white hover:bg-chameleon-dark/90 disabled:opacity-50"
           size="lg"
         >
           <Play className="w-5 h-5 mr-2" />

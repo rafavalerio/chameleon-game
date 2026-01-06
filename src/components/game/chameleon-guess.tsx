@@ -57,7 +57,7 @@ export function ChameleonGuess() {
           variant="outline"
           size="icon"
           onClick={() => setShowResetDialog(true)}
-          className="absolute h-8 w-8 text-muted-foreground hover:text-destructive border-2"
+          className="absolute h-8 w-8 text-muted-foreground hover:text-foreground hover:bg-muted border border-border/60"
           style={{ top: 'max(0.5rem, calc(env(safe-area-inset-top) + 0.5rem))', right: 'max(0.75rem, calc(env(safe-area-inset-right) + 0.75rem))' }}
           aria-label="Reset game"
         >
@@ -93,7 +93,7 @@ export function ChameleonGuess() {
         style={{ paddingLeft: 'max(1rem, env(safe-area-inset-left))', paddingRight: 'max(1rem, env(safe-area-inset-right))' }}
       >
         {/* Topic hint */}
-        <Card className="border-2 border-chameleon/20 bg-chameleon/5">
+        <Card className="border border-chameleon-dark/20 bg-chameleon-dark/5">
           <CardContent className="p-4 text-center">
             <p className="text-sm text-muted-foreground mb-1">The topic was:</p>
             <div className="flex items-center justify-center gap-2">
@@ -106,7 +106,7 @@ export function ChameleonGuess() {
         </Card>
 
         {/* Word options */}
-        <Card className="border-2 border-primary/40">
+        <Card className="border border-border/60">
           <CardHeader className="pb-2">
             <CardTitle className="text-center text-lg flex items-center justify-center gap-2">
               <HelpCircle className="w-5 h-5 text-primary" />
@@ -137,7 +137,7 @@ export function ChameleonGuess() {
                   <Button
                     onClick={() => handleGuess(word)}
                     variant="outline"
-                    className="w-full h-12 text-sm font-medium border-2 hover:border-chameleon/50 hover:bg-chameleon/5 transition-all"
+                    className="w-full h-12 text-sm font-medium border border-border/60 hover:border-chameleon-dark/40 hover:bg-chameleon-dark/5"
                   >
                     {word}
                   </Button>
@@ -152,9 +152,9 @@ export function ChameleonGuess() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.5 }}
-          className="flex items-start gap-2 p-4 rounded-xl bg-game-yellow/10 border border-game-yellow/20"
+          className="flex items-start gap-2 p-4 rounded-xl bg-chameleon-dark/5 border border-chameleon-dark/20"
         >
-          <Sparkles className="w-5 h-5 text-game-yellow shrink-0 mt-0.5" />
+          <Sparkles className="w-5 h-5 text-chameleon-dark shrink-0 mt-0.5" />
           <p className="text-sm text-muted-foreground">
             Think about the clues other players gave. What word fits all their
             answers?

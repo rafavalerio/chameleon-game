@@ -58,7 +58,7 @@ export function WordReveal() {
           variant="outline"
           size="icon"
           onClick={() => setShowResetDialog(true)}
-          className="absolute h-8 w-8 text-muted-foreground hover:text-destructive border-2"
+          className="absolute h-8 w-8 text-muted-foreground hover:text-foreground hover:bg-muted border border-border/60"
           style={{ top: 'max(0.5rem, calc(env(safe-area-inset-top) + 0.5rem))', right: 'max(0.75rem, calc(env(safe-area-inset-right) + 0.75rem))' }}
           aria-label="Reset game"
         >
@@ -95,7 +95,7 @@ export function WordReveal() {
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.9 }}
           >
-            <Card className="border-2 border-primary/40 overflow-hidden">
+            <Card className="border border-border/60 overflow-hidden">
               <CardContent className="p-6 space-y-6">
                 <div className="text-center">
                   <p className="text-sm text-muted-foreground mb-1">
@@ -118,8 +118,8 @@ export function WordReveal() {
                         transition={{ duration: 0.3 }}
                         className={`flex-1 flex flex-col justify-center p-8 rounded-2xl text-center min-h-[128px] ${
                           isChameleon
-                            ? "bg-gradient-to-br from-chameleon/20 to-chameleon-dark/20 border-2 border-chameleon/30"
-                            : "bg-gradient-to-br from-primary/10 to-primary/5 border-2 border-primary/20"
+                            ? "bg-chameleon-dark/5 border border-chameleon-dark/20"
+                            : "bg-chameleon-dark/5 border border-chameleon-dark/20"
                         }`}
                       >
                         {isChameleon ? (
@@ -165,9 +165,9 @@ export function WordReveal() {
                         <Button
                           onClick={handleShowWord}
                           variant="outline"
-                          className="w-full h-32 text-lg border-2 border-dashed border-primary/30 hover:border-primary/50 hover:bg-primary/5"
+                          className="w-full h-32 text-lg border border-border/60 hover:border-chameleon-dark/40 hover:bg-chameleon-dark/5"
                         >
-                          <Eye className="w-8 h-8 mr-3 text-primary" />
+                          <Eye className="w-8 h-8 mr-3 text-chameleon-dark" />
                           Tap to Reveal
                         </Button>
                       </motion.div>
@@ -185,7 +185,7 @@ export function WordReveal() {
                     >
                       <Button
                         onClick={handleConfirmSeen}
-                        className="w-full h-12 text-base font-semibold"
+                        className="w-full h-12 text-base font-semibold bg-chameleon-dark text-white hover:bg-chameleon-dark/90"
                       >
                         <Check className="w-5 h-5 mr-2" />
                         I&apos;ve memorised it
@@ -220,7 +220,7 @@ export function WordReveal() {
                     <Button
                       onClick={() => handleStartReveal(player.id)}
                       variant="outline"
-                      className="w-full h-14 justify-between text-base border-2 hover:border-primary/30 hover:bg-primary/5"
+                      className="w-full h-14 justify-between text-base border border-border/60 hover:border-chameleon-dark/40 hover:bg-chameleon-dark/5"
                     >
                       <span className="flex items-center gap-3">
                         <EyeOff className="w-5 h-5 text-muted-foreground" />

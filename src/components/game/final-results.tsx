@@ -43,7 +43,7 @@ export function FinalResults() {
           variant="outline"
           size="icon"
           onClick={() => setShowResetDialog(true)}
-          className="absolute h-8 w-8 text-muted-foreground hover:text-destructive border-2"
+          className="absolute h-8 w-8 text-muted-foreground hover:text-foreground hover:bg-muted border border-border/60"
           style={{ top: 'max(0.5rem, calc(env(safe-area-inset-top) + 0.5rem))', right: 'max(0.75rem, calc(env(safe-area-inset-right) + 0.75rem))' }}
           aria-label="Reset game"
         >
@@ -79,7 +79,7 @@ export function FinalResults() {
       >
 
       {/* Chameleon reveal */}
-      <Card className="border-2 border-chameleon/30 bg-gradient-to-br from-chameleon/10 to-chameleon/5 overflow-hidden">
+      <Card className="border border-chameleon-dark/20 bg-chameleon-dark/5 overflow-hidden">
         <CardContent className="p-5 space-y-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
@@ -154,7 +154,7 @@ export function FinalResults() {
       </Card>
 
       {/* Scoreboard */}
-      <Card className="border-2 border-primary/40">
+      <Card className="border border-border/60">
         <CardContent className="p-5 space-y-4">
           <div className="flex items-center justify-center gap-2">
             <Trophy className="w-5 h-5 text-game-yellow" />
@@ -245,7 +245,7 @@ export function FinalResults() {
       >
         <Button
           onClick={newRound}
-          className="w-full h-14 text-lg font-semibold bg-gradient-to-r from-chameleon to-chameleon-dark hover:from-chameleon-dark hover:to-chameleon border-2 border-chameleon-dark/30"
+          className="w-full h-14 text-lg font-semibold bg-chameleon-dark text-white hover:bg-chameleon-dark/90"
           size="lg"
         >
           <RotateCcw className="w-5 h-5 mr-2" />
@@ -254,7 +254,7 @@ export function FinalResults() {
         <Button
           onClick={resetGameAction}
           variant="outline"
-          className="w-full h-12 text-base"
+          className="w-full h-12 text-base hover:bg-muted hover:text-foreground"
         >
           <Home className="w-5 h-5 mr-2" />
           New Game
