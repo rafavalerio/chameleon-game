@@ -1,4 +1,5 @@
 import { describe, it, expect, beforeEach } from "vitest";
+import { FlaskConical } from "lucide-react";
 import { gameReducer, getInitialState, GameState, Player } from "../game-context";
 import { GAME_CONFIG } from "../game-config";
 import { Topic } from "../game-data";
@@ -6,7 +7,7 @@ import { Topic } from "../game-data";
 const testTopic: Topic = {
   id: "test-topic",
   name: "Test Topic",
-  emoji: "🧪",
+  icon: FlaskConical,
   description: "A topic for tests",
   words: ["Alpha", "Beta", "Gamma", "Delta"],
   questions: ["Question A?", "Question B?", "Question C?"],

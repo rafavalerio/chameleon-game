@@ -5,15 +5,27 @@
  * Add more content here to expand the game.
  *
  * Structure:
- * - Each topic has a unique id, name, emoji, and array of words
+ * - Each topic has a unique id, name, icon, and array of words
  * - Each topic has associated questions that work for any word in that topic
  * - Questions should be open-ended to allow creative answers
  */
 
+import {
+  PawPrint,
+  UtensilsCrossed,
+  Clapperboard,
+  Dumbbell,
+  Map,
+  Palette,
+  Briefcase,
+  Music,
+  type LucideIcon,
+} from "lucide-react";
+
 export interface Topic {
   id: string;
   name: string;
-  emoji: string;
+  icon: LucideIcon;
   description: string;
   words: string[];
   questions: string[];
@@ -23,7 +35,7 @@ export const topics: Topic[] = [
   {
     id: "animals",
     name: "Animals",
-    emoji: "🦁",
+    icon: PawPrint,
     description: "Creatures from around the world",
     words: [
       "Elephant",
@@ -83,7 +95,7 @@ export const topics: Topic[] = [
   {
     id: "food",
     name: "Food & Drinks",
-    emoji: "🍕",
+    icon: UtensilsCrossed,
     description: "Delicious things to eat and drink",
     words: [
       "Pizza",
@@ -143,7 +155,7 @@ export const topics: Topic[] = [
   {
     id: "movies",
     name: "Movies",
-    emoji: "🎬",
+    icon: Clapperboard,
     description: "Famous films from all genres",
     words: [
       "Titanic",
@@ -203,7 +215,7 @@ export const topics: Topic[] = [
   {
     id: "sports",
     name: "Sports",
-    emoji: "⚽",
+    icon: Dumbbell,
     description: "Athletic activities and games",
     words: [
       "Football",
@@ -263,7 +275,7 @@ export const topics: Topic[] = [
   {
     id: "places",
     name: "Places",
-    emoji: "🗺️",
+    icon: Map,
     description: "Famous locations around the world",
     words: [
       "Paris",
@@ -322,7 +334,7 @@ export const topics: Topic[] = [
   {
     id: "hobbies",
     name: "Hobbies",
-    emoji: "🎨",
+    icon: Palette,
     description: "Activities people enjoy in their free time",
     words: [
       "Painting",
@@ -382,7 +394,7 @@ export const topics: Topic[] = [
   {
     id: "professions",
     name: "Professions",
-    emoji: "👔",
+    icon: Briefcase,
     description: "Jobs and careers",
     words: [
       "Doctor",
@@ -442,7 +454,7 @@ export const topics: Topic[] = [
   {
     id: "music",
     name: "Music",
-    emoji: "🎵",
+    icon: Music,
     description: "Artists, genres, and instruments",
     words: [
       "Guitar",

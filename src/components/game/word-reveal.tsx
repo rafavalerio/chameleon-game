@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
-import { Eye, EyeOff, Check, ChevronRight } from "lucide-react";
+import { Eye, EyeOff, Check, ChevronRight, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
@@ -43,7 +43,9 @@ export function WordReveal() {
     <PageContainer>
       <PageHeader>
         <div className="flex items-center justify-center gap-2 text-lg font-semibold">
-          <span className="text-2xl">{state.currentTopic?.emoji}</span>
+          {state.currentTopic && (
+            <state.currentTopic.icon className="w-5 h-5 text-primary" />
+          )}
           <span>{state.currentTopic?.name}</span>
         </div>
         <p className="text-muted-foreground text-sm">
@@ -89,11 +91,7 @@ export function WordReveal() {
                           animate={{ opacity: 1, rotateY: 0 }}
                           exit={{ opacity: 0, rotateY: -90 }}
                           transition={{ duration: 0.3 }}
-                          className={`flex-1 flex flex-col justify-center p-8 rounded-2xl text-center min-h-[128px] ${
-                            isChameleon
-                              ? "bg-chameleon-dark/5 border border-chameleon-dark/20"
-                              : "bg-chameleon-dark/5 border border-chameleon-dark/20"
-                          }`}
+                          className="flex-1 flex flex-col justify-center p-8 rounded-2xl text-center min-h-[128px] bg-primary/5 border border-primary/20"
                         >
                           {isChameleon ? (
                             <>
@@ -101,15 +99,15 @@ export function WordReveal() {
                                 <Image
                                   src="/chameleon-logo.png"
                                   alt="Chameleon"
-                                  width={64}
-                                  height={64}
-                                  className="w-16 h-16"
+                                  width={1186}
+                                  height={1096}
+                                  className="w-16 h-auto"
                                 />
                               </div>
-                              <p className="text-2xl font-bold text-chameleon">
+                              <p className="text-2xl font-bold text-primary">
                                 You are the
                               </p>
-                              <p className="text-3xl font-black text-chameleon">
+                              <p className="text-3xl font-black text-primary">
                                 CHAMELEON
                               </p>
                               <p className="text-sm text-muted-foreground mt-3">
@@ -138,9 +136,9 @@ export function WordReveal() {
                           <Button
                             onClick={handleShowWord}
                             variant="outline"
-                            className="w-full h-32 text-lg border border-border/60 hover:border-chameleon-dark/40 hover:bg-chameleon-dark/5"
+                            className="w-full h-32 text-lg border border-border/60 hover:border-primary/40 hover:bg-primary/5"
                           >
-                            <Eye className="w-8 h-8 mr-3 text-chameleon-dark" />
+                            <Eye className="w-8 h-8 mr-3 text-primary" />
                             Tap to Reveal
                           </Button>
                         </motion.div>
@@ -158,7 +156,7 @@ export function WordReveal() {
                       >
                         <Button
                           onClick={handleConfirmSeen}
-                          className="w-full h-12 text-base font-semibold bg-chameleon-dark text-white hover:bg-chameleon-dark/90"
+                          className="w-full h-12 text-base font-semibold"
                         >
                           <Check className="w-5 h-5 mr-2" />
                           I&apos;ve memorised it
@@ -193,7 +191,7 @@ export function WordReveal() {
                       <Button
                         onClick={() => handleStartReveal(player.id)}
                         variant="outline"
-                        className="w-full h-14 justify-between text-base border border-border/60 hover:border-chameleon-dark/40 hover:bg-chameleon-dark/5"
+                        className="w-full h-14 justify-between text-base border border-border/60 hover:border-primary/40 hover:bg-primary/5"
                       >
                         <span className="flex items-center gap-3">
                           <EyeOff className="w-5 h-5 text-muted-foreground" />
@@ -210,7 +208,7 @@ export function WordReveal() {
                   animate={{ opacity: 1, scale: 1 }}
                   className="text-center py-8"
                 >
-                  <span className="text-5xl block mb-4">✨</span>
+                  <Sparkles className="w-12 h-12 mx-auto mb-4 text-primary" />
                   <p className="text-lg font-semibold">All players ready!</p>
                   <p className="text-muted-foreground text-sm">
                     Moving to discussion phase...

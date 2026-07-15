@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { MessageCircle, ChevronRight, Vote } from "lucide-react";
+import { MessageCircle, ChevronRight, Vote, Lightbulb } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
@@ -34,11 +34,13 @@ export function QuestionsPhase() {
           animate={{ scale: 1 }}
           transition={{ type: "spring" }}
         >
-          <MessageCircle className="w-12 h-12 mx-auto text-game-blue" />
+          <MessageCircle className="w-12 h-12 mx-auto text-primary" />
         </motion.div>
         <h2 className="text-2xl font-bold">Discussion Time</h2>
         <div className="flex items-center justify-center gap-2 text-muted-foreground">
-          <span className="text-xl">{state.currentTopic?.emoji}</span>
+          {state.currentTopic && (
+            <state.currentTopic.icon className="w-5 h-5" />
+          )}
           <span>{state.currentTopic?.name}</span>
         </div>
       </PageHeader>
@@ -78,7 +80,7 @@ export function QuestionsPhase() {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2 }}
-                className="p-5 rounded-xl bg-chameleon-dark/5 border border-chameleon-dark/20"
+                className="p-5 rounded-xl bg-primary/5 border border-primary/20"
               >
                 <p className="text-lg font-medium text-center leading-relaxed">
                   &ldquo;{currentQuestion}&rdquo;
@@ -101,9 +103,10 @@ export function QuestionsPhase() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.5 }}
-          className="text-xs text-center text-muted-foreground pb-4"
+          className="flex items-start justify-center gap-1.5 text-xs text-center text-muted-foreground pb-4"
         >
-          💡 Tip: Give enough detail to seem legitimate, but not too much that the
+          <Lightbulb className="w-3.5 h-3.5 shrink-0 mt-0.5" />
+          Tip: Give enough detail to seem legitimate, but not too much that the
           chameleon can guess the word!
         </motion.p>
       </PageContent>
@@ -111,7 +114,7 @@ export function QuestionsPhase() {
       <PageFooter>
         <Button
           onClick={handleNext}
-          className="w-full h-14 text-lg font-semibold bg-chameleon-dark text-white hover:bg-chameleon-dark/90"
+          className="w-full h-14 text-lg font-semibold"
           size="lg"
         >
           {isLastQuestion ? (

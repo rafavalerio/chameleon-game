@@ -42,17 +42,17 @@ export function PlayerSetup() {
   return (
     <PageContainer>
       <PageHeader showReset={false}>
-        <div className="flex justify-center">
+        <div className="flex justify-center p-2">
           <Image
             src="/chameleon-logo.png"
             alt="Chameleon"
-            width={80}
-            height={80}
-            className="w-20 h-20"
+            width={1186}
+            height={1096}
+            className="w-16 h-auto"
             priority
           />
         </div>
-        <h1 className="text-3xl font-bold bg-gradient-to-r from-chameleon-dark to-chameleon bg-clip-text text-transparent">
+        <h1 className="text-3xl font-bold text-primary">
           Chameleon
         </h1>
         <p className="text-muted-foreground">Add players to start the game</p>
@@ -161,7 +161,7 @@ export function PlayerSetup() {
         <Button
           onClick={startTopicSelection}
           disabled={!canStart}
-          className="w-full h-14 text-lg font-semibold bg-chameleon-dark text-white hover:bg-chameleon-dark/90 disabled:opacity-50"
+          className="w-full h-14 text-lg font-semibold"
           size="lg"
         >
           <Play className="w-5 h-5 mr-2" />

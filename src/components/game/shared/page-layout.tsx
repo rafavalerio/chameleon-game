@@ -27,15 +27,18 @@ export function PageHeader({ children, className, showReset = true }: PageHeader
       animate={{ opacity: 1 }}
       className={cn(
         "flex-shrink-0 pt-3 pb-3 px-4 text-center space-y-2 border-b border-border/50 bg-background/95 backdrop-blur-sm",
-        showReset && "relative",
         className
       )}
       style={{
-        paddingTop: "max(0.5rem, calc(env(safe-area-inset-top) + 0.5rem))",
+        paddingTop: "max(1rem, calc(env(safe-area-inset-top) + 1rem))",
         ...safeAreaX,
       }}
     >
-      {showReset && <ResetGameButton />}
+      {showReset && (
+        <div className="flex justify-end mb-1">
+          <ResetGameButton />
+        </div>
+      )}
       {children}
     </motion.div>
   );

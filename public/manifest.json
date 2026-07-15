@@ -4,8 +4,8 @@
   "description": "A fun party game where players try to identify the chameleon among them!",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#f8f7ff",
-  "theme_color": "#7c3aed",
+  "background_color": "#f8fbf7",
+  "theme_color": "#3FAB31",
   "orientation": "portrait",
   "scope": "/",
   "icons": [

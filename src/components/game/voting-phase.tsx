@@ -46,7 +46,7 @@ export function VotingPhase() {
           animate={{ scale: 1, rotate: 0 }}
           transition={{ type: "spring" }}
         >
-          <Vote className="w-12 h-12 mx-auto text-game-purple" />
+          <Vote className="w-12 h-12 mx-auto text-primary" />
         </motion.div>
         <h2 className="text-2xl font-bold">Time to Vote!</h2>
         <p className="text-muted-foreground">
@@ -85,7 +85,7 @@ export function VotingPhase() {
                         <Button
                           onClick={() => handleVote(player.id)}
                           variant="outline"
-                          className="w-full h-12 justify-start text-base border border-border/60 hover:border-chameleon-dark/40 hover:bg-chameleon-dark/5"
+                          className="w-full h-12 justify-start text-base border border-border/60 hover:border-primary/40 hover:bg-primary/5"
                         >
                           <User className="w-5 h-5 mr-3 text-muted-foreground" />
                           {player.name}
@@ -128,7 +128,7 @@ export function VotingPhase() {
                         <Button
                           onClick={() => handleStartVoting(player.id)}
                           variant="outline"
-                          className="w-full h-14 justify-between text-base border border-border/60 hover:border-chameleon-dark/40 hover:bg-chameleon-dark/5"
+                          className="w-full h-14 justify-between text-base border border-border/60 hover:border-primary/40 hover:bg-primary/5"
                         >
                           <span className="flex items-center gap-3">
                             <Users className="w-5 h-5 text-muted-foreground" />
@@ -168,7 +168,7 @@ export function VotingPhase() {
                 <Card className="border border-border/60">
                   <CardContent className="p-6 space-y-4">
                     <div className="text-center">
-                      <span className="text-4xl block mb-2">🗳️</span>
+                      <Vote className="w-12 h-12 mx-auto mb-2 text-primary" />
                       <p className="font-semibold text-lg">All votes are in!</p>
                     </div>
 
@@ -206,7 +206,7 @@ export function VotingPhase() {
         <PageFooter>
           <Button
             onClick={handleCalculateResults}
-            className="w-full h-14 text-lg font-semibold bg-chameleon-dark text-white hover:bg-chameleon-dark/90"
+            className="w-full h-14 text-lg font-semibold"
             size="lg"
           >
             Reveal the Chameleon!

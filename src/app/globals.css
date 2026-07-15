@@ -16,11 +16,6 @@
   --color-sidebar-primary: var(--sidebar-primary);
   --color-sidebar-foreground: var(--sidebar-foreground);
   --color-sidebar: var(--sidebar);
-  --color-chart-5: var(--chart-5);
-  --color-chart-4: var(--chart-4);
-  --color-chart-3: var(--chart-3);
-  --color-chart-2: var(--chart-2);
-  --color-chart-1: var(--chart-1);
   --color-ring: var(--ring);
   --color-input: var(--input);
   --color-border: var(--border);
@@ -44,142 +39,111 @@
   --radius-2xl: calc(var(--radius) + 8px);
   --radius-3xl: calc(var(--radius) + 12px);
   --radius-4xl: calc(var(--radius) + 16px);
-  
-  /* Game-specific colours */
-  --color-game-green: var(--game-green);
-  --color-game-purple: var(--game-purple);
-  --color-game-orange: var(--game-orange);
-  --color-game-pink: var(--game-pink);
-  --color-game-blue: var(--game-blue);
-  --color-game-yellow: var(--game-yellow);
-  --color-chameleon: var(--chameleon);
-  --color-chameleon-dark: var(--chameleon-dark);
-  --color-success: var(--success);
-  --color-warning: var(--warning);
+
+  /* Player-avatar accent colours */
+  --color-avatar-1: var(--avatar-1);
+  --color-avatar-2: var(--avatar-2);
+  --color-avatar-3: var(--avatar-3);
+  --color-avatar-4: var(--avatar-4);
+  --color-avatar-5: var(--avatar-5);
+  --color-avatar-6: var(--avatar-6);
 }
 
 :root {
   --radius: 0.75rem;
-  
-  /* Base colours - Playful and modern */
-  --background: oklch(0.98 0.005 280);
-  --foreground: oklch(0.2 0.02 280);
+
+  /* Base colours - grey, with a faint green undertone */
+  --background: oklch(0.985 0.006 141.5);
+  --foreground: oklch(0.22 0.01 141.5);
   --card: oklch(1 0 0);
-  --card-foreground: oklch(0.2 0.02 280);
+  --card-foreground: oklch(0.22 0.01 141.5);
   --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.2 0.02 280);
-  
-  /* Primary - Vibrant purple */
-  --primary: oklch(0.55 0.25 290);
-  --primary-foreground: oklch(0.98 0 0);
-  
-  /* Secondary - Soft teal */
-  --secondary: oklch(0.92 0.03 200);
-  --secondary-foreground: oklch(0.3 0.05 200);
-  
+  --popover-foreground: oklch(0.22 0.01 141.5);
+
+  /* Primary - brand green (anchored on logo #3FAB31, deepened for AA text contrast) */
+  --primary: oklch(0.52 0.145 141.5);
+  --primary-foreground: oklch(0.99 0 0);
+
+  /* Secondary - light neutral grey */
+  --secondary: oklch(0.94 0.006 141.5);
+  --secondary-foreground: oklch(0.3 0.01 141.5);
+
   /* Muted */
-  --muted: oklch(0.95 0.01 280);
-  --muted-foreground: oklch(0.5 0.02 280);
-  
-  /* Accent - Coral pink */
-  --accent: oklch(0.75 0.15 25);
-  --accent-foreground: oklch(0.2 0.02 25);
-  
-  /* Destructive */
-  --destructive: oklch(0.6 0.22 25);
-  
+  --muted: oklch(0.95 0.006 141.5);
+  --muted-foreground: oklch(0.5 0.01 141.5);
+
+  /* Accent - light neutral grey hover state */
+  --accent: oklch(0.92 0.008 141.5);
+  --accent-foreground: oklch(0.25 0.01 141.5);
+
+  /* Destructive - muted red */
+  --destructive: oklch(0.55 0.16 25);
+
   /* Borders and inputs */
-  --border: oklch(0.9 0.02 280);
-  --input: oklch(0.92 0.01 280);
-  --ring: oklch(0.55 0.25 290);
-  
-  /* Chart colours - vibrant palette */
-  --chart-1: oklch(0.65 0.22 290);
-  --chart-2: oklch(0.7 0.18 180);
-  --chart-3: oklch(0.75 0.2 60);
-  --chart-4: oklch(0.65 0.2 25);
-  --chart-5: oklch(0.6 0.22 330);
-  
-  /* Game-specific colours */
-  --game-green: oklch(0.7 0.2 145);
-  --game-purple: oklch(0.6 0.25 290);
-  --game-orange: oklch(0.75 0.18 55);
-  --game-pink: oklch(0.7 0.2 350);
-  --game-blue: oklch(0.65 0.2 240);
-  --game-yellow: oklch(0.85 0.18 90);
-  
-  /* Chameleon brand colour - gradient friendly */
-  --chameleon: #58D9A8;
-  --chameleon-dark: #34B384;
-  
-  /* Status colours */
-  --success: oklch(0.7 0.2 145);
-  --warning: oklch(0.8 0.18 80);
-  
-  /* Sidebar */
-  --sidebar: oklch(0.98 0.005 280);
-  --sidebar-foreground: oklch(0.2 0.02 280);
-  --sidebar-primary: oklch(0.55 0.25 290);
-  --sidebar-primary-foreground: oklch(0.98 0 0);
-  --sidebar-accent: oklch(0.92 0.03 200);
-  --sidebar-accent-foreground: oklch(0.3 0.05 200);
-  --sidebar-border: oklch(0.9 0.02 280);
-  --sidebar-ring: oklch(0.55 0.25 290);
+  --border: oklch(0.9 0.008 141.5);
+  --input: oklch(0.92 0.006 141.5);
+  --ring: oklch(0.52 0.145 141.5);
+
+  /* Player-avatar accent colours - muted, same family as primary */
+  --avatar-1: oklch(0.58 0.1 141.5);
+  --avatar-2: oklch(0.58 0.1 195);
+  --avatar-3: oklch(0.58 0.1 245);
+  --avatar-4: oklch(0.58 0.1 100);
+  --avatar-5: oklch(0.58 0.1 300);
+  --avatar-6: oklch(0.58 0.1 40);
+
+  /* Sidebar (unused currently, kept in sync with base palette) */
+  --sidebar: oklch(0.985 0.006 141.5);
+  --sidebar-foreground: oklch(0.22 0.01 141.5);
+  --sidebar-primary: oklch(0.52 0.145 141.5);
+  --sidebar-primary-foreground: oklch(0.99 0 0);
+  --sidebar-accent: oklch(0.94 0.006 141.5);
+  --sidebar-accent-foreground: oklch(0.3 0.01 141.5);
+  --sidebar-border: oklch(0.9 0.008 141.5);
+  --sidebar-ring: oklch(0.52 0.145 141.5);
 }
 
 .dark {
-  --background: oklch(0.15 0.02 280);
-  --foreground: oklch(0.95 0.01 280);
-  --card: oklch(0.2 0.02 280);
-  --card-foreground: oklch(0.95 0.01 280);
-  --popover: oklch(0.2 0.02 280);
-  --popover-foreground: oklch(0.95 0.01 280);
-  
-  --primary: oklch(0.7 0.2 290);
-  --primary-foreground: oklch(0.15 0.02 280);
-  
-  --secondary: oklch(0.25 0.03 200);
-  --secondary-foreground: oklch(0.9 0.02 200);
-  
-  --muted: oklch(0.25 0.02 280);
-  --muted-foreground: oklch(0.65 0.02 280);
-  
-  --accent: oklch(0.65 0.15 25);
-  --accent-foreground: oklch(0.95 0.01 25);
-  
-  --destructive: oklch(0.65 0.2 25);
-  
-  --border: oklch(0.3 0.02 280);
-  --input: oklch(0.25 0.02 280);
-  --ring: oklch(0.7 0.2 290);
-  
-  --chart-1: oklch(0.7 0.2 290);
-  --chart-2: oklch(0.75 0.15 180);
-  --chart-3: oklch(0.8 0.18 60);
-  --chart-4: oklch(0.7 0.18 25);
-  --chart-5: oklch(0.65 0.2 330);
-  
-  --game-green: oklch(0.75 0.18 145);
-  --game-purple: oklch(0.7 0.2 290);
-  --game-orange: oklch(0.8 0.16 55);
-  --game-pink: oklch(0.75 0.18 350);
-  --game-blue: oklch(0.7 0.18 240);
-  --game-yellow: oklch(0.88 0.16 90);
-  
-  --chameleon: #58D9A8;
-  --chameleon-dark: #34B384;
-  
-  --success: oklch(0.75 0.18 145);
-  --warning: oklch(0.85 0.16 80);
-  
-  --sidebar: oklch(0.18 0.02 280);
-  --sidebar-foreground: oklch(0.95 0.01 280);
-  --sidebar-primary: oklch(0.7 0.2 290);
-  --sidebar-primary-foreground: oklch(0.15 0.02 280);
-  --sidebar-accent: oklch(0.25 0.03 200);
-  --sidebar-accent-foreground: oklch(0.9 0.02 200);
-  --sidebar-border: oklch(0.3 0.02 280);
-  --sidebar-ring: oklch(0.7 0.2 290);
+  --background: oklch(0.19 0.006 141.5);
+  --foreground: oklch(0.95 0.006 141.5);
+  --card: oklch(0.24 0.006 141.5);
+  --card-foreground: oklch(0.95 0.006 141.5);
+  --popover: oklch(0.24 0.006 141.5);
+  --popover-foreground: oklch(0.95 0.006 141.5);
+
+  --primary: oklch(0.68 0.16 141.5);
+  --primary-foreground: oklch(0.16 0.01 141.5);
+
+  --secondary: oklch(0.28 0.008 141.5);
+  --secondary-foreground: oklch(0.9 0.006 141.5);
+
+  --muted: oklch(0.28 0.008 141.5);
+  --muted-foreground: oklch(0.68 0.01 141.5);
+
+  --accent: oklch(0.32 0.01 141.5);
+  --accent-foreground: oklch(0.95 0.006 141.5);
+
+  --destructive: oklch(0.65 0.16 25);
+
+  --border: oklch(0.32 0.008 141.5);
+  --input: oklch(0.3 0.008 141.5);
+  --ring: oklch(0.68 0.16 141.5);
+
+  --avatar-1: oklch(0.68 0.1 141.5);
+  --avatar-2: oklch(0.68 0.1 195);
+  --avatar-3: oklch(0.68 0.1 245);
+  --avatar-4: oklch(0.68 0.1 100);
+  --avatar-5: oklch(0.68 0.1 300);
+  --avatar-6: oklch(0.68 0.1 40);
+
+  --sidebar: oklch(0.22 0.006 141.5);
+  --sidebar-foreground: oklch(0.95 0.006 141.5);
+  --sidebar-primary: oklch(0.68 0.16 141.5);
+  --sidebar-primary-foreground: oklch(0.16 0.01 141.5);
+  --sidebar-accent: oklch(0.28 0.008 141.5);
+  --sidebar-accent-foreground: oklch(0.9 0.006 141.5);
+  --sidebar-border: oklch(0.32 0.008 141.5);
+  --sidebar-ring: oklch(0.68 0.16 141.5);
 }
 
 @layer base {
@@ -197,12 +161,6 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
-  /* Optimize emoji rendering */
-  .text-6xl, .text-5xl, .text-4xl, .text-3xl, .text-2xl {
-    font-variant-emoji: emoji;
-    -webkit-font-feature-settings: "liga" 1, "kern" 1;
-    font-feature-settings: "liga" 1, "kern" 1;
-  }
 }
 
 /* Custom scrollbar for webkit browsers */
@@ -215,11 +173,11 @@
     background: transparent;
   }
   ::-webkit-scrollbar-thumb {
-    background: oklch(0.7 0.1 280 / 0.3);
+    background: oklch(0.7 0.01 141.5 / 0.3);
     border-radius: 3px;
   }
   ::-webkit-scrollbar-thumb:hover {
-    background: oklch(0.6 0.1 280 / 0.5);
+    background: oklch(0.6 0.01 141.5 / 0.5);
   }
 }
 
@@ -280,13 +238,13 @@ button, [role="button"], [data-slot="button"] {
   touch-action: manipulation;
 }
 
-/* Purple press effect for outline and ghost buttons on mobile */
+/* Green press effect for outline and ghost buttons on mobile */
 @media (hover: none) and (pointer: coarse) {
   button[data-variant="outline"]:active,
   button[data-variant="ghost"]:active,
   [data-slot="button"][data-variant="outline"]:active,
   [data-slot="button"][data-variant="ghost"]:active {
-    background-color: oklch(0.6 0.25 290 / 0.1);
-    border-color: oklch(0.6 0.25 290 / 0.4);
+    background-color: oklch(0.52 0.145 141.5 / 0.1);
+    border-color: oklch(0.52 0.145 141.5 / 0.4);
   }
 }

@@ -1,4 +1,5 @@
 import { describe, it, expect } from "vitest";
+import { FlaskConical } from "lucide-react";
 import {
   topics,
   getTopicById,
@@ -11,7 +12,7 @@ import {
 const testTopic: Topic = {
   id: "test-topic",
   name: "Test Topic",
-  emoji: "🧪",
+  icon: FlaskConical,
   description: "A topic for tests",
   words: ["Alpha", "Beta", "Gamma", "Delta"],
   questions: ["Question A?", "Question B?", "Question C?"],

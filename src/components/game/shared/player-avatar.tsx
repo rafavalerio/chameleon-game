@@ -1,16 +1,12 @@
 import { cn } from "@/lib/utils";
 
 export const PLAYER_COLORS = [
-  "bg-game-purple",
-  "bg-game-pink",
-  "bg-game-blue",
-  "bg-game-orange",
-  "bg-game-green",
-  "bg-game-yellow",
-  "bg-primary",
-  "bg-accent",
-  "bg-chart-1",
-  "bg-chart-2",
+  "bg-avatar-1",
+  "bg-avatar-2",
+  "bg-avatar-3",
+  "bg-avatar-4",
+  "bg-avatar-5",
+  "bg-avatar-6",
 ];
 
 const sizeClasses = {

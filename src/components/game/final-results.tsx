@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { Trophy, RotateCcw, Home, Check, X, Crown } from "lucide-react";
+import { Trophy, RotateCcw, Home, Check, X, Crown, PartyPopper } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -33,14 +33,14 @@ export function FinalResults() {
           className="flex justify-center"
         >
           {chameleonWasCaught ? (
-            <div className="text-6xl">🎉</div>
+            <PartyPopper className="w-16 h-16 text-primary" />
           ) : (
             <Image
               src="/chameleon-logo.png"
               alt="Chameleon"
-              width={80}
-              height={80}
-              className="w-20 h-20"
+              width={1186}
+              height={1096}
+              className="w-20 h-auto"
             />
           )}
         </motion.div>
@@ -51,22 +51,22 @@ export function FinalResults() {
 
       <PageContent className="space-y-6">
         {/* Chameleon reveal */}
-        <Card className="border border-chameleon-dark/20 bg-chameleon-dark/5 overflow-hidden">
+        <Card className="border border-primary/20 bg-primary/5 overflow-hidden">
           <CardContent className="p-5 space-y-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
-                <div className="w-12 h-12 rounded-full bg-chameleon/20 flex items-center justify-center overflow-hidden">
+                <div className="w-12 h-12 rounded-full bg-primary/15 flex items-center justify-center overflow-hidden">
                   <Image
                     src="/chameleon-logo.png"
                     alt="Chameleon"
-                    width={32}
-                    height={32}
-                    className="w-8 h-8"
+                    width={1186}
+                    height={1096}
+                    className="w-8 h-auto"
                   />
                 </div>
                 <div>
                   <p className="text-sm text-muted-foreground">The chameleon was</p>
-                  <p className="text-xl font-bold text-chameleon">
+                  <p className="text-xl font-bold text-primary">
                     {chameleon?.name}
                   </p>
                 </div>
@@ -94,15 +94,15 @@ export function FinalResults() {
                 animate={{ opacity: 1, y: 0 }}
                 className={`flex items-center gap-3 p-3 rounded-lg ${
                   state.chameleonGuessedCorrectly
-                    ? "bg-success/10 border border-success/20"
+                    ? "bg-primary/10 border border-primary/20"
                     : "bg-destructive/10 border border-destructive/20"
                 }`}
               >
                 {state.chameleonGuessedCorrectly ? (
                   <>
-                    <Check className="w-5 h-5 text-success" />
+                    <Check className="w-5 h-5 text-primary" />
                     <div>
-                      <p className="font-medium text-success">Correct guess!</p>
+                      <p className="font-medium text-primary">Correct guess!</p>
                       <p className="text-sm text-muted-foreground">
                         {chameleon?.name} earned +
                         {GAME_CONFIG.POINTS_CHAMELEON_GUESSES_WORD} bonus points
@@ -129,7 +129,7 @@ export function FinalResults() {
         <Card className="border border-border/60">
           <CardContent className="p-5 space-y-4">
             <div className="flex items-center justify-center gap-2">
-              <Trophy className="w-5 h-5 text-game-yellow" />
+              <Trophy className="w-5 h-5 text-primary" />
               <h3 className="font-semibold text-lg">Scoreboard</h3>
             </div>
 
@@ -146,7 +146,7 @@ export function FinalResults() {
                     transition={{ delay: index * 0.1 }}
                     className={`flex items-center justify-between p-3 rounded-xl ${
                       isLeader
-                        ? "bg-gradient-to-r from-game-yellow/20 to-game-orange/10 border border-game-yellow/30"
+                        ? "bg-primary/10 border border-primary/30"
                         : "bg-muted/30"
                     }`}
                   >
@@ -159,13 +159,13 @@ export function FinalResults() {
                         <Image
                           src="/chameleon-logo.png"
                           alt="Chameleon"
-                          width={16}
-                          height={16}
-                          className="w-4 h-4"
+                          width={1186}
+                          height={1096}
+                          className="w-4 h-auto"
                         />
                       )}
                       {isLeader && (
-                        <Crown className="w-4 h-4 text-game-yellow" />
+                        <Crown className="w-4 h-4 text-primary" />
                       )}
                     </div>
                     <span className="font-bold text-lg">{player.score}</span>
@@ -212,7 +212,7 @@ export function FinalResults() {
       <PageFooter className="space-y-3">
         <Button
           onClick={newRound}
-          className="w-full h-14 text-lg font-semibold bg-chameleon-dark text-white hover:bg-chameleon-dark/90"
+          className="w-full h-14 text-lg font-semibold"
           size="lg"
         >
           <RotateCcw className="w-5 h-5 mr-2" />

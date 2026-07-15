@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { createPortal } from "react-dom";
 import { X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -19,7 +20,10 @@ interface DialogContentProps {
 export function Dialog({ open, onOpenChange, children }: DialogProps) {
   if (!open) return null;
 
-  return (
+  // Portal to document.body so `fixed inset-0` centers on the real viewport
+  // even when the trigger sits inside a backdrop-blur/transform ancestor,
+  // which would otherwise become the containing block for fixed descendants.
+  return createPortal(
     <div
       className="fixed inset-0 z-50 flex items-center justify-center"
       onClick={() => onOpenChange(false)}
@@ -34,7 +38,8 @@ export function Dialog({ open, onOpenChange, children }: DialogProps) {
       >
         {children}
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }
 

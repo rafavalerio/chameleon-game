@@ -16,11 +16,7 @@ export function ResetGameButton() {
         variant="outline"
         size="icon"
         onClick={() => setOpen(true)}
-        className="absolute h-8 w-8 text-muted-foreground hover:text-foreground hover:bg-muted border border-border/60"
-        style={{
-          top: "max(0.5rem, calc(env(safe-area-inset-top) + 0.5rem))",
-          right: "max(0.75rem, calc(env(safe-area-inset-right) + 0.75rem))",
-        }}
+        className="h-8 w-8 text-muted-foreground hover:text-foreground hover:bg-muted border border-border/60"
         aria-label="Reset game"
       >
         <RotateCcw className="w-4 h-4" />

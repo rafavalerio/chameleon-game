@@ -49,15 +49,15 @@ export function ChameleonGuess() {
           <Image
             src="/chameleon-logo.png"
             alt="Chameleon"
-            width={80}
-            height={80}
-            className="w-20 h-20"
+            width={1186}
+            height={1096}
+            className="w-20 h-auto"
           />
         </motion.div>
         <h2 className="text-2xl font-bold">Chameleon&apos;s Last Chance!</h2>
         <p className="text-muted-foreground">
           {chameleon?.name} was caught, but can still earn{" "}
-          <span className="font-semibold text-chameleon">
+          <span className="font-semibold text-primary">
             {GAME_CONFIG.POINTS_CHAMELEON_GUESSES_WORD} points
           </span>{" "}
           by guessing the word
@@ -66,11 +66,13 @@ export function ChameleonGuess() {
 
       <PageContent className="space-y-6">
         {/* Topic hint */}
-        <Card className="border border-chameleon-dark/20 bg-chameleon-dark/5">
+        <Card className="border border-primary/20 bg-primary/5">
           <CardContent className="p-4 text-center">
             <p className="text-sm text-muted-foreground mb-1">The topic was:</p>
             <div className="flex items-center justify-center gap-2">
-              <span className="text-2xl">{state.currentTopic?.emoji}</span>
+              {state.currentTopic && (
+                <state.currentTopic.icon className="w-5 h-5 text-primary" />
+              )}
               <span className="text-lg font-semibold">
                 {state.currentTopic?.name}
               </span>
@@ -110,7 +112,7 @@ export function ChameleonGuess() {
                   <Button
                     onClick={() => handleGuess(word)}
                     variant="outline"
-                    className="w-full h-12 text-sm font-medium border border-border/60 hover:border-chameleon-dark/40 hover:bg-chameleon-dark/5"
+                    className="w-full h-12 text-sm font-medium border border-border/60 hover:border-primary/40 hover:bg-primary/5"
                   >
                     {word}
                   </Button>
@@ -125,9 +127,9 @@ export function ChameleonGuess() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.5 }}
-          className="flex items-start gap-2 p-4 rounded-xl bg-chameleon-dark/5 border border-chameleon-dark/20"
+          className="flex items-start gap-2 p-4 rounded-xl bg-primary/5 border border-primary/20"
         >
-          <Sparkles className="w-5 h-5 text-chameleon-dark shrink-0 mt-0.5" />
+          <Sparkles className="w-5 h-5 text-primary shrink-0 mt-0.5" />
           <p className="text-sm text-muted-foreground">
             Think about the clues other players gave. What word fits all their
             answers?
