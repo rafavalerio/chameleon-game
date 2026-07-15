@@ -163,8 +163,8 @@ export function PlayerSetup() {
           disabled={!canStart}
           className="w-full h-14 text-lg font-semibold"
           size="lg"
+          icon={Play}
         >
-          <Play className="w-5 h-5 mr-2" />
           Start Game
         </Button>
       </PageFooter>

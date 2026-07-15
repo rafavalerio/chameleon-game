@@ -137,8 +137,8 @@ export function WordReveal() {
                             onClick={handleShowWord}
                             variant="outline"
                             className="w-full h-32 text-lg border border-border/60 hover:border-primary/40 hover:bg-primary/5"
+                            icon={Eye}
                           >
-                            <Eye className="w-8 h-8 mr-3 text-primary" />
                             Tap to Reveal
                           </Button>
                         </motion.div>
@@ -157,8 +157,8 @@ export function WordReveal() {
                         <Button
                           onClick={handleConfirmSeen}
                           className="w-full h-12 text-base font-semibold"
+                          icon={Check}
                         >
-                          <Check className="w-5 h-5 mr-2" />
                           I&apos;ve memorised it
                         </Button>
                       </motion.div>

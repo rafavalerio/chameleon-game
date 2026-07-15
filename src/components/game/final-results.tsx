@@ -214,16 +214,16 @@ export function FinalResults() {
           onClick={newRound}
           className="w-full h-14 text-lg font-semibold"
           size="lg"
+          icon={RotateCcw}
         >
-          <RotateCcw className="w-5 h-5 mr-2" />
           Play Another Round
         </Button>
         <Button
           onClick={resetGame}
           variant="outline"
           className="w-full h-12 text-base hover:bg-muted hover:text-foreground"
+          icon={Home}
         >
-          <Home className="w-5 h-5 mr-2" />
           New Game
         </Button>
       </PageFooter>

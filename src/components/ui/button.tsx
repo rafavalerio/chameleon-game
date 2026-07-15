@@ -1,6 +1,7 @@
 import * as React from "react"
 import { Slot } from "@radix-ui/react-slot"
 import { cva, type VariantProps } from "class-variance-authority"
+import type { LucideIcon } from "lucide-react"
 
 import { cn } from "@/lib/utils"
 
@@ -41,10 +42,14 @@ function Button({
   variant = "default",
   size = "default",
   asChild = false,
+  icon: Icon,
+  children,
   ...props
 }: React.ComponentProps<"button"> &
   VariantProps<typeof buttonVariants> & {
     asChild?: boolean
+    /** Renders a trailing icon after the button's label, sized and spaced consistently. */
+    icon?: LucideIcon
   }) {
   const Comp = asChild ? Slot : "button"
 
@@ -55,7 +60,10 @@ function Button({
       data-size={size}
       className={cn(buttonVariants({ variant, size, className }))}
       {...props}
-    />
+    >
+      {children}
+      {Icon && <Icon className="size-5" />}
+    </Comp>
   )
 }
 

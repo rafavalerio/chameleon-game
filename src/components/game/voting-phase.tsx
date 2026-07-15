@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Vote, Check, Users, User } from "lucide-react";
+import { Vote, Check, Users, User, Eye } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -208,6 +208,7 @@ export function VotingPhase() {
             onClick={handleCalculateResults}
             className="w-full h-14 text-lg font-semibold"
             size="lg"
+            icon={Eye}
           >
             Reveal the Chameleon!
           </Button>

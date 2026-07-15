@@ -116,18 +116,9 @@ export function QuestionsPhase() {
           onClick={handleNext}
           className="w-full h-14 text-lg font-semibold"
           size="lg"
+          icon={isLastQuestion ? Vote : ChevronRight}
         >
-          {isLastQuestion ? (
-            <>
-              <Vote className="w-5 h-5 mr-2" />
-              Start Voting
-            </>
-          ) : (
-            <>
-              Next Player
-              <ChevronRight className="w-5 h-5 ml-2" />
-            </>
-          )}
+          {isLastQuestion ? "Start Voting" : "Next Player"}
         </Button>
       </PageFooter>
     </PageContainer>
