@@ -1,37 +1,22 @@
 "use client";
 
-import { useState } from "react";
 import { motion } from "framer-motion";
-import { MessageCircle, ChevronRight, Vote, RotateCcw } from "lucide-react";
+import { MessageCircle, ChevronRight, Vote } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
-import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { useGame } from "@/lib/game-context";
-
-const playerColors = [
-  "bg-game-purple",
-  "bg-game-pink",
-  "bg-game-blue",
-  "bg-game-orange",
-  "bg-game-green",
-  "bg-game-yellow",
-  "bg-primary",
-  "bg-accent",
-  "bg-chart-1",
-  "bg-chart-2",
-];
+import { PageContainer, PageHeader, PageContent, PageFooter } from "./shared/page-layout";
+import { PlayerAvatar } from "./shared/player-avatar";
 
 export function QuestionsPhase() {
-  const { state, nextQuestion, startVoting, resetGame } = useGame();
-  const [showResetDialog, setShowResetDialog] = useState(false);
-  
+  const { state, nextQuestion, startVoting } = useGame();
+
   const currentQuestion = state.questions[state.currentPlayerIndex];
   const currentPlayer = state.players[state.currentPlayerIndex];
   const isLastQuestion = state.currentPlayerIndex >= state.players.length - 1;
   const progress = ((state.currentPlayerIndex + 1) / state.players.length) * 100;
   const playerColorIndex = state.players.findIndex((p) => p.id === currentPlayer.id);
-  const playerColorClass = playerColors[playerColorIndex % playerColors.length];
 
   const handleNext = () => {
     if (isLastQuestion) {
@@ -41,30 +26,9 @@ export function QuestionsPhase() {
     }
   };
 
-  const handleReset = () => {
-    resetGame();
-    setShowResetDialog(false);
-  };
-
   return (
-    <div className="h-full flex flex-col max-w-md mx-auto">
-      {/* Fixed Header */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        className="flex-shrink-0 pt-3 pb-3 px-4 text-center space-y-2 border-b border-border/50 bg-background/95 backdrop-blur-sm relative"
-        style={{ paddingTop: 'max(0.5rem, calc(env(safe-area-inset-top) + 0.5rem))', paddingLeft: 'max(1rem, env(safe-area-inset-left))', paddingRight: 'max(1rem, env(safe-area-inset-right))' }}
-      >
-        <Button
-          variant="outline"
-          size="icon"
-          onClick={() => setShowResetDialog(true)}
-          className="absolute h-8 w-8 text-muted-foreground hover:text-foreground hover:bg-muted border border-border/60"
-          style={{ top: 'max(0.5rem, calc(env(safe-area-inset-top) + 0.5rem))', right: 'max(0.75rem, calc(env(safe-area-inset-right) + 0.75rem))' }}
-          aria-label="Reset game"
-        >
-          <RotateCcw className="w-4 h-4" />
-        </Button>
+    <PageContainer>
+      <PageHeader>
         <motion.div
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}
@@ -77,13 +41,9 @@ export function QuestionsPhase() {
           <span className="text-xl">{state.currentTopic?.emoji}</span>
           <span>{state.currentTopic?.name}</span>
         </div>
-      </motion.div>
+      </PageHeader>
 
-      {/* Scrollable Content */}
-      <div 
-        className="flex-1 overflow-y-auto px-4 py-4 space-y-6"
-        style={{ paddingLeft: 'max(1rem, env(safe-area-inset-left))', paddingRight: 'max(1rem, env(safe-area-inset-right))' }}
-      >
+      <PageContent className="space-y-6">
         {/* Progress */}
         <div className="space-y-2">
           <Progress value={progress} className="h-2" />
@@ -106,11 +66,9 @@ export function QuestionsPhase() {
                   initial={{ scale: 0.8, opacity: 0 }}
                   animate={{ scale: 1, opacity: 1 }}
                   transition={{ delay: 0.1 }}
-                  className={`inline-flex items-center justify-center w-16 h-16 rounded-full ${playerColorClass} text-white mb-3`}
+                  className="inline-flex mb-3"
                 >
-                  <span className="text-2xl font-bold">
-                    {currentPlayer.name.charAt(0).toUpperCase()}
-                  </span>
+                  <PlayerAvatar name={currentPlayer.name} index={playerColorIndex} size="lg" />
                 </motion.div>
                 <p className="text-lg font-semibold">{currentPlayer.name}</p>
                 <p className="text-sm text-muted-foreground">answers the question</p>
@@ -148,13 +106,9 @@ export function QuestionsPhase() {
           💡 Tip: Give enough detail to seem legitimate, but not too much that the
           chameleon can guess the word!
         </motion.p>
-      </div>
+      </PageContent>
 
-      {/* Fixed Footer */}
-      <div 
-        className="flex-shrink-0 px-4 pt-3 pb-4 border-t border-border/50 bg-background/95 backdrop-blur-sm"
-        style={{ paddingBottom: 'max(1rem, calc(env(safe-area-inset-bottom) + 1rem))', paddingLeft: 'max(1rem, env(safe-area-inset-left))', paddingRight: 'max(1rem, env(safe-area-inset-right))' }}
-      >
+      <PageFooter>
         <Button
           onClick={handleNext}
           className="w-full h-14 text-lg font-semibold bg-chameleon-dark text-white hover:bg-chameleon-dark/90"
@@ -172,32 +126,7 @@ export function QuestionsPhase() {
             </>
           )}
         </Button>
-      </div>
-
-      <Dialog open={showResetDialog} onOpenChange={setShowResetDialog}>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>Reset Game?</DialogTitle>
-            <DialogDescription>
-              Are you sure you want to reset the game? This will return you to the player setup screen and all progress will be lost.
-            </DialogDescription>
-          </DialogHeader>
-          <DialogFooter>
-            <Button
-              variant="outline"
-              onClick={() => setShowResetDialog(false)}
-            >
-              Cancel
-            </Button>
-            <Button
-              variant="destructive"
-              onClick={handleReset}
-            >
-              Reset Game
-            </Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
-    </div>
+      </PageFooter>
+    </PageContainer>
   );
 }

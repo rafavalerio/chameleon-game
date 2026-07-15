@@ -1,0 +1,43 @@
+import { cn } from "@/lib/utils";
+
+export const PLAYER_COLORS = [
+  "bg-game-purple",
+  "bg-game-pink",
+  "bg-game-blue",
+  "bg-game-orange",
+  "bg-game-green",
+  "bg-game-yellow",
+  "bg-primary",
+  "bg-accent",
+  "bg-chart-1",
+  "bg-chart-2",
+];
+
+const sizeClasses = {
+  sm: "w-10 h-10 text-sm font-semibold border-2",
+  lg: "w-16 h-16 text-2xl font-bold",
+};
+
+interface PlayerAvatarProps {
+  name: string;
+  index: number;
+  size?: "sm" | "lg";
+  className?: string;
+}
+
+export function PlayerAvatar({ name, index, size = "sm", className }: PlayerAvatarProps) {
+  const colorClass = PLAYER_COLORS[index % PLAYER_COLORS.length];
+
+  return (
+    <div
+      className={cn(
+        "rounded-full flex items-center justify-center text-white border-white/20",
+        sizeClasses[size],
+        colorClass,
+        className
+      )}
+    >
+      {name.charAt(0).toUpperCase()}
+    </div>
+  );
+}

@@ -1,19 +1,17 @@
 "use client";
 
-import { useState } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { Trophy, RotateCcw, Home, Check, X, Crown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { useGame } from "@/lib/game-context";
 import { GAME_CONFIG } from "@/lib/game-config";
+import { PageContainer, PageHeader, PageContent, PageFooter } from "./shared/page-layout";
 
 export function FinalResults() {
-  const { state, newRound, resetGame: resetGameAction } = useGame();
-  const [showResetDialog, setShowResetDialog] = useState(false);
+  const { state, newRound, resetGame } = useGame();
 
   const chameleon = state.players.find((p) => p.isChameleon);
   const eliminatedPlayer = state.players.find(
@@ -25,30 +23,9 @@ export function FinalResults() {
   const sortedPlayers = [...state.players].sort((a, b) => b.score - a.score);
   const topScore = sortedPlayers[0]?.score ?? 0;
 
-  const handleReset = () => {
-    resetGameAction();
-    setShowResetDialog(false);
-  };
-
   return (
-    <div className="h-full flex flex-col max-w-md mx-auto">
-      {/* Fixed Header */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        className="flex-shrink-0 pt-3 pb-3 px-4 text-center space-y-4 border-b border-border/50 bg-background/95 backdrop-blur-sm relative"
-        style={{ paddingTop: 'max(0.5rem, calc(env(safe-area-inset-top) + 0.5rem))', paddingLeft: 'max(1rem, env(safe-area-inset-left))', paddingRight: 'max(1rem, env(safe-area-inset-right))' }}
-      >
-        <Button
-          variant="outline"
-          size="icon"
-          onClick={() => setShowResetDialog(true)}
-          className="absolute h-8 w-8 text-muted-foreground hover:text-foreground hover:bg-muted border border-border/60"
-          style={{ top: 'max(0.5rem, calc(env(safe-area-inset-top) + 0.5rem))', right: 'max(0.75rem, calc(env(safe-area-inset-right) + 0.75rem))' }}
-          aria-label="Reset game"
-        >
-          <RotateCcw className="w-4 h-4" />
-        </Button>
+    <PageContainer>
+      <PageHeader className="space-y-4">
         <motion.div
           initial={{ scale: 0.8, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
@@ -70,179 +47,169 @@ export function FinalResults() {
         <h2 className="text-2xl font-bold">
           {chameleonWasCaught ? "Chameleon Caught!" : "Chameleon Wins!"}
         </h2>
-      </motion.div>
+      </PageHeader>
 
-      {/* Scrollable Content */}
-      <div 
-        className="flex-1 overflow-y-auto px-4 py-4 space-y-6"
-        style={{ paddingLeft: 'max(1rem, env(safe-area-inset-left))', paddingRight: 'max(1rem, env(safe-area-inset-right))' }}
-      >
-
-      {/* Chameleon reveal */}
-      <Card className="border border-chameleon-dark/20 bg-chameleon-dark/5 overflow-hidden">
-        <CardContent className="p-5 space-y-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <div className="w-12 h-12 rounded-full bg-chameleon/20 flex items-center justify-center overflow-hidden">
-                <Image
-                  src="/chameleon-logo.png"
-                  alt="Chameleon"
-                  width={32}
-                  height={32}
-                  className="w-8 h-8"
-                />
+      <PageContent className="space-y-6">
+        {/* Chameleon reveal */}
+        <Card className="border border-chameleon-dark/20 bg-chameleon-dark/5 overflow-hidden">
+          <CardContent className="p-5 space-y-4">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <div className="w-12 h-12 rounded-full bg-chameleon/20 flex items-center justify-center overflow-hidden">
+                  <Image
+                    src="/chameleon-logo.png"
+                    alt="Chameleon"
+                    width={32}
+                    height={32}
+                    className="w-8 h-8"
+                  />
+                </div>
+                <div>
+                  <p className="text-sm text-muted-foreground">The chameleon was</p>
+                  <p className="text-xl font-bold text-chameleon">
+                    {chameleon?.name}
+                  </p>
+                </div>
               </div>
-              <div>
-                <p className="text-sm text-muted-foreground">The chameleon was</p>
-                <p className="text-xl font-bold text-chameleon">
-                  {chameleon?.name}
-                </p>
-              </div>
+              <Badge
+                variant={chameleonWasCaught ? "destructive" : "default"}
+                className="text-sm"
+              >
+                {chameleonWasCaught ? "Caught!" : "Escaped!"}
+              </Badge>
             </div>
-            <Badge
-              variant={chameleonWasCaught ? "destructive" : "default"}
-              className="text-sm"
-            >
-              {chameleonWasCaught ? "Caught!" : "Escaped!"}
-            </Badge>
-          </div>
 
-          {/* Secret word */}
-          <div className="p-4 rounded-xl bg-background/80 text-center">
-            <p className="text-sm text-muted-foreground mb-1">
-              The secret word was:
-            </p>
-            <p className="text-2xl font-bold text-primary">{state.secretWord}</p>
-          </div>
+            {/* Secret word */}
+            <div className="p-4 rounded-xl bg-background/80 text-center">
+              <p className="text-sm text-muted-foreground mb-1">
+                The secret word was:
+              </p>
+              <p className="text-2xl font-bold text-primary">{state.secretWord}</p>
+            </div>
 
-          {/* Chameleon's guess result (if applicable) */}
-          {chameleonWasCaught && state.chameleonGuessedCorrectly !== null && (
-            <motion.div
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              className={`flex items-center gap-3 p-3 rounded-lg ${
-                state.chameleonGuessedCorrectly
-                  ? "bg-success/10 border border-success/20"
-                  : "bg-destructive/10 border border-destructive/20"
-              }`}
-            >
-              {state.chameleonGuessedCorrectly ? (
-                <>
-                  <Check className="w-5 h-5 text-success" />
-                  <div>
-                    <p className="font-medium text-success">Correct guess!</p>
-                    <p className="text-sm text-muted-foreground">
-                      {chameleon?.name} earned +
-                      {GAME_CONFIG.POINTS_CHAMELEON_GUESSES_WORD} bonus points
-                    </p>
-                  </div>
-                </>
-              ) : (
-                <>
-                  <X className="w-5 h-5 text-destructive" />
-                  <div>
-                    <p className="font-medium text-destructive">Wrong guess!</p>
-                    <p className="text-sm text-muted-foreground">
-                      No bonus points for {chameleon?.name}
-                    </p>
-                  </div>
-                </>
-              )}
-            </motion.div>
-          )}
-        </CardContent>
-      </Card>
+            {/* Chameleon's guess result (if applicable) */}
+            {chameleonWasCaught && state.chameleonGuessedCorrectly !== null && (
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className={`flex items-center gap-3 p-3 rounded-lg ${
+                  state.chameleonGuessedCorrectly
+                    ? "bg-success/10 border border-success/20"
+                    : "bg-destructive/10 border border-destructive/20"
+                }`}
+              >
+                {state.chameleonGuessedCorrectly ? (
+                  <>
+                    <Check className="w-5 h-5 text-success" />
+                    <div>
+                      <p className="font-medium text-success">Correct guess!</p>
+                      <p className="text-sm text-muted-foreground">
+                        {chameleon?.name} earned +
+                        {GAME_CONFIG.POINTS_CHAMELEON_GUESSES_WORD} bonus points
+                      </p>
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <X className="w-5 h-5 text-destructive" />
+                    <div>
+                      <p className="font-medium text-destructive">Wrong guess!</p>
+                      <p className="text-sm text-muted-foreground">
+                        No bonus points for {chameleon?.name}
+                      </p>
+                    </div>
+                  </>
+                )}
+              </motion.div>
+            )}
+          </CardContent>
+        </Card>
 
-      {/* Scoreboard */}
-      <Card className="border border-border/60">
-        <CardContent className="p-5 space-y-4">
-          <div className="flex items-center justify-center gap-2">
-            <Trophy className="w-5 h-5 text-game-yellow" />
-            <h3 className="font-semibold text-lg">Scoreboard</h3>
-          </div>
+        {/* Scoreboard */}
+        <Card className="border border-border/60">
+          <CardContent className="p-5 space-y-4">
+            <div className="flex items-center justify-center gap-2">
+              <Trophy className="w-5 h-5 text-game-yellow" />
+              <h3 className="font-semibold text-lg">Scoreboard</h3>
+            </div>
 
-          <div className="space-y-2">
-            {sortedPlayers.map((player, index) => {
-              const isLeader = player.score === topScore && topScore > 0;
-              const isChameleon = player.isChameleon;
+            <div className="space-y-2">
+              {sortedPlayers.map((player, index) => {
+                const isLeader = player.score === topScore && topScore > 0;
+                const isChameleon = player.isChameleon;
 
-              return (
-                <motion.div
-                  key={player.id}
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: index * 0.1 }}
-                  className={`flex items-center justify-between p-3 rounded-xl ${
-                    isLeader
-                      ? "bg-gradient-to-r from-game-yellow/20 to-game-orange/10 border border-game-yellow/30"
-                      : "bg-muted/30"
-                  }`}
-                >
-                  <div className="flex items-center gap-3">
-                    <span className="w-6 text-center font-bold text-muted-foreground">
-                      {index + 1}
-                    </span>
-                    <span className="font-medium">{player.name}</span>
-                    {isChameleon && (
-                      <Image
-                        src="/chameleon-logo.png"
-                        alt="Chameleon"
-                        width={16}
-                        height={16}
-                        className="w-4 h-4"
-                      />
-                    )}
-                    {isLeader && (
-                      <Crown className="w-4 h-4 text-game-yellow" />
-                    )}
-                  </div>
-                  <span className="font-bold text-lg">{player.score}</span>
-                </motion.div>
-              );
-            })}
-          </div>
-        </CardContent>
-      </Card>
+                return (
+                  <motion.div
+                    key={player.id}
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: index * 0.1 }}
+                    className={`flex items-center justify-between p-3 rounded-xl ${
+                      isLeader
+                        ? "bg-gradient-to-r from-game-yellow/20 to-game-orange/10 border border-game-yellow/30"
+                        : "bg-muted/30"
+                    }`}
+                  >
+                    <div className="flex items-center gap-3">
+                      <span className="w-6 text-center font-bold text-muted-foreground">
+                        {index + 1}
+                      </span>
+                      <span className="font-medium">{player.name}</span>
+                      {isChameleon && (
+                        <Image
+                          src="/chameleon-logo.png"
+                          alt="Chameleon"
+                          width={16}
+                          height={16}
+                          className="w-4 h-4"
+                        />
+                      )}
+                      {isLeader && (
+                        <Crown className="w-4 h-4 text-game-yellow" />
+                      )}
+                    </div>
+                    <span className="font-bold text-lg">{player.score}</span>
+                  </motion.div>
+                );
+              })}
+            </div>
+          </CardContent>
+        </Card>
 
-      {/* Points breakdown */}
-      <div className="text-center text-sm text-muted-foreground space-y-1">
-        <p>
-          {chameleonWasCaught ? (
-            <>
-              Non-chameleons earned{" "}
-              <span className="font-semibold text-foreground">
-                +{GAME_CONFIG.POINTS_CHAMELEON_CAUGHT}
-              </span>{" "}
-              points each
-            </>
-          ) : (
-            <>
+        {/* Points breakdown */}
+        <div className="text-center text-sm text-muted-foreground space-y-1">
+          <p>
+            {chameleonWasCaught ? (
+              <>
+                Non-chameleons earned{" "}
+                <span className="font-semibold text-foreground">
+                  +{GAME_CONFIG.POINTS_CHAMELEON_CAUGHT}
+                </span>{" "}
+                points each
+              </>
+            ) : (
+              <>
+                {chameleon?.name} earned{" "}
+                <span className="font-semibold text-foreground">
+                  +{GAME_CONFIG.POINTS_CHAMELEON_SURVIVES}
+                </span>{" "}
+                points for escaping
+              </>
+            )}
+          </p>
+          {chameleonWasCaught && state.chameleonGuessedCorrectly && (
+            <p>
               {chameleon?.name} earned{" "}
               <span className="font-semibold text-foreground">
-                +{GAME_CONFIG.POINTS_CHAMELEON_SURVIVES}
+                +{GAME_CONFIG.POINTS_CHAMELEON_GUESSES_WORD}
               </span>{" "}
-              points for escaping
-            </>
+              bonus points
+            </p>
           )}
-        </p>
-        {chameleonWasCaught && state.chameleonGuessedCorrectly && (
-          <p>
-            {chameleon?.name} earned{" "}
-            <span className="font-semibold text-foreground">
-              +{GAME_CONFIG.POINTS_CHAMELEON_GUESSES_WORD}
-            </span>{" "}
-            bonus points
-          </p>
-        )}
-      </div>
+        </div>
+      </PageContent>
 
-      </div>
-
-      {/* Fixed Footer */}
-      <div 
-        className="flex-shrink-0 px-4 pt-3 pb-4 border-t border-border/50 bg-background/95 backdrop-blur-sm space-y-3"
-        style={{ paddingBottom: 'max(1rem, calc(env(safe-area-inset-bottom) + 1rem))', paddingLeft: 'max(1rem, env(safe-area-inset-left))', paddingRight: 'max(1rem, env(safe-area-inset-right))' }}
-      >
+      <PageFooter className="space-y-3">
         <Button
           onClick={newRound}
           className="w-full h-14 text-lg font-semibold bg-chameleon-dark text-white hover:bg-chameleon-dark/90"
@@ -252,39 +219,14 @@ export function FinalResults() {
           Play Another Round
         </Button>
         <Button
-          onClick={resetGameAction}
+          onClick={resetGame}
           variant="outline"
           className="w-full h-12 text-base hover:bg-muted hover:text-foreground"
         >
           <Home className="w-5 h-5 mr-2" />
           New Game
         </Button>
-      </div>
-
-      <Dialog open={showResetDialog} onOpenChange={setShowResetDialog}>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>Reset Game?</DialogTitle>
-            <DialogDescription>
-              Are you sure you want to reset the game? This will return you to the player setup screen and all progress will be lost.
-            </DialogDescription>
-          </DialogHeader>
-          <DialogFooter>
-            <Button
-              variant="outline"
-              onClick={() => setShowResetDialog(false)}
-            >
-              Cancel
-            </Button>
-            <Button
-              variant="destructive"
-              onClick={handleReset}
-            >
-              Reset Game
-            </Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
-    </div>
+      </PageFooter>
+    </PageContainer>
   );
 }

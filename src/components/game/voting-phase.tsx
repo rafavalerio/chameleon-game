@@ -2,17 +2,16 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Vote, Check, Users, User, RotateCcw } from "lucide-react";
+import { Vote, Check, Users, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { useGame } from "@/lib/game-context";
+import { PageContainer, PageHeader, PageContent, PageFooter } from "./shared/page-layout";
 
 export function VotingPhase() {
-  const { state, castVote, calculateResults, resetGame } = useGame();
+  const { state, castVote, calculateResults } = useGame();
   const [currentVoterId, setCurrentVoterId] = useState<string | null>(null);
-  const [showResetDialog, setShowResetDialog] = useState(false);
 
   const playersWhoHaventVoted = state.players.filter((p) => !p.votedFor);
   const allVoted = playersWhoHaventVoted.length === 0;
@@ -34,35 +33,14 @@ export function VotingPhase() {
     calculateResults();
   };
 
-  const handleReset = () => {
-    resetGame();
-    setShowResetDialog(false);
-  };
-
   // Get vote counts for display after everyone voted
   const getVoteCount = (playerId: string): number => {
     return state.players.filter((p) => p.votedFor === playerId).length;
   };
 
   return (
-    <div className="h-full flex flex-col max-w-md mx-auto">
-      {/* Fixed Header */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        className="flex-shrink-0 pt-3 pb-3 px-4 text-center space-y-2 border-b border-border/50 bg-background/95 backdrop-blur-sm relative"
-        style={{ paddingTop: 'max(0.5rem, calc(env(safe-area-inset-top) + 0.5rem))', paddingLeft: 'max(1rem, env(safe-area-inset-left))', paddingRight: 'max(1rem, env(safe-area-inset-right))' }}
-      >
-        <Button
-          variant="outline"
-          size="icon"
-          onClick={() => setShowResetDialog(true)}
-          className="absolute h-8 w-8 text-muted-foreground hover:text-foreground hover:bg-muted border border-border/60"
-          style={{ top: 'max(0.5rem, calc(env(safe-area-inset-top) + 0.5rem))', right: 'max(0.75rem, calc(env(safe-area-inset-right) + 0.75rem))' }}
-          aria-label="Reset game"
-        >
-          <RotateCcw className="w-4 h-4" />
-        </Button>
+    <PageContainer>
+      <PageHeader>
         <motion.div
           initial={{ scale: 0, rotate: -10 }}
           animate={{ scale: 1, rotate: 0 }}
@@ -74,167 +52,158 @@ export function VotingPhase() {
         <p className="text-muted-foreground">
           Who do you think is the chameleon?
         </p>
-      </motion.div>
+      </PageHeader>
 
-      {/* Scrollable Content */}
-      <div 
-        className="flex-1 overflow-y-auto px-4 py-4"
-        style={{ paddingLeft: 'max(1rem, env(safe-area-inset-left))', paddingRight: 'max(1rem, env(safe-area-inset-right))' }}
-      >
-      <AnimatePresence mode="wait">
-        {currentVoterId && currentVoter ? (
-          /* Voting selection */
-          <motion.div
-            key="voting"
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.95 }}
-          >
-            <Card className="border border-border/60">
-              <CardHeader className="pb-2">
-                <CardTitle className="text-center text-lg">
-                  {currentVoter.name}&apos;s Vote
-                </CardTitle>
-                <p className="text-sm text-center text-muted-foreground">
-                  Select who you think is the chameleon
-                </p>
-              </CardHeader>
-              <CardContent className="space-y-2">
-                {state.players
-                  .filter((p) => p.id !== currentVoterId)
-                  .map((player) => (
-                    <motion.div
-                      key={player.id}
-                      initial={{ opacity: 0, x: -10 }}
-                      animate={{ opacity: 1, x: 0 }}
-                    >
-                      <Button
-                        onClick={() => handleVote(player.id)}
-                        variant="outline"
-                        className="w-full h-12 justify-start text-base border border-border/60 hover:border-chameleon-dark/40 hover:bg-chameleon-dark/5"
-                      >
-                        <User className="w-5 h-5 mr-3 text-muted-foreground" />
-                        {player.name}
-                      </Button>
-                    </motion.div>
-                  ))}
-
-                <Button
-                  onClick={() => setCurrentVoterId(null)}
-                  variant="ghost"
-                  className="w-full mt-2 text-muted-foreground"
-                >
-                  Cancel
-                </Button>
-              </CardContent>
-            </Card>
-          </motion.div>
-        ) : (
-          /* Player list / Results */
-          <motion.div
-            key="player-list"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="space-y-4"
-          >
-            {!allVoted ? (
-              <>
-                <p className="text-sm font-medium text-center text-muted-foreground">
-                  Pass the device to vote:
-                </p>
-                <div className="space-y-2">
-                  {playersWhoHaventVoted.map((player, index) => (
-                    <motion.div
-                      key={player.id}
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: index * 0.05 }}
-                    >
-                      <Button
-                        onClick={() => handleStartVoting(player.id)}
-                        variant="outline"
-                        className="w-full h-14 justify-between text-base border border-border/60 hover:border-chameleon-dark/40 hover:bg-chameleon-dark/5"
-                      >
-                        <span className="flex items-center gap-3">
-                          <Users className="w-5 h-5 text-muted-foreground" />
-                          {player.name}
-                        </span>
-                        <Badge variant="secondary">Vote</Badge>
-                      </Button>
-                    </motion.div>
-                  ))}
-                </div>
-
-                {/* Already voted */}
-                {state.players.filter((p) => p.votedFor).length > 0 && (
-                  <div className="pt-4 border-t border-border">
-                    <p className="text-sm text-muted-foreground mb-2">
-                      Already voted:
-                    </p>
-                    <div className="flex flex-wrap gap-2">
-                      {state.players
-                        .filter((p) => p.votedFor)
-                        .map((player) => (
-                          <Badge
-                            key={player.id}
-                            variant="outline"
-                            className="text-sm"
-                          >
-                            <Check className="w-3 h-3 mr-1" />
-                            {player.name}
-                          </Badge>
-                        ))}
-                    </div>
-                  </div>
-                )}
-              </>
-            ) : (
-              /* All voted - show summary */
+      <PageContent>
+        <AnimatePresence mode="wait">
+          {currentVoterId && currentVoter ? (
+            /* Voting selection */
+            <motion.div
+              key="voting"
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+            >
               <Card className="border border-border/60">
-                <CardContent className="p-6 space-y-4">
-                  <div className="text-center">
-                    <span className="text-4xl block mb-2">🗳️</span>
-                    <p className="font-semibold text-lg">All votes are in!</p>
-                  </div>
+                <CardHeader className="pb-2">
+                  <CardTitle className="text-center text-lg">
+                    {currentVoter.name}&apos;s Vote
+                  </CardTitle>
+                  <p className="text-sm text-center text-muted-foreground">
+                    Select who you think is the chameleon
+                  </p>
+                </CardHeader>
+                <CardContent className="space-y-2">
+                  {state.players
+                    .filter((p) => p.id !== currentVoterId)
+                    .map((player) => (
+                      <motion.div
+                        key={player.id}
+                        initial={{ opacity: 0, x: -10 }}
+                        animate={{ opacity: 1, x: 0 }}
+                      >
+                        <Button
+                          onClick={() => handleVote(player.id)}
+                          variant="outline"
+                          className="w-full h-12 justify-start text-base border border-border/60 hover:border-chameleon-dark/40 hover:bg-chameleon-dark/5"
+                        >
+                          <User className="w-5 h-5 mr-3 text-muted-foreground" />
+                          {player.name}
+                        </Button>
+                      </motion.div>
+                    ))}
 
-                  <div className="space-y-2">
-                    {state.players
-                      .sort(
-                        (a, b) => getVoteCount(b.id) - getVoteCount(a.id)
-                      )
-                      .map((player) => {
-                        const voteCount = getVoteCount(player.id);
-                        return (
-                          <div
-                            key={player.id}
-                            className="flex items-center justify-between p-3 rounded-lg bg-muted/50"
-                          >
-                            <span className="font-medium">{player.name}</span>
-                            <Badge
-                              variant={voteCount > 0 ? "default" : "secondary"}
-                            >
-                              {voteCount} vote{voteCount !== 1 ? "s" : ""}
-                            </Badge>
-                          </div>
-                        );
-                      })}
-                  </div>
+                  <Button
+                    onClick={() => setCurrentVoterId(null)}
+                    variant="ghost"
+                    className="w-full mt-2 text-muted-foreground"
+                  >
+                    Cancel
+                  </Button>
                 </CardContent>
               </Card>
-            )}
+            </motion.div>
+          ) : (
+            /* Player list / Results */
+            <motion.div
+              key="player-list"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="space-y-4"
+            >
+              {!allVoted ? (
+                <>
+                  <p className="text-sm font-medium text-center text-muted-foreground">
+                    Pass the device to vote:
+                  </p>
+                  <div className="space-y-2">
+                    {playersWhoHaventVoted.map((player, index) => (
+                      <motion.div
+                        key={player.id}
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: index * 0.05 }}
+                      >
+                        <Button
+                          onClick={() => handleStartVoting(player.id)}
+                          variant="outline"
+                          className="w-full h-14 justify-between text-base border border-border/60 hover:border-chameleon-dark/40 hover:bg-chameleon-dark/5"
+                        >
+                          <span className="flex items-center gap-3">
+                            <Users className="w-5 h-5 text-muted-foreground" />
+                            {player.name}
+                          </span>
+                          <Badge variant="secondary">Vote</Badge>
+                        </Button>
+                      </motion.div>
+                    ))}
+                  </div>
 
-          </motion.div>
-        )}
-      </AnimatePresence>
-      </div>
+                  {/* Already voted */}
+                  {state.players.filter((p) => p.votedFor).length > 0 && (
+                    <div className="pt-4 border-t border-border">
+                      <p className="text-sm text-muted-foreground mb-2">
+                        Already voted:
+                      </p>
+                      <div className="flex flex-wrap gap-2">
+                        {state.players
+                          .filter((p) => p.votedFor)
+                          .map((player) => (
+                            <Badge
+                              key={player.id}
+                              variant="outline"
+                              className="text-sm"
+                            >
+                              <Check className="w-3 h-3 mr-1" />
+                              {player.name}
+                            </Badge>
+                          ))}
+                      </div>
+                    </div>
+                  )}
+                </>
+              ) : (
+                /* All voted - show summary */
+                <Card className="border border-border/60">
+                  <CardContent className="p-6 space-y-4">
+                    <div className="text-center">
+                      <span className="text-4xl block mb-2">🗳️</span>
+                      <p className="font-semibold text-lg">All votes are in!</p>
+                    </div>
 
-      {/* Fixed Footer */}
+                    <div className="space-y-2">
+                      {state.players
+                        .sort(
+                          (a, b) => getVoteCount(b.id) - getVoteCount(a.id)
+                        )
+                        .map((player) => {
+                          const voteCount = getVoteCount(player.id);
+                          return (
+                            <div
+                              key={player.id}
+                              className="flex items-center justify-between p-3 rounded-lg bg-muted/50"
+                            >
+                              <span className="font-medium">{player.name}</span>
+                              <Badge
+                                variant={voteCount > 0 ? "default" : "secondary"}
+                              >
+                                {voteCount} vote{voteCount !== 1 ? "s" : ""}
+                              </Badge>
+                            </div>
+                          );
+                        })}
+                    </div>
+                  </CardContent>
+                </Card>
+              )}
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </PageContent>
+
       {allVoted && (
-        <div 
-          className="flex-shrink-0 px-4 pt-3 pb-4 border-t border-border/50 bg-background/95 backdrop-blur-sm"
-          style={{ paddingBottom: 'max(1rem, calc(env(safe-area-inset-bottom) + 1rem))', paddingLeft: 'max(1rem, env(safe-area-inset-left))', paddingRight: 'max(1rem, env(safe-area-inset-right))' }}
-        >
+        <PageFooter>
           <Button
             onClick={handleCalculateResults}
             className="w-full h-14 text-lg font-semibold bg-chameleon-dark text-white hover:bg-chameleon-dark/90"
@@ -242,33 +211,8 @@ export function VotingPhase() {
           >
             Reveal the Chameleon!
           </Button>
-        </div>
+        </PageFooter>
       )}
-
-      <Dialog open={showResetDialog} onOpenChange={setShowResetDialog}>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>Reset Game?</DialogTitle>
-            <DialogDescription>
-              Are you sure you want to reset the game? This will return you to the player setup screen and all progress will be lost.
-            </DialogDescription>
-          </DialogHeader>
-          <DialogFooter>
-            <Button
-              variant="outline"
-              onClick={() => setShowResetDialog(false)}
-            >
-              Cancel
-            </Button>
-            <Button
-              variant="destructive"
-              onClick={handleReset}
-            >
-              Reset Game
-            </Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
-    </div>
+    </PageContainer>
   );
 }

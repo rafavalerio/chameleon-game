@@ -55,7 +55,7 @@ type GameAction =
   | { type: "RESET_GAME" };
 
 // Initial state
-function getInitialState(): GameState {
+export function getInitialState(): GameState {
   return {
     phase: "setup",
     players: loadPlayersFromStorage(),
@@ -157,7 +157,7 @@ function countVotes(players: Player[]): string | null {
 }
 
 // Reducer
-function gameReducer(state: GameState, action: GameAction): GameState {
+export function gameReducer(state: GameState, action: GameAction): GameState {
   switch (action.type) {
     case "ADD_PLAYER": {
       if (state.players.length >= GAME_CONFIG.MAX_PLAYERS) {

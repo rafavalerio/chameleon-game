@@ -1,18 +1,16 @@
 "use client";
 
-import { useState } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { HelpCircle, Sparkles, RotateCcw } from "lucide-react";
+import { HelpCircle, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { useGame } from "@/lib/game-context";
 import { GAME_CONFIG } from "@/lib/game-config";
+import { PageContainer, PageHeader, PageContent } from "./shared/page-layout";
 
 export function ChameleonGuess() {
-  const { state, chameleonGuess, resetGame } = useGame();
-  const [showResetDialog, setShowResetDialog] = useState(false);
+  const { state, chameleonGuess } = useGame();
 
   const chameleon = state.players.find((p) => p.isChameleon);
   const topicWords = state.currentTopic?.words ?? [];
@@ -28,7 +26,7 @@ export function ChameleonGuess() {
   const randomOtherWords = [...otherWords]
     .sort(() => Math.random() - 0.5)
     .slice(0, 5);
-  
+
   // Combine secret word with 5 random words and shuffle
   const wordOptions: string[] = [secretWord, ...randomOtherWords].sort(
     () => Math.random() - 0.5
@@ -39,30 +37,9 @@ export function ChameleonGuess() {
     chameleonGuess(isCorrect);
   };
 
-  const handleReset = () => {
-    resetGame();
-    setShowResetDialog(false);
-  };
-
   return (
-    <div className="h-full flex flex-col max-w-md mx-auto">
-      {/* Fixed Header */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        className="flex-shrink-0 pt-3 pb-3 px-4 text-center space-y-3 border-b border-border/50 bg-background/95 backdrop-blur-sm relative"
-        style={{ paddingTop: 'max(0.5rem, calc(env(safe-area-inset-top) + 0.5rem))', paddingLeft: 'max(1rem, env(safe-area-inset-left))', paddingRight: 'max(1rem, env(safe-area-inset-right))' }}
-      >
-        <Button
-          variant="outline"
-          size="icon"
-          onClick={() => setShowResetDialog(true)}
-          className="absolute h-8 w-8 text-muted-foreground hover:text-foreground hover:bg-muted border border-border/60"
-          style={{ top: 'max(0.5rem, calc(env(safe-area-inset-top) + 0.5rem))', right: 'max(0.75rem, calc(env(safe-area-inset-right) + 0.75rem))' }}
-          aria-label="Reset game"
-        >
-          <RotateCcw className="w-4 h-4" />
-        </Button>
+    <PageContainer>
+      <PageHeader className="space-y-3">
         <motion.div
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}
@@ -85,13 +62,9 @@ export function ChameleonGuess() {
           </span>{" "}
           by guessing the word
         </p>
-      </motion.div>
+      </PageHeader>
 
-      {/* Scrollable Content */}
-      <div 
-        className="flex-1 overflow-y-auto px-4 py-4 space-y-6"
-        style={{ paddingLeft: 'max(1rem, env(safe-area-inset-left))', paddingRight: 'max(1rem, env(safe-area-inset-right))' }}
-      >
+      <PageContent className="space-y-6">
         {/* Topic hint */}
         <Card className="border border-chameleon-dark/20 bg-chameleon-dark/5">
           <CardContent className="p-4 text-center">
@@ -160,32 +133,7 @@ export function ChameleonGuess() {
             answers?
           </p>
         </motion.div>
-      </div>
-
-      <Dialog open={showResetDialog} onOpenChange={setShowResetDialog}>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>Reset Game?</DialogTitle>
-            <DialogDescription>
-              Are you sure you want to reset the game? This will return you to the player setup screen and all progress will be lost.
-            </DialogDescription>
-          </DialogHeader>
-          <DialogFooter>
-            <Button
-              variant="outline"
-              onClick={() => setShowResetDialog(false)}
-            >
-              Cancel
-            </Button>
-            <Button
-              variant="destructive"
-              onClick={handleReset}
-            >
-              Reset Game
-            </Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
-    </div>
+      </PageContent>
+    </PageContainer>
   );
 }

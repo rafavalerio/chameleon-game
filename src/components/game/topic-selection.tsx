@@ -1,13 +1,11 @@
 "use client";
 
-import { useState } from "react";
 import { motion } from "framer-motion";
-import { Sparkles, RotateCcw } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Sparkles } from "lucide-react";
 import { Card } from "@/components/ui/card";
-import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { useGame } from "@/lib/game-context";
 import { topics, Topic } from "@/lib/game-data";
+import { PageContainer, PageHeader, PageContent } from "./shared/page-layout";
 
 const container = {
   hidden: { opacity: 0 },
@@ -25,37 +23,15 @@ const item = {
 };
 
 export function TopicSelection() {
-  const { state, selectTopic, resetGame } = useGame();
-  const [showResetDialog, setShowResetDialog] = useState(false);
+  const { state, selectTopic } = useGame();
 
   const handleSelectTopic = (topic: Topic) => {
     selectTopic(topic);
   };
 
-  const handleReset = () => {
-    resetGame();
-    setShowResetDialog(false);
-  };
-
   return (
-    <div className="h-full flex flex-col max-w-md mx-auto">
-      {/* Fixed Header */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        className="flex-shrink-0 pt-3 pb-3 px-4 text-center space-y-2 border-b border-border/50 bg-background/95 backdrop-blur-sm safe-area-header relative"
-        style={{ paddingTop: 'max(0.5rem, calc(env(safe-area-inset-top) + 0.5rem))', paddingLeft: 'max(1rem, env(safe-area-inset-left))', paddingRight: 'max(1rem, env(safe-area-inset-right))' }}
-      >
-        <Button
-          variant="outline"
-          size="icon"
-          onClick={() => setShowResetDialog(true)}
-          className="absolute h-8 w-8 text-muted-foreground hover:text-foreground hover:bg-muted border border-border/60"
-          style={{ top: 'max(0.5rem, calc(env(safe-area-inset-top) + 0.5rem))', right: 'max(0.75rem, calc(env(safe-area-inset-right) + 0.75rem))' }}
-          aria-label="Reset game"
-        >
-          <RotateCcw className="w-4 h-4" />
-        </Button>
+    <PageContainer>
+      <PageHeader>
         <motion.div
           initial={{ scale: 0, rotate: -180 }}
           animate={{ scale: 1, rotate: 0 }}
@@ -67,13 +43,9 @@ export function TopicSelection() {
         <p className="text-muted-foreground text-sm">
           Round {state.roundNumber} • {state.players.length} players
         </p>
-      </motion.div>
+      </PageHeader>
 
-      {/* Scrollable Content */}
-      <div 
-        className="flex-1 overflow-y-auto px-4 py-4"
-        style={{ paddingLeft: 'max(1rem, env(safe-area-inset-left))', paddingRight: 'max(1rem, env(safe-area-inset-right))' }}
-      >
+      <PageContent>
         <motion.div
           variants={container}
           initial="hidden"
@@ -99,32 +71,7 @@ export function TopicSelection() {
             </motion.div>
           ))}
         </motion.div>
-      </div>
-
-      <Dialog open={showResetDialog} onOpenChange={setShowResetDialog}>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>Reset Game?</DialogTitle>
-            <DialogDescription>
-              Are you sure you want to reset the game? This will return you to the player setup screen and all progress will be lost.
-            </DialogDescription>
-          </DialogHeader>
-          <DialogFooter>
-            <Button
-              variant="outline"
-              onClick={() => setShowResetDialog(false)}
-            >
-              Cancel
-            </Button>
-            <Button
-              variant="destructive"
-              onClick={handleReset}
-            >
-              Reset Game
-            </Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
-    </div>
+      </PageContent>
+    </PageContainer>
   );
 }
