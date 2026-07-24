@@ -8,6 +8,7 @@ import { Progress } from "@/components/ui/progress";
 import { useGame } from "@/lib/game-context";
 import { PageContainer, PageHeader, PageContent, PageFooter } from "./shared/page-layout";
 import { PlayerAvatar } from "./shared/player-avatar";
+import { ScreenTitle, ScreenSubtitle, Prompt, Hint, Quote } from "./shared/content-text";
 
 export function QuestionsPhase() {
   const { state, nextQuestion, startVoting } = useGame();
@@ -36,22 +37,22 @@ export function QuestionsPhase() {
         >
           <MessageCircle className="w-12 h-12 mx-auto text-primary" />
         </motion.div>
-        <h2 className="text-2xl font-bold">Discussion Time</h2>
-        <div className="flex items-center justify-center gap-2 text-muted-foreground">
+        <ScreenTitle>Discussion Time</ScreenTitle>
+        <ScreenSubtitle className="flex items-center justify-center gap-2">
           {state.currentTopic && (
             <state.currentTopic.icon className="w-5 h-5" />
           )}
           <span>{state.currentTopic?.name}</span>
-        </div>
+        </ScreenSubtitle>
       </PageHeader>
 
       <PageContent className="space-y-6">
         {/* Progress */}
         <div className="space-y-2">
           <Progress value={progress} className="h-2" />
-          <p className="text-xs text-center text-muted-foreground">
+          <Hint className="text-center">
             Question {state.currentPlayerIndex + 1} of {state.players.length}
-          </p>
+          </Hint>
         </div>
 
         {/* Current player's turn */}
@@ -72,8 +73,8 @@ export function QuestionsPhase() {
                 >
                   <PlayerAvatar name={currentPlayer.name} index={playerColorIndex} size="lg" />
                 </motion.div>
-                <p className="text-lg font-semibold">{currentPlayer.name}</p>
-                <p className="text-sm text-muted-foreground">answers the question</p>
+                <Prompt>{currentPlayer.name}</Prompt>
+                <Hint>answers the question</Hint>
               </div>
 
               <motion.div
@@ -82,18 +83,16 @@ export function QuestionsPhase() {
                 transition={{ delay: 0.2 }}
                 className="p-5 rounded-xl bg-primary/5 border border-primary/20"
               >
-                <p className="text-lg font-medium text-center leading-relaxed">
-                  &ldquo;{currentQuestion}&rdquo;
-                </p>
+                <Quote>&ldquo;{currentQuestion}&rdquo;</Quote>
               </motion.div>
 
-              <p className="text-sm text-center text-muted-foreground">
+              <Hint className="text-center">
                 {state.players
                   .filter((p) => p.id !== currentPlayer.id)
                   .map((p) => p.name)
                   .join(", ")}{" "}
                 — listen carefully!
-              </p>
+              </Hint>
             </CardContent>
           </Card>
         </motion.div>

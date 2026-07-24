@@ -1,20 +1,7 @@
 import type { Metadata, Viewport } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import "@fontsource-variable/onest";
 import { GameProvider } from "@/lib/game-context";
 import "./globals.css";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-  display: "swap",
-  preload: true,
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-  display: "swap",
-});
 
 export const metadata: Metadata = {
   title: "Chameleon - Party Game",
@@ -81,7 +68,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning className={`${geistSans.variable} ${geistMono.variable}`}>
+    <html lang="en" suppressHydrationWarning>
       <head>
         {/* Favicon */}
         <link rel="icon" type="image/png" sizes="32x32" href="/icons/chameleon.png" />
@@ -103,9 +90,7 @@ export default function RootLayout({
         {/* Prevent iOS from styling phone numbers as links */}
         <meta name="format-detection" content="telephone=no" />
       </head>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} font-sans antialiased min-h-screen bg-background`}
-      >
+      <body className="font-sans antialiased min-h-screen bg-background">
         <GameProvider>{children}</GameProvider>
       </body>
     </html>

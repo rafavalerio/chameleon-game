@@ -6,6 +6,7 @@ import { Card } from "@/components/ui/card";
 import { useGame } from "@/lib/game-context";
 import { topics, Topic } from "@/lib/game-data";
 import { PageContainer, PageHeader, PageContent } from "./shared/page-layout";
+import { ScreenTitle, ScreenSubtitle } from "./shared/content-text";
 
 const container = {
   hidden: { opacity: 0 },
@@ -39,10 +40,10 @@ export function TopicSelection() {
         >
           <Sparkles className="w-12 h-12 mx-auto text-primary" />
         </motion.div>
-        <h2 className="text-2xl font-bold">Choose a Topic</h2>
-        <p className="text-muted-foreground text-sm">
+        <ScreenTitle>Choose a Topic</ScreenTitle>
+        <ScreenSubtitle>
           Round {state.roundNumber} • {state.players.length} players
-        </p>
+        </ScreenSubtitle>
       </PageHeader>
 
       <PageContent>

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { RotateCcw } from "lucide-react";
+import { Home } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useGame } from "@/lib/game-context";
 import { ConfirmDialog } from "./confirm-dialog";
@@ -14,12 +14,12 @@ export function ResetGameButton() {
     <>
       <Button
         variant="outline"
-        size="icon"
+        size="icon-lg"
         onClick={() => setOpen(true)}
-        className="h-8 w-8 text-muted-foreground hover:text-foreground hover:bg-muted border border-border/60"
+        className="text-muted-foreground hover:text-foreground hover:bg-muted border border-border/60"
         aria-label="Reset game"
       >
-        <RotateCcw className="w-4 h-4" />
+        <Home className="w-4 h-4" />
       </Button>
 
       <ConfirmDialog

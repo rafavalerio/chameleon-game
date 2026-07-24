@@ -76,6 +76,17 @@ Key colour variables:
 - `--chameleon` - Chameleon-specific green
 - `--game-*` - Playful accent colours
 
+### Typography
+
+The app font is [Onest](https://fonts.google.com/specimen/Onest), self-hosted via
+`@fontsource-variable/onest` and wired to `--font-sans` in `globals.css`.
+
+Text styling for game screens (titles, labels, hints, standout values, the word-reveal pill) is
+centralised in `src/lib/typography.ts` as a single `TEXT_STYLES` object, consumed through the
+components in `src/components/game/shared/content-text.tsx` (`ScreenTitle`, `Label`, `Prompt`,
+`Hint`, `Value`, `Quote`, `Pill`, etc.). Change a role once in `typography.ts` and it updates
+everywhere it's used.
+
 ### Game Configuration
 
 Edit `src/lib/game-config.ts` to customise:
@@ -109,10 +120,11 @@ Example topic structure:
 
 ## 🛠️ Tech Stack
 
-- **Framework**: Next.js 15 (App Router)
+- **Framework**: Next.js 16 (App Router)
 - **Language**: TypeScript
 - **Styling**: Tailwind CSS v4
 - **Components**: Shadcn UI
+- **Font**: Onest (`@fontsource-variable/onest`, self-hosted)
 - **Animations**: Framer Motion
 - **Icons**: Lucide React
 
@@ -132,12 +144,14 @@ src/
 │   │   ├── questions-phase.tsx
 │   │   ├── voting-phase.tsx
 │   │   ├── chameleon-guess.tsx
-│   │   └── final-results.tsx
+│   │   ├── final-results.tsx
+│   │   └── shared/          # Reusable page-layout, button, and content-text primitives
 │   └── ui/              # Shadcn UI components
 ├── lib/
 │   ├── game-config.ts   # Point values & settings
 │   ├── game-data.ts     # Topics, words & questions
 │   ├── game-context.tsx # Game state management
+│   ├── typography.ts    # Centralised text-style tokens
 │   └── utils.ts         # Utility functions
 public/
 ├── icons/               # PWA icons

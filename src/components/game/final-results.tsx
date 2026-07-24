@@ -9,6 +9,7 @@ import { Badge } from "@/components/ui/badge";
 import { useGame } from "@/lib/game-context";
 import { GAME_CONFIG } from "@/lib/game-config";
 import { PageContainer, PageHeader, PageContent, PageFooter } from "./shared/page-layout";
+import { ScreenTitle, Label, Value, Prompt, Hint } from "./shared/content-text";
 
 export function FinalResults() {
   const { state, newRound, resetGame } = useGame();
@@ -44,9 +45,9 @@ export function FinalResults() {
             />
           )}
         </motion.div>
-        <h2 className="text-2xl font-bold">
+        <ScreenTitle>
           {chameleonWasCaught ? "Chameleon Caught!" : "Chameleon Wins!"}
-        </h2>
+        </ScreenTitle>
       </PageHeader>
 
       <PageContent className="space-y-6">
@@ -65,10 +66,8 @@ export function FinalResults() {
                   />
                 </div>
                 <div>
-                  <p className="text-sm text-muted-foreground">The chameleon was</p>
-                  <p className="text-xl font-bold text-primary">
-                    {chameleon?.name}
-                  </p>
+                  <Label>The chameleon was</Label>
+                  <Value>{chameleon?.name}</Value>
                 </div>
               </div>
               <Badge
@@ -81,10 +80,8 @@ export function FinalResults() {
 
             {/* Secret word */}
             <div className="p-4 rounded-xl bg-background/80 text-center">
-              <p className="text-sm text-muted-foreground mb-1">
-                The secret word was:
-              </p>
-              <p className="text-2xl font-bold text-primary">{state.secretWord}</p>
+              <Label className="mb-1">The secret word was:</Label>
+              <Value>{state.secretWord}</Value>
             </div>
 
             {/* Chameleon's guess result (if applicable) */}
@@ -103,10 +100,10 @@ export function FinalResults() {
                     <Check className="w-5 h-5 text-primary" />
                     <div>
                       <p className="font-medium text-primary">Correct guess!</p>
-                      <p className="text-sm text-muted-foreground">
+                      <Hint>
                         {chameleon?.name} earned +
                         {GAME_CONFIG.POINTS_CHAMELEON_GUESSES_WORD} bonus points
-                      </p>
+                      </Hint>
                     </div>
                   </>
                 ) : (
@@ -114,9 +111,7 @@ export function FinalResults() {
                     <X className="w-5 h-5 text-destructive" />
                     <div>
                       <p className="font-medium text-destructive">Wrong guess!</p>
-                      <p className="text-sm text-muted-foreground">
-                        No bonus points for {chameleon?.name}
-                      </p>
+                      <Hint>No bonus points for {chameleon?.name}</Hint>
                     </div>
                   </>
                 )}
@@ -130,7 +125,7 @@ export function FinalResults() {
           <CardContent className="p-5 space-y-4">
             <div className="flex items-center justify-center gap-2">
               <Trophy className="w-5 h-5 text-primary" />
-              <h3 className="font-semibold text-lg">Scoreboard</h3>
+              <Prompt>Scoreboard</Prompt>
             </div>
 
             <div className="space-y-2">

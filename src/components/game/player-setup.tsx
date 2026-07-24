@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
-import { Plus, X, Users, Play, Trash2 } from "lucide-react";
+import { Plus, X, Users, Play, UserX } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -12,6 +12,7 @@ import { GAME_CONFIG } from "@/lib/game-config";
 import { PageContainer, PageHeader, PageContent, PageFooter } from "./shared/page-layout";
 import { ConfirmDialog } from "./shared/confirm-dialog";
 import { PlayerAvatar } from "./shared/player-avatar";
+import { ScreenSubtitle } from "./shared/content-text";
 
 export function PlayerSetup() {
   const { state, addPlayer, removePlayer, clearPlayers, startTopicSelection } = useGame();
@@ -55,7 +56,7 @@ export function PlayerSetup() {
         <h1 className="text-3xl font-bold text-primary">
           Chameleon
         </h1>
-        <p className="text-muted-foreground">Add players to start the game</p>
+        <ScreenSubtitle>Add players to start the game</ScreenSubtitle>
       </PageHeader>
 
       <PageContent>
@@ -69,12 +70,12 @@ export function PlayerSetup() {
               {state.players.length > 0 && (
                 <Button
                   variant="outline"
-                  size="icon"
+                  size="icon-lg"
                   onClick={() => setShowClearDialog(true)}
-                  className="h-8 w-8 text-muted-foreground hover:text-foreground hover:bg-muted border border-border/60"
+                  className="text-muted-foreground hover:text-foreground hover:bg-muted border border-border/60"
                   aria-label="Clear all players"
                 >
-                  <Trash2 className="w-4 h-4" />
+                  <UserX className="w-4 h-4" />
                 </Button>
               )}
             </div>

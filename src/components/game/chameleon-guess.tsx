@@ -8,6 +8,9 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useGame } from "@/lib/game-context";
 import { GAME_CONFIG } from "@/lib/game-config";
 import { PageContainer, PageHeader, PageContent } from "./shared/page-layout";
+import { ScreenTitle, ScreenSubtitle, Label, Prompt, Hint } from "./shared/content-text";
+import { TEXT_STYLES } from "@/lib/typography";
+import { cn } from "@/lib/utils";
 
 export function ChameleonGuess() {
   const { state, chameleonGuess } = useGame();
@@ -54,28 +57,26 @@ export function ChameleonGuess() {
             className="w-20 h-auto"
           />
         </motion.div>
-        <h2 className="text-2xl font-bold">Chameleon&apos;s Last Chance!</h2>
-        <p className="text-muted-foreground">
+        <ScreenTitle>Chameleon&apos;s Last Chance!</ScreenTitle>
+        <ScreenSubtitle>
           {chameleon?.name} was caught, but can still earn{" "}
           <span className="font-semibold text-primary">
             {GAME_CONFIG.POINTS_CHAMELEON_GUESSES_WORD} points
           </span>{" "}
           by guessing the word
-        </p>
+        </ScreenSubtitle>
       </PageHeader>
 
       <PageContent className="space-y-6">
         {/* Topic hint */}
         <Card className="border border-primary/20 bg-primary/5">
           <CardContent className="p-4 text-center">
-            <p className="text-sm text-muted-foreground mb-1">The topic was:</p>
+            <Label className="mb-1">The topic was:</Label>
             <div className="flex items-center justify-center gap-2">
               {state.currentTopic && (
                 <state.currentTopic.icon className="w-5 h-5 text-primary" />
               )}
-              <span className="text-lg font-semibold">
-                {state.currentTopic?.name}
-              </span>
+              <Prompt>{state.currentTopic?.name}</Prompt>
             </div>
           </CardContent>
         </Card>
@@ -83,7 +84,7 @@ export function ChameleonGuess() {
         {/* Word options */}
         <Card className="border border-border/60">
           <CardHeader className="pb-2">
-            <CardTitle className="text-center text-lg flex items-center justify-center gap-2">
+            <CardTitle className={cn(TEXT_STYLES.prompt, "text-center flex items-center justify-center gap-2")}>
               <HelpCircle className="w-5 h-5 text-primary" />
               What was the secret word?
             </CardTitle>
@@ -130,10 +131,10 @@ export function ChameleonGuess() {
           className="flex items-start gap-2 p-4 rounded-xl bg-primary/5 border border-primary/20"
         >
           <Sparkles className="w-5 h-5 text-primary shrink-0 mt-0.5" />
-          <p className="text-sm text-muted-foreground">
+          <Hint>
             Think about the clues other players gave. What word fits all their
             answers?
-          </p>
+          </Hint>
         </motion.div>
       </PageContent>
     </PageContainer>

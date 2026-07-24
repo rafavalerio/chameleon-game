@@ -54,7 +54,17 @@ game-context.tsx.
 
 - `src/components/ui/` — Shadcn UI primitives (button, card, dialog, input, etc.). Follow the
   existing Shadcn conventions (`cva` variants, `cn()` from `src/lib/utils.ts`) when adding new
-  primitives rather than hand-rolling styles.
+  primitives rather than hand-rolling styles. Buttons are pill-shaped (`rounded-full` in the
+  `buttonVariants` base) — this is set once in `button.tsx`, not per-usage.
+- Text styling for game phase screens is centralized in
+  [src/lib/typography.ts](src/lib/typography.ts) (`TEXT_STYLES`: `screenTitle`, `screenSubtitle`,
+  `label`, `prompt`, `hint`, `value`, `quote`, `pill`) and consumed via the components in
+  [src/components/game/shared/content-text.tsx](src/components/game/shared/content-text.tsx)
+  (`ScreenTitle`, `ScreenSubtitle`, `Label`, `Prompt`, `Hint`, `Value`, `Quote`, `Pill`). Use these
+  instead of writing one-off `text-*`/`font-*` className combinations in phase components — retheming
+  a role happens in `typography.ts`, not by hunting through every screen.
+- Font is Onest (`@fontsource-variable/onest`, self-hosted variable weight), loaded once in
+  `src/app/layout.tsx` and wired to `--font-sans` in `globals.css`.
 - Theme colours are CSS custom properties in `src/app/globals.css` using OKLCH. Key variables:
   `--primary`, `--chameleon`, `--game-*`.
 - Path alias `@/*` maps to `src/*` (see tsconfig.json).
@@ -74,3 +84,6 @@ that script rather than editing files under `public/icons/` by hand.
   words, questions) belongs in `game-data.ts`. Keep both out of component files.
 - Phase transitions should go through reducer actions in `game-context.tsx`, not be inferred
   ad-hoc in components.
+- Text styling roles (title/label/prompt/hint/value/etc.) belong in `typography.ts` and are used
+  via `shared/content-text.tsx`. Keep new phase-screen text on these roles rather than adding new
+  ad-hoc size/weight/colour combinations.

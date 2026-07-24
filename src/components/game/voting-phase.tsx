@@ -8,6 +8,9 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { useGame } from "@/lib/game-context";
 import { PageContainer, PageHeader, PageContent, PageFooter } from "./shared/page-layout";
+import { ScreenTitle, ScreenSubtitle, Prompt, Hint, Label } from "./shared/content-text";
+import { TEXT_STYLES } from "@/lib/typography";
+import { cn } from "@/lib/utils";
 
 export function VotingPhase() {
   const { state, castVote, calculateResults } = useGame();
@@ -48,10 +51,8 @@ export function VotingPhase() {
         >
           <Vote className="w-12 h-12 mx-auto text-primary" />
         </motion.div>
-        <h2 className="text-2xl font-bold">Time to Vote!</h2>
-        <p className="text-muted-foreground">
-          Who do you think is the chameleon?
-        </p>
+        <ScreenTitle>Time to Vote!</ScreenTitle>
+        <ScreenSubtitle>Who do you think is the chameleon?</ScreenSubtitle>
       </PageHeader>
 
       <PageContent>
@@ -66,12 +67,12 @@ export function VotingPhase() {
             >
               <Card className="border border-border/60">
                 <CardHeader className="pb-2">
-                  <CardTitle className="text-center text-lg">
+                  <CardTitle className={cn(TEXT_STYLES.prompt, "text-center")}>
                     {currentVoter.name}&apos;s Vote
                   </CardTitle>
-                  <p className="text-sm text-center text-muted-foreground">
+                  <Hint className="text-center">
                     Select who you think is the chameleon
-                  </p>
+                  </Hint>
                 </CardHeader>
                 <CardContent className="space-y-2">
                   {state.players
@@ -114,9 +115,7 @@ export function VotingPhase() {
             >
               {!allVoted ? (
                 <>
-                  <p className="text-sm font-medium text-center text-muted-foreground">
-                    Pass the device to vote:
-                  </p>
+                  <Label className="text-center">Pass the device to vote:</Label>
                   <div className="space-y-2">
                     {playersWhoHaventVoted.map((player, index) => (
                       <motion.div
@@ -143,9 +142,7 @@ export function VotingPhase() {
                   {/* Already voted */}
                   {state.players.filter((p) => p.votedFor).length > 0 && (
                     <div className="pt-4 border-t border-border">
-                      <p className="text-sm text-muted-foreground mb-2">
-                        Already voted:
-                      </p>
+                      <Label className="mb-2">Already voted:</Label>
                       <div className="flex flex-wrap gap-2">
                         {state.players
                           .filter((p) => p.votedFor)
@@ -169,7 +166,7 @@ export function VotingPhase() {
                   <CardContent className="p-6 space-y-4">
                     <div className="text-center">
                       <Vote className="w-12 h-12 mx-auto mb-2 text-primary" />
-                      <p className="font-semibold text-lg">All votes are in!</p>
+                      <Prompt>All votes are in!</Prompt>
                     </div>
 
                     <div className="space-y-2">

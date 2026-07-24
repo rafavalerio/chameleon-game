@@ -2,13 +2,14 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import Image from "next/image";
 import { Eye, EyeOff, Check, ChevronRight, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { useGame } from "@/lib/game-context";
 import { PageContainer, PageHeader, PageContent } from "./shared/page-layout";
+import { ResetGameButton } from "./shared/reset-game-button";
+import { Label, Prompt, Hint, Pill } from "./shared/content-text";
 
 export function WordReveal() {
   const { state, revealWord } = useGame();
@@ -41,22 +42,25 @@ export function WordReveal() {
 
   return (
     <PageContainer>
-      <PageHeader>
-        <div className="flex items-center justify-center gap-2 text-lg font-semibold">
-          {state.currentTopic && (
-            <state.currentTopic.icon className="w-5 h-5 text-primary" />
-          )}
-          <span>{state.currentTopic?.name}</span>
+      <PageHeader showReset={false}>
+        <div className="flex items-center justify-between gap-2">
+          <Prompt className="flex items-center gap-2">
+            {state.currentTopic && (
+              <state.currentTopic.icon className="w-5 h-5 text-primary" />
+            )}
+            <span>{state.currentTopic?.name}</span>
+          </Prompt>
+          <ResetGameButton />
         </div>
-        <p className="text-muted-foreground text-sm">
+        <Hint className="text-left">
           Pass the device to each player to reveal their word
-        </p>
+        </Hint>
         {/* Progress */}
         <div className="space-y-1 pt-2">
           <Progress value={progress} className="h-2" />
-          <p className="text-xs text-center text-muted-foreground">
+          <Hint>
             {revealedCount} of {state.players.length} players have seen their word
-          </p>
+          </Hint>
         </div>
       </PageHeader>
 
@@ -72,13 +76,11 @@ export function WordReveal() {
             >
               <Card className="border border-border/60 overflow-hidden">
                 <CardContent className="p-6 space-y-6">
-                  <div className="text-center">
-                    <p className="text-sm text-muted-foreground mb-1">
-                      {currentPlayer?.name}&apos;s turn
-                    </p>
-                    <p className="text-lg font-medium">
+                  <div className="text-center space-y-1">
+                    <Label>{currentPlayer?.name}&apos;s turn</Label>
+                    <Prompt>
                       {showingWord ? "Remember this!" : "Tap to reveal your word"}
-                    </p>
+                    </Prompt>
                   </div>
 
                   {/* Fixed height container to prevent layout shift */}
@@ -94,35 +96,16 @@ export function WordReveal() {
                           className="flex-1 flex flex-col justify-center p-8 rounded-2xl text-center min-h-[128px] bg-primary/5 border border-primary/20"
                         >
                           {isChameleon ? (
-                            <>
-                              <div className="flex justify-center mb-4">
-                                <Image
-                                  src="/chameleon-logo.png"
-                                  alt="Chameleon"
-                                  width={1186}
-                                  height={1096}
-                                  className="w-16 h-auto"
-                                />
-                              </div>
-                              <p className="text-2xl font-bold text-primary">
-                                You are the
-                              </p>
-                              <p className="text-3xl font-black text-primary">
-                                CHAMELEON
-                              </p>
-                              <p className="text-sm text-muted-foreground mt-3">
-                                Blend in! Don&apos;t reveal yourself.
-                              </p>
-                            </>
+                            <div className="space-y-3">
+                              <Label>You are the</Label>
+                              <Pill>CHAMELEON</Pill>
+                              <Hint>Blend in! Don&apos;t reveal yourself.</Hint>
+                            </div>
                           ) : (
-                            <>
-                              <p className="text-sm text-muted-foreground mb-2">
-                                The secret word is:
-                              </p>
-                              <p className="text-3xl font-black text-primary">
-                                {state.secretWord}
-                              </p>
-                            </>
+                            <div className="space-y-3">
+                              <Label>The secret word is:</Label>
+                              <Pill>{state.secretWord}</Pill>
+                            </div>
                           )}
                         </motion.div>
                       ) : (
@@ -178,9 +161,7 @@ export function WordReveal() {
             >
               {unrevealedPlayers.length > 0 ? (
                 <>
-                  <p className="text-sm font-medium text-center text-muted-foreground">
-                    Select next player:
-                  </p>
+                  <Label className="text-center">Select next player:</Label>
                   {unrevealedPlayers.map((player, index) => (
                     <motion.div
                       key={player.id}
@@ -209,10 +190,8 @@ export function WordReveal() {
                   className="text-center py-8"
                 >
                   <Sparkles className="w-12 h-12 mx-auto mb-4 text-primary" />
-                  <p className="text-lg font-semibold">All players ready!</p>
-                  <p className="text-muted-foreground text-sm">
-                    Moving to discussion phase...
-                  </p>
+                  <Prompt>All players ready!</Prompt>
+                  <Hint>Moving to discussion phase...</Hint>
                 </motion.div>
               )}
             </motion.div>
