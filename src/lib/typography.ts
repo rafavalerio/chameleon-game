@@ -27,6 +27,10 @@ export const TEXT_STYLES = {
   /** A quoted line of content, e.g. the discussion question */
   quote: "text-lg font-medium text-center leading-relaxed",
 
-  /** The bold pill banner used for the big word/CHAMELEON reveal */
+  /** The bold pill banner used for the big word reveal */
   pill: "inline-flex items-center justify-center rounded-full bg-primary text-primary-foreground text-2xl font-black px-6 py-2",
+
+  /** The colour-shifting pill used specifically for the CHAMELEON reveal */
+  pillChameleon:
+    "inline-flex items-center justify-center rounded-full chameleon-pill text-primary-foreground text-2xl font-black px-6 py-2",
 } as const;

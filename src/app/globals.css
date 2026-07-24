@@ -91,6 +91,10 @@
   --avatar-5: oklch(0.58 0.1 300);
   --avatar-6: oklch(0.58 0.1 40);
 
+  /* Chameleon reveal accent hues - cycled in the colour-shift pill/card */
+  --chameleon-amber: oklch(0.72 0.15 70);
+  --chameleon-violet: oklch(0.55 0.18 300);
+
   /* Sidebar (unused currently, kept in sync with base palette) */
   --sidebar: oklch(0.985 0.006 141.5);
   --sidebar-foreground: oklch(0.22 0.01 141.5);
@@ -134,6 +138,9 @@
   --avatar-4: oklch(0.68 0.1 100);
   --avatar-5: oklch(0.68 0.1 300);
   --avatar-6: oklch(0.68 0.1 40);
+
+  --chameleon-amber: oklch(0.78 0.15 70);
+  --chameleon-violet: oklch(0.68 0.18 300);
 
   --sidebar: oklch(0.22 0.006 141.5);
   --sidebar-foreground: oklch(0.95 0.006 141.5);
@@ -235,6 +242,40 @@ html, body {
 button, [role="button"], [data-slot="button"] {
   -webkit-tap-highlight-color: transparent;
   touch-action: manipulation;
+}
+
+/* Chameleon reveal - colour-shifting pill and card tint, evoking the animal's own trick */
+.chameleon-pill {
+  background: linear-gradient(
+    120deg,
+    var(--primary),
+    var(--chameleon-amber),
+    var(--chameleon-violet),
+    var(--primary)
+  );
+  background-size: 300% 300%;
+  animation: chameleon-shift 5s ease infinite;
+}
+
+.chameleon-surface {
+  background: linear-gradient(
+    135deg,
+    color-mix(in oklch, var(--primary) 8%, transparent),
+    color-mix(in oklch, var(--chameleon-violet) 8%, transparent)
+  );
+  border-color: color-mix(in oklch, var(--chameleon-violet) 25%, transparent);
+}
+
+@keyframes chameleon-shift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
 /* Green press effect for outline and ghost buttons on mobile */

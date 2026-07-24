@@ -9,7 +9,7 @@ import { Progress } from "@/components/ui/progress";
 import { useGame } from "@/lib/game-context";
 import { PageContainer, PageHeader, PageContent } from "./shared/page-layout";
 import { ResetGameButton } from "./shared/reset-game-button";
-import { Label, Prompt, Hint, Pill } from "./shared/content-text";
+import { Label, Prompt, Hint, Pill, ChameleonPill } from "./shared/content-text";
 
 export function WordReveal() {
   const { state, revealWord } = useGame();
@@ -93,12 +93,16 @@ export function WordReveal() {
                           animate={{ opacity: 1, rotateY: 0 }}
                           exit={{ opacity: 0, rotateY: -90 }}
                           transition={{ duration: 0.3 }}
-                          className="flex-1 flex flex-col justify-center p-8 rounded-2xl text-center min-h-[128px] bg-primary/5 border border-primary/20"
+                          className={`flex-1 flex flex-col justify-center p-8 rounded-2xl text-center min-h-[128px] border ${
+                            isChameleon
+                              ? "chameleon-surface"
+                              : "bg-primary/5 border-primary/20"
+                          }`}
                         >
                           {isChameleon ? (
                             <div className="space-y-3">
                               <Label>You are the</Label>
-                              <Pill>CHAMELEON</Pill>
+                              <ChameleonPill>CHAMELEON</ChameleonPill>
                               <Hint>Blend in! Don&apos;t reveal yourself.</Hint>
                             </div>
                           ) : (

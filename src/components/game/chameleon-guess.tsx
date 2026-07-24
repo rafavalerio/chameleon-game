@@ -1,7 +1,6 @@
 "use client";
 
 import { motion } from "framer-motion";
-import Image from "next/image";
 import { HelpCircle, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -43,20 +42,6 @@ export function ChameleonGuess() {
   return (
     <PageContainer>
       <PageHeader className="space-y-3">
-        <motion.div
-          initial={{ scale: 0 }}
-          animate={{ scale: 1 }}
-          transition={{ type: "spring", duration: 0.6 }}
-          className="flex justify-center"
-        >
-          <Image
-            src="/chameleon-logo.png"
-            alt="Chameleon"
-            width={1186}
-            height={1096}
-            className="w-20 h-auto"
-          />
-        </motion.div>
         <ScreenTitle>Chameleon&apos;s Last Chance!</ScreenTitle>
         <ScreenSubtitle>
           {chameleon?.name} was caught, but can still earn{" "}

@@ -3,7 +3,9 @@
 import { ReactNode } from "react";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
+import { useGame } from "@/lib/game-context";
 import { ResetGameButton } from "./reset-game-button";
+import { PhaseProgress } from "./phase-progress";
 
 const safeAreaX = {
   paddingLeft: "max(1rem, env(safe-area-inset-left))",
@@ -18,9 +20,17 @@ interface PageHeaderProps {
   children: ReactNode;
   className?: string;
   showReset?: boolean;
+  showProgress?: boolean;
 }
 
-export function PageHeader({ children, className, showReset = true }: PageHeaderProps) {
+export function PageHeader({
+  children,
+  className,
+  showReset = true,
+  showProgress = true,
+}: PageHeaderProps) {
+  const { state } = useGame();
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -34,6 +44,11 @@ export function PageHeader({ children, className, showReset = true }: PageHeader
         ...safeAreaX,
       }}
     >
+      {showProgress && (
+        <div className="pb-1">
+          <PhaseProgress phase={state.phase} />
+        </div>
+      )}
       {showReset && (
         <div className="flex justify-end mb-1">
           <ResetGameButton />

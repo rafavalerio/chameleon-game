@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { MessageCircle, ChevronRight, Vote, Lightbulb } from "lucide-react";
+import { ChevronRight, Vote, Lightbulb } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
@@ -30,13 +30,6 @@ export function QuestionsPhase() {
   return (
     <PageContainer>
       <PageHeader>
-        <motion.div
-          initial={{ scale: 0 }}
-          animate={{ scale: 1 }}
-          transition={{ type: "spring" }}
-        >
-          <MessageCircle className="w-12 h-12 mx-auto text-primary" />
-        </motion.div>
         <ScreenTitle>Discussion Time</ScreenTitle>
         <ScreenSubtitle className="flex items-center justify-center gap-2">
           {state.currentTopic && (
@@ -98,16 +91,18 @@ export function QuestionsPhase() {
         </motion.div>
 
         {/* Tip */}
-        <motion.p
+        <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.5 }}
-          className="flex items-start justify-center gap-1.5 text-xs text-center text-muted-foreground pb-4"
+          className="flex items-start gap-2 p-4 rounded-xl bg-primary/5 border border-primary/20"
         >
-          <Lightbulb className="w-3.5 h-3.5 shrink-0 mt-0.5" />
-          Tip: Give enough detail to seem legitimate, but not too much that the
-          chameleon can guess the word!
-        </motion.p>
+          <Lightbulb className="w-5 h-5 text-primary shrink-0 mt-0.5" />
+          <Hint>
+            Give enough detail to seem legitimate, but not too much that the
+            chameleon can guess the word!
+          </Hint>
+        </motion.div>
       </PageContent>
 
       <PageFooter>

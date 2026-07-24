@@ -1,7 +1,6 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Sparkles } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { useGame } from "@/lib/game-context";
 import { topics, Topic } from "@/lib/game-data";
@@ -33,13 +32,6 @@ export function TopicSelection() {
   return (
     <PageContainer>
       <PageHeader>
-        <motion.div
-          initial={{ scale: 0, rotate: -180 }}
-          animate={{ scale: 1, rotate: 0 }}
-          transition={{ type: "spring", duration: 0.6 }}
-        >
-          <Sparkles className="w-12 h-12 mx-auto text-primary" />
-        </motion.div>
         <ScreenTitle>Choose a Topic</ScreenTitle>
         <ScreenSubtitle>
           Round {state.roundNumber} • {state.players.length} players

@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Vote, Check, Users, User, Eye } from "lucide-react";
+import { Vote, Users, User, Eye } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -44,13 +44,6 @@ export function VotingPhase() {
   return (
     <PageContainer>
       <PageHeader>
-        <motion.div
-          initial={{ scale: 0, rotate: -10 }}
-          animate={{ scale: 1, rotate: 0 }}
-          transition={{ type: "spring" }}
-        >
-          <Vote className="w-12 h-12 mx-auto text-primary" />
-        </motion.div>
         <ScreenTitle>Time to Vote!</ScreenTitle>
         <ScreenSubtitle>Who do you think is the chameleon?</ScreenSubtitle>
       </PageHeader>
@@ -139,25 +132,12 @@ export function VotingPhase() {
                     ))}
                   </div>
 
-                  {/* Already voted */}
+                  {/* Vote progress */}
                   {state.players.filter((p) => p.votedFor).length > 0 && (
-                    <div className="pt-4 border-t border-border">
-                      <Label className="mb-2">Already voted:</Label>
-                      <div className="flex flex-wrap gap-2">
-                        {state.players
-                          .filter((p) => p.votedFor)
-                          .map((player) => (
-                            <Badge
-                              key={player.id}
-                              variant="outline"
-                              className="text-sm"
-                            >
-                              <Check className="w-3 h-3 mr-1" />
-                              {player.name}
-                            </Badge>
-                          ))}
-                      </div>
-                    </div>
+                    <Hint className="text-center pt-2">
+                      {state.players.filter((p) => p.votedFor).length} of{" "}
+                      {state.players.length} players have voted
+                    </Hint>
                   )}
                 </>
               ) : (

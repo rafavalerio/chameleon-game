@@ -33,3 +33,7 @@ export function Quote({ className, ...props }: ComponentProps<"p">) {
 export function Pill({ className, ...props }: ComponentProps<"span">) {
   return <span className={cn(TEXT_STYLES.pill, className)} {...props} />;
 }
+
+export function ChameleonPill({ className, ...props }: ComponentProps<"span">) {
+  return <span className={cn(TEXT_STYLES.pillChameleon, className)} {...props} />;
+}

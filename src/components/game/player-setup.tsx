@@ -42,7 +42,7 @@ export function PlayerSetup() {
 
   return (
     <PageContainer>
-      <PageHeader showReset={false}>
+      <PageHeader showReset={false} showProgress={false}>
         <div className="flex justify-center p-2">
           <Image
             src="/chameleon-logo.png"
