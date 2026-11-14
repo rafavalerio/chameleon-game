@@ -2,8 +2,8 @@ import { ComponentProps } from "react";
 import { cn } from "@/lib/utils";
 import { TEXT_STYLES } from "@/lib/typography";
 
-export function ScreenTitle({ className, ...props }: ComponentProps<"h2">) {
-  return <h2 className={cn(TEXT_STYLES.screenTitle, className)} {...props} />;
+export function ScreenTitle({ className, ...props }: ComponentProps<"h1">) {
+  return <h1 className={cn(TEXT_STYLES.screenTitle, className)} {...props} />;
 }
 
 export function ScreenSubtitle({ className, ...props }: ComponentProps<"p">) {

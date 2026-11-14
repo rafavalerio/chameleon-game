@@ -13,7 +13,11 @@ const safeAreaX = {
 };
 
 export function PageContainer({ children }: { children: ReactNode }) {
-  return <div className="h-full flex flex-col max-w-md mx-auto">{children}</div>;
+  return (
+    <div className="mx-auto flex h-full min-h-0 w-full max-w-lg flex-col bg-background shadow-sm md:border-x md:border-border/50">
+      {children}
+    </div>
+  );
 }
 
 interface PageHeaderProps {
@@ -36,7 +40,7 @@ export function PageHeader({
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       className={cn(
-        "flex-shrink-0 pt-3 pb-3 px-4 text-center space-y-2 border-b border-border/50 bg-background/95 backdrop-blur-sm",
+        "flex-shrink-0 space-y-4 border-b border-border/70 bg-background/95 px-5 pb-5 pt-3 text-center backdrop-blur-sm",
         className
       )}
       style={{
@@ -44,24 +48,24 @@ export function PageHeader({
         ...safeAreaX,
       }}
     >
-      {showProgress && (
-        <div className="pb-1">
-          <PhaseProgress phase={state.phase} />
+      {(showProgress || showReset) && (
+        <div className="flex min-h-11 items-center gap-3">
+          {showProgress && (
+            <div className="min-w-0 flex-1">
+              <PhaseProgress phase={state.phase} />
+            </div>
+          )}
+          {showReset && <ResetGameButton />}
         </div>
       )}
-      {showReset && (
-        <div className="flex justify-end mb-1">
-          <ResetGameButton />
-        </div>
-      )}
-      {children}
+      <div className="space-y-3">{children}</div>
     </motion.div>
   );
 }
 
 export function PageContent({ children, className }: { children: ReactNode; className?: string }) {
   return (
-    <div className={cn("flex-1 overflow-y-auto px-4 py-4", className)} style={safeAreaX}>
+    <div className={cn("min-h-0 flex-1 overflow-y-auto px-5 py-6", className)} style={safeAreaX}>
       {children}
     </div>
   );
@@ -71,7 +75,7 @@ export function PageFooter({ children, className }: { children: ReactNode; class
   return (
     <div
       className={cn(
-        "flex-shrink-0 px-4 pt-3 pb-4 border-t border-border/50 bg-background/95 backdrop-blur-sm",
+        "flex-shrink-0 border-t border-border/70 bg-background/95 px-5 pt-4 pb-5 backdrop-blur-sm",
         className
       )}
       style={{

@@ -208,9 +208,7 @@ describe("CAST_VOTE / CALCULATE_RESULTS", () => {
 
     expect(next.eliminatedPlayerId).toBe("2");
     expect(next.phase).toBe("final-results");
-    expect(next.players.find((p) => p.id === "c")?.score).toBe(
-      GAME_CONFIG.POINTS_CHAMELEON_SURVIVES
-    );
+    expect(next.players.find((p) => p.id === "c")?.score).toBe(20);
   });
 
   it("treats a tied vote as no elimination, so the chameleon escapes", () => {
@@ -228,9 +226,7 @@ describe("CAST_VOTE / CALCULATE_RESULTS", () => {
 
     expect(next.eliminatedPlayerId).toBeNull();
     expect(next.phase).toBe("final-results");
-    expect(next.players.find((p) => p.id === "c")?.score).toBe(
-      GAME_CONFIG.POINTS_CHAMELEON_SURVIVES
-    );
+    expect(next.players.find((p) => p.id === "c")?.score).toBe(20);
   });
 });
 
@@ -245,9 +241,7 @@ describe("CHAMELEON_GUESS", () => {
     const next = gameReducer(state, { type: "CHAMELEON_GUESS", correct: true });
     expect(next.phase).toBe("final-results");
     expect(next.chameleonGuessedCorrectly).toBe(true);
-    expect(next.players.find((p) => p.id === "c")?.score).toBe(
-      GAME_CONFIG.POINTS_CHAMELEON_GUESSES_WORD
-    );
+    expect(next.players.find((p) => p.id === "c")?.score).toBe(10);
   });
 
   it("awards no bonus on an incorrect guess", () => {

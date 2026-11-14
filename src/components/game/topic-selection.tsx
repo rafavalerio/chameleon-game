@@ -1,7 +1,6 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Card } from "@/components/ui/card";
 import { useGame } from "@/lib/game-context";
 import { topics, Topic } from "@/lib/game-data";
 import { PageContainer, PageHeader, PageContent } from "./shared/page-layout";
@@ -43,26 +42,29 @@ export function TopicSelection() {
           variants={container}
           initial="hidden"
           animate="show"
-          className="grid grid-cols-2 gap-3 auto-rows-fr"
+          className="grid auto-rows-fr grid-cols-2 gap-3 sm:gap-4"
         >
-          {topics.map((topic) => (
-            <motion.div key={topic.id} variants={item} className="h-full">
-              <Card
+          {topics.map((topic) => {
+            const Icon = topic.icon;
+
+            return (
+            <motion.button
+              key={topic.id}
+              variants={item}
+              type="button"
                 onClick={() => handleSelectTopic(topic)}
-                className="h-full p-4 cursor-pointer transition-all duration-200 hover:scale-[1.02] active:scale-[0.98] active:bg-primary/10 active:border-primary/40 border border-border/60 hover:border-primary/40 hover:bg-primary/5 flex flex-col"
-              >
-                <div className="text-center space-y-2 flex flex-col flex-1 justify-between">
-                  <topic.icon className="w-9 h-9 mx-auto text-primary" />
-                  <div className="flex-1 flex flex-col justify-center">
-                    <h3 className="font-semibold text-base">{topic.name}</h3>
-                    <p className="text-xs text-muted-foreground line-clamp-2 mt-1">
-                      {topic.description}
-                    </p>
-                  </div>
-                </div>
-              </Card>
-            </motion.div>
-          ))}
+              className="flex h-full min-h-36 w-full flex-col items-start rounded-2xl border border-border/70 bg-card p-4 text-left shadow-sm transition hover:-translate-y-0.5 hover:border-primary/40 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background active:translate-y-0 sm:min-h-40 sm:p-5"
+            >
+              <span className="mb-3 grid size-11 place-items-center rounded-xl bg-secondary text-primary">
+                <Icon className="size-6" aria-hidden="true" />
+              </span>
+              <span className="font-semibold leading-snug">{topic.name}</span>
+              <span className="mt-1 text-sm leading-snug text-muted-foreground">
+                {topic.description}
+              </span>
+            </motion.button>
+            );
+          })}
         </motion.div>
       </PageContent>
     </PageContainer>

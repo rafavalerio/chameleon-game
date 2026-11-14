@@ -26,7 +26,7 @@ export function FinalResults() {
 
   return (
     <PageContainer>
-      <PageHeader className="space-y-4">
+      <PageHeader className="space-y-3">
         <motion.div
           initial={{ scale: 0.8, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
@@ -34,14 +34,14 @@ export function FinalResults() {
           className="flex justify-center"
         >
           {chameleonWasCaught ? (
-            <PartyPopper className="w-16 h-16 text-primary" />
+            <PartyPopper className="size-12 text-primary" />
           ) : (
             <Image
               src="/chameleon-logo.png"
               alt="Chameleon"
               width={1186}
               height={1096}
-              className="w-20 h-auto"
+              className="w-16 h-auto"
             />
           )}
         </motion.div>
@@ -52,11 +52,11 @@ export function FinalResults() {
 
       <PageContent className="space-y-6">
         {/* Chameleon reveal */}
-        <Card className="border border-primary/20 bg-primary/5 overflow-hidden">
+        <Card className="overflow-hidden border-primary/20 bg-secondary/45">
           <CardContent className="p-5 space-y-4">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <div className="w-12 h-12 rounded-full bg-primary/15 flex items-center justify-center overflow-hidden">
+            <div className="flex items-center justify-between gap-3">
+              <div className="flex min-w-0 items-center gap-3">
+                <div className="flex size-12 shrink-0 items-center justify-center overflow-hidden rounded-full bg-primary/15">
                   <Image
                     src="/chameleon-logo.png"
                     alt="Chameleon"
@@ -65,21 +65,21 @@ export function FinalResults() {
                     className="w-8 h-auto"
                   />
                 </div>
-                <div>
+                <div className="min-w-0">
                   <Label>The chameleon was</Label>
-                  <Value>{chameleon?.name}</Value>
+                  <Value className="min-w-0 break-words">{chameleon?.name}</Value>
                 </div>
               </div>
               <Badge
                 variant={chameleonWasCaught ? "destructive" : "default"}
-                className="text-sm"
+                className="shrink-0 whitespace-nowrap text-sm"
               >
                 {chameleonWasCaught ? "Caught!" : "Escaped!"}
               </Badge>
             </div>
 
             {/* Secret word */}
-            <div className="p-4 rounded-xl bg-background/80 text-center">
+            <div className="rounded-2xl border border-border/50 bg-background/85 p-5 text-center">
               <Label className="mb-1">The secret word was:</Label>
               <Value>{state.secretWord}</Value>
             </div>
@@ -121,10 +121,10 @@ export function FinalResults() {
         </Card>
 
         {/* Scoreboard */}
-        <Card className="border border-border/60">
-          <CardContent className="p-5 space-y-4">
-            <div className="flex items-center justify-center gap-2">
-              <Trophy className="w-5 h-5 text-primary" />
+        <Card className="border-border/80">
+          <CardContent className="space-y-4 p-5">
+            <div className="flex items-center gap-2">
+              <Trophy className="size-5 text-primary" />
               <Prompt>Scoreboard</Prompt>
             </div>
 
@@ -139,31 +139,31 @@ export function FinalResults() {
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: index * 0.1 }}
-                    className={`flex items-center justify-between p-3 rounded-xl ${
+                    className={`flex items-center justify-between gap-3 p-3 rounded-xl ${
                       isLeader
-                        ? "bg-primary/10 border border-primary/30"
-                        : "bg-muted/30"
+                        ? "border border-primary/25 bg-secondary/80"
+                        : "border border-border/50 bg-background/70"
                     }`}
                   >
-                    <div className="flex items-center gap-3">
-                      <span className="w-6 text-center font-bold text-muted-foreground">
+                    <div className="flex min-w-0 flex-1 items-center gap-3">
+                      <span className="w-6 shrink-0 text-center font-bold text-muted-foreground">
                         {index + 1}
                       </span>
-                      <span className="font-medium">{player.name}</span>
+                      <span className="min-w-0 break-words font-medium">{player.name}</span>
                       {isChameleon && (
                         <Image
                           src="/chameleon-logo.png"
                           alt="Chameleon"
                           width={1186}
                           height={1096}
-                          className="w-4 h-auto"
+                          className="w-4 h-auto shrink-0"
                         />
                       )}
                       {isLeader && (
-                        <Crown className="w-4 h-4 text-primary" />
+                        <Crown className="w-4 h-4 shrink-0 text-primary" />
                       )}
                     </div>
-                    <span className="font-bold text-lg">{player.score}</span>
+                    <span className="shrink-0 text-lg font-bold tabular-nums">{player.score}</span>
                   </motion.div>
                 );
               })}
@@ -172,7 +172,7 @@ export function FinalResults() {
         </Card>
 
         {/* Points breakdown */}
-        <div className="text-center text-sm text-muted-foreground space-y-1">
+        <div className="break-words text-center text-sm text-muted-foreground space-y-1">
           <p>
             {chameleonWasCaught ? (
               <>

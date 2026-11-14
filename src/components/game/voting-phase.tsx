@@ -48,7 +48,7 @@ export function VotingPhase() {
         <ScreenSubtitle>Who do you think is the chameleon?</ScreenSubtitle>
       </PageHeader>
 
-      <PageContent>
+      <PageContent className="space-y-6">
         <AnimatePresence mode="wait">
           {currentVoterId && currentVoter ? (
             /* Voting selection */
@@ -58,8 +58,8 @@ export function VotingPhase() {
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.95 }}
             >
-              <Card className="border border-border/60">
-                <CardHeader className="pb-2">
+              <Card className="border-border/80">
+                <CardHeader className="pb-3">
                   <CardTitle className={cn(TEXT_STYLES.prompt, "text-center")}>
                     {currentVoter.name}&apos;s Vote
                   </CardTitle>
@@ -79,10 +79,10 @@ export function VotingPhase() {
                         <Button
                           onClick={() => handleVote(player.id)}
                           variant="outline"
-                          className="w-full h-12 justify-start text-base border border-border/60 hover:border-primary/40 hover:bg-primary/5"
+                          className="h-auto min-h-14 w-full justify-start whitespace-normal border border-border/70 bg-background py-3 text-base hover:border-primary/40 hover:bg-secondary"
                         >
-                          <User className="w-5 h-5 mr-3 text-muted-foreground" />
-                          {player.name}
+                          <User className="mr-3 size-5 shrink-0 text-muted-foreground" />
+                          <span className="min-w-0 break-words">{player.name}</span>
                         </Button>
                       </motion.div>
                     ))}
@@ -120,13 +120,13 @@ export function VotingPhase() {
                         <Button
                           onClick={() => handleStartVoting(player.id)}
                           variant="outline"
-                          className="w-full h-14 justify-between text-base border border-border/60 hover:border-primary/40 hover:bg-primary/5"
+                          className="h-auto min-h-14 w-full justify-between gap-3 whitespace-normal border border-border/70 bg-card py-3 text-base shadow-sm hover:border-primary/40 hover:bg-secondary"
                         >
-                          <span className="flex items-center gap-3">
-                            <Users className="w-5 h-5 text-muted-foreground" />
-                            {player.name}
+                          <span className="flex min-w-0 items-center gap-3">
+                            <Users className="size-5 shrink-0 text-muted-foreground" />
+                            <span className="min-w-0 break-words">{player.name}</span>
                           </span>
-                          <Badge variant="secondary">Vote</Badge>
+                          <Badge className="shrink-0" variant="secondary">Vote</Badge>
                         </Button>
                       </motion.div>
                     ))}
@@ -142,8 +142,8 @@ export function VotingPhase() {
                 </>
               ) : (
                 /* All voted - show summary */
-                <Card className="border border-border/60">
-                  <CardContent className="p-6 space-y-4">
+                <Card className="border-border/80">
+                  <CardContent className="space-y-5 p-5 sm:p-6">
                     <div className="text-center">
                       <Vote className="w-12 h-12 mx-auto mb-2 text-primary" />
                       <Prompt>All votes are in!</Prompt>
@@ -159,9 +159,9 @@ export function VotingPhase() {
                           return (
                             <div
                               key={player.id}
-                              className="flex items-center justify-between p-3 rounded-lg bg-muted/50"
+                              className="flex items-center justify-between gap-3 rounded-xl border border-border/60 bg-secondary/45 p-3"
                             >
-                              <span className="font-medium">{player.name}</span>
+                              <span className="min-w-0 break-words font-medium">{player.name}</span>
                               <Badge
                                 variant={voteCount > 0 ? "default" : "secondary"}
                               >

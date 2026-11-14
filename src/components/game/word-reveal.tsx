@@ -9,7 +9,15 @@ import { Progress } from "@/components/ui/progress";
 import { useGame } from "@/lib/game-context";
 import { PageContainer, PageHeader, PageContent } from "./shared/page-layout";
 import { ResetGameButton } from "./shared/reset-game-button";
-import { Label, Prompt, Hint, Pill, ChameleonPill } from "./shared/content-text";
+import {
+  ScreenTitle,
+  ScreenSubtitle,
+  Label,
+  Prompt,
+  Hint,
+  Pill,
+  ChameleonPill,
+} from "./shared/content-text";
 
 export function WordReveal() {
   const { state, revealWord } = useGame();
@@ -43,21 +51,24 @@ export function WordReveal() {
   return (
     <PageContainer>
       <PageHeader showReset={false}>
-        <div className="flex items-center justify-between gap-2">
-          <Prompt className="flex items-center gap-2">
-            {state.currentTopic && (
-              <state.currentTopic.icon className="w-5 h-5 text-primary" />
-            )}
-            <span>{state.currentTopic?.name}</span>
-          </Prompt>
+        <div className="flex items-start justify-between gap-3 text-left">
+          <div className="space-y-2">
+            <ScreenTitle>Reveal the word</ScreenTitle>
+            <Prompt className="flex items-center gap-2 text-base">
+              {state.currentTopic && (
+                <state.currentTopic.icon className="size-5 text-primary" />
+              )}
+              <span>{state.currentTopic?.name}</span>
+            </Prompt>
+          </div>
           <ResetGameButton />
         </div>
-        <Hint className="text-left">
+        <ScreenSubtitle className="text-left">
           Pass the device to each player to reveal their word
-        </Hint>
+        </ScreenSubtitle>
         {/* Progress */}
         <div className="space-y-1 pt-2">
-          <Progress value={progress} className="h-2" />
+          <Progress value={progress} className="h-2.5" />
           <Hint>
             {revealedCount} of {state.players.length} players have seen their word
           </Hint>
@@ -74,10 +85,10 @@ export function WordReveal() {
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.9 }}
             >
-              <Card className="border border-border/60 overflow-hidden">
+              <Card className="overflow-hidden border-border/80">
                 <CardContent className="p-6 space-y-6">
                   <div className="text-center space-y-1">
-                    <Label>{currentPlayer?.name}&apos;s turn</Label>
+                    <Label className="break-words">{currentPlayer?.name}&apos;s turn</Label>
                     <Prompt>
                       {showingWord ? "Remember this!" : "Tap to reveal your word"}
                     </Prompt>
@@ -93,7 +104,7 @@ export function WordReveal() {
                           animate={{ opacity: 1, rotateY: 0 }}
                           exit={{ opacity: 0, rotateY: -90 }}
                           transition={{ duration: 0.3 }}
-                          className={`flex-1 flex flex-col justify-center p-8 rounded-2xl text-center min-h-[128px] border ${
+                          className={`flex-1 flex min-h-[144px] flex-col justify-center rounded-2xl border p-6 text-center sm:p-8 ${
                             isChameleon
                               ? "chameleon-surface"
                               : "bg-primary/5 border-primary/20"
@@ -123,7 +134,7 @@ export function WordReveal() {
                           <Button
                             onClick={handleShowWord}
                             variant="outline"
-                            className="w-full h-32 text-lg border border-border/60 hover:border-primary/40 hover:bg-primary/5"
+                          className="h-36 w-full border border-border/70 bg-secondary/35 text-lg hover:border-primary/40 hover:bg-secondary/70"
                             icon={Eye}
                           >
                             Tap to Reveal
@@ -165,7 +176,7 @@ export function WordReveal() {
             >
               {unrevealedPlayers.length > 0 ? (
                 <>
-                  <Label className="text-center">Select next player:</Label>
+              <Label className="text-center">Select the next player</Label>
                   {unrevealedPlayers.map((player, index) => (
                     <motion.div
                       key={player.id}

@@ -15,9 +15,10 @@ A fun party game where players try to identify the chameleon among them. Built w
 
 | Event | Points |
 |-------|--------|
-| Chameleon is caught | +10 points to everyone else |
-| Chameleon survives | +30 points to Chameleon |
-| Chameleon guesses word correctly | +20 bonus points |
+| Chameleon is caught | +10 points to each non-chameleon |
+| Chameleon escapes the vote | +20 points to Chameleon |
+| Caught chameleon guesses the word correctly | +10 bonus points |
+| Caught chameleon guesses the word incorrectly | No bonus points |
 
 Points are configurable in `src/lib/game-config.ts`.
 

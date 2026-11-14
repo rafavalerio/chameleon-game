@@ -43,25 +43,25 @@ export function PlayerSetup() {
   return (
     <PageContainer>
       <PageHeader showReset={false} showProgress={false}>
-        <div className="flex justify-center p-2">
+        <div className="flex justify-center pt-1">
           <Image
             src="/chameleon-logo.png"
             alt="Chameleon"
             width={1186}
             height={1096}
-            className="w-16 h-auto"
+            className="w-14 h-auto"
             priority
           />
         </div>
-        <h1 className="text-3xl font-bold text-primary">
+        <h1 className="text-3xl font-bold tracking-tight text-primary">
           Chameleon
         </h1>
         <ScreenSubtitle>Add players to start the game</ScreenSubtitle>
       </PageHeader>
 
       <PageContent>
-        <Card className="border border-border/60">
-          <CardHeader className="pb-1">
+        <Card className="border-border/80">
+          <CardHeader className="pb-2">
             <div className="flex items-center justify-between">
               <CardTitle className="flex items-center gap-2 text-lg">
                 <Users className="w-5 h-5 text-primary" />
@@ -82,15 +82,20 @@ export function PlayerSetup() {
           </CardHeader>
           <CardContent className="space-y-4">
             {/* Add player input */}
-            <div className="flex gap-3 items-stretch">
+            <div className="space-y-2">
+              <label htmlFor="new-player-name" className="text-sm font-semibold">
+                Player name
+              </label>
+              <div className="flex items-stretch gap-2">
               <Input
+                id="new-player-name"
                 placeholder="Enter player name..."
                 value={newPlayerName}
                 onChange={(e) => setNewPlayerName(e.target.value)}
                 onKeyPress={handleKeyPress}
                 maxLength={GAME_CONFIG.MAX_NAME_LENGTH}
                 disabled={!canAddMore}
-                className="flex-1 text-lg h-14 px-5 py-4"
+                className="h-12 flex-1 text-base"
               />
               <Button
                 onClick={handleAddPlayer}
@@ -98,14 +103,16 @@ export function PlayerSetup() {
                   !canAddMore ||
                   newPlayerName.trim().length < GAME_CONFIG.MIN_NAME_LENGTH
                 }
-                className="shrink-0 h-14 w-14"
+                className="h-12 w-12 shrink-0"
+                aria-label="Add player"
               >
-                <Plus className="w-6 h-6" />
+                <Plus className="w-5 h-5" />
               </Button>
+              </div>
             </div>
 
             {/* Player list */}
-            <div className="space-y-2 min-h-[120px]">
+            <div className="min-h-32 space-y-2">
               <AnimatePresence mode="popLayout">
                 {state.players.length === 0 ? (
                   <motion.p
@@ -124,15 +131,15 @@ export function PlayerSetup() {
                     animate={{ opacity: 1, x: 0 }}
                     exit={{ opacity: 0, x: 20, transition: { duration: 0.2 } }}
                     transition={{ delay: index * 0.05 }}
-                    className="flex items-center gap-3 p-3 rounded-xl bg-muted/50 group"
+                    className="group flex items-center gap-3 rounded-xl border border-border/60 bg-secondary/45 p-3"
                   >
                     <PlayerAvatar name={player.name} index={index} size="sm" />
-                    <span className="flex-1 font-medium">{player.name}</span>
+                    <span className="min-w-0 flex-1 break-words font-medium">{player.name}</span>
                     <Button
                       variant="ghost"
                       size="icon"
                       onClick={() => removePlayer(player.id)}
-                      className="h-8 w-8 text-muted-foreground hover:text-foreground hover:bg-muted transition-colors shrink-0"
+                      className="h-9 w-9 shrink-0 text-muted-foreground hover:text-destructive"
                       aria-label={`Remove ${player.name}`}
                     >
                       <X className="w-4 h-4" />

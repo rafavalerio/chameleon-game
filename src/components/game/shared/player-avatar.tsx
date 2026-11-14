@@ -27,7 +27,7 @@ export function PlayerAvatar({ name, index, size = "sm", className }: PlayerAvat
   return (
     <div
       className={cn(
-        "rounded-full flex items-center justify-center text-white border-white/20",
+        "flex items-center justify-center rounded-full border-2 border-background/80 font-bold text-white shadow-sm",
         sizeClasses[size],
         colorClass,
         className
