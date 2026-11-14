@@ -1,28 +1,34 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useReducedMotion, type Variants } from "framer-motion";
 import { useGame } from "@/lib/game-context";
 import { topics, Topic } from "@/lib/game-data";
 import { PageContainer, PageHeader, PageContent } from "./shared/page-layout";
 import { ScreenTitle, ScreenSubtitle } from "./shared/content-text";
 
-const container = {
+const container: Variants = {
   hidden: { opacity: 0 },
   show: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.08,
+      duration: 0.18,
+      ease: "easeOut",
+      staggerChildren: 0.05,
     },
   },
 };
 
-const item = {
-  hidden: { opacity: 0, y: 20, scale: 0.95 },
-  show: { opacity: 1, y: 0, scale: 1 },
+const item: Variants = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: { type: "tween", duration: 0.18, ease: "easeOut" },
+  },
 };
 
 export function TopicSelection() {
   const { state, selectTopic } = useGame();
+  const shouldReduceMotion = useReducedMotion();
 
   const handleSelectTopic = (topic: Topic) => {
     selectTopic(topic);
@@ -40,7 +46,7 @@ export function TopicSelection() {
       <PageContent>
         <motion.div
           variants={container}
-          initial="hidden"
+          initial={shouldReduceMotion ? false : "hidden"}
           animate="show"
           className="grid auto-rows-fr grid-cols-2 gap-3 sm:gap-4"
         >
