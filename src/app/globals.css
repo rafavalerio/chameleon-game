@@ -51,105 +51,105 @@
 :root {
   --radius: 0.75rem;
 
-  /* Base colours - grey, with a faint green undertone */
-  --background: oklch(0.985 0.006 141.5);
-  --foreground: oklch(0.22 0.01 141.5);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.22 0.01 141.5);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.22 0.01 141.5);
+  /* Warm paper surfaces and deep leafy text colours */
+  --background: oklch(0.972 0.014 99);
+  --foreground: oklch(0.25 0.025 145);
+  --card: oklch(0.995 0.006 96);
+  --card-foreground: oklch(0.25 0.025 145);
+  --popover: oklch(0.995 0.006 96);
+  --popover-foreground: oklch(0.25 0.025 145);
 
-  /* Primary - brand green (anchored on logo #3FAB31, deepened for AA text contrast) */
-  --primary: oklch(0.52 0.145 141.5);
+  /* Deepened brand green keeps white button labels readable */
+  --primary: oklch(0.43 0.105 148);
   --primary-foreground: oklch(0.99 0 0);
 
-  /* Secondary - light neutral grey */
-  --secondary: oklch(0.94 0.006 141.5);
-  --secondary-foreground: oklch(0.3 0.01 141.5);
+  /* Soft sage for supporting surfaces */
+  --secondary: oklch(0.92 0.025 132);
+  --secondary-foreground: oklch(0.29 0.035 145);
 
-  /* Muted */
-  --muted: oklch(0.95 0.006 141.5);
-  --muted-foreground: oklch(0.5 0.01 141.5);
+  --muted: oklch(0.946 0.014 105);
+  --muted-foreground: oklch(0.46 0.025 145);
 
-  /* Accent - light neutral grey hover state */
-  --accent: oklch(0.92 0.008 141.5);
-  --accent-foreground: oklch(0.25 0.01 141.5);
+  --accent: oklch(0.9 0.035 127);
+  --accent-foreground: oklch(0.27 0.035 145);
 
   /* Destructive - muted red */
   --destructive: oklch(0.55 0.16 25);
 
   /* Borders and inputs */
-  --border: oklch(0.9 0.008 141.5);
-  --input: oklch(0.92 0.006 141.5);
-  --ring: oklch(0.52 0.145 141.5);
+  --border: oklch(0.87 0.018 112);
+  --input: oklch(0.88 0.018 112);
+  --ring: oklch(0.49 0.105 148);
 
   /* Player-avatar accent colours - muted, same family as primary */
-  --avatar-1: oklch(0.58 0.1 141.5);
-  --avatar-2: oklch(0.58 0.1 195);
-  --avatar-3: oklch(0.58 0.1 245);
-  --avatar-4: oklch(0.58 0.1 100);
-  --avatar-5: oklch(0.58 0.1 300);
-  --avatar-6: oklch(0.58 0.1 40);
+  --avatar-1: oklch(0.49 0.105 148);
+  --avatar-2: oklch(0.48 0.095 205);
+  --avatar-3: oklch(0.48 0.1 255);
+  --avatar-4: oklch(0.48 0.105 105);
+  --avatar-5: oklch(0.48 0.105 305);
+  --avatar-6: oklch(0.49 0.11 45);
 
   /* Chameleon reveal accent hues - cycled in the colour-shift pill/card */
-  --chameleon-amber: oklch(0.72 0.15 70);
-  --chameleon-violet: oklch(0.55 0.18 300);
+  --chameleon-amber: oklch(0.48 0.15 72);
+  --chameleon-violet: oklch(0.47 0.19 302);
+  --chameleon-aqua: oklch(0.46 0.13 190);
 
   /* Sidebar (unused currently, kept in sync with base palette) */
-  --sidebar: oklch(0.985 0.006 141.5);
-  --sidebar-foreground: oklch(0.22 0.01 141.5);
-  --sidebar-primary: oklch(0.52 0.145 141.5);
+  --sidebar: oklch(0.972 0.014 99);
+  --sidebar-foreground: oklch(0.25 0.025 145);
+  --sidebar-primary: oklch(0.43 0.105 148);
   --sidebar-primary-foreground: oklch(0.99 0 0);
-  --sidebar-accent: oklch(0.94 0.006 141.5);
-  --sidebar-accent-foreground: oklch(0.3 0.01 141.5);
-  --sidebar-border: oklch(0.9 0.008 141.5);
-  --sidebar-ring: oklch(0.52 0.145 141.5);
+  --sidebar-accent: oklch(0.92 0.025 132);
+  --sidebar-accent-foreground: oklch(0.29 0.035 145);
+  --sidebar-border: oklch(0.87 0.018 112);
+  --sidebar-ring: oklch(0.49 0.105 148);
 }
 
 .dark {
-  --background: oklch(0.19 0.006 141.5);
-  --foreground: oklch(0.95 0.006 141.5);
-  --card: oklch(0.24 0.006 141.5);
-  --card-foreground: oklch(0.95 0.006 141.5);
-  --popover: oklch(0.24 0.006 141.5);
-  --popover-foreground: oklch(0.95 0.006 141.5);
+  --background: oklch(0.2 0.018 150);
+  --foreground: oklch(0.95 0.012 100);
+  --card: oklch(0.255 0.018 150);
+  --card-foreground: oklch(0.95 0.012 100);
+  --popover: oklch(0.255 0.018 150);
+  --popover-foreground: oklch(0.95 0.012 100);
 
-  --primary: oklch(0.68 0.16 141.5);
-  --primary-foreground: oklch(0.16 0.01 141.5);
+  --primary: oklch(0.72 0.12 145);
+  --primary-foreground: oklch(0.19 0.02 145);
 
-  --secondary: oklch(0.28 0.008 141.5);
-  --secondary-foreground: oklch(0.9 0.006 141.5);
+  --secondary: oklch(0.32 0.025 145);
+  --secondary-foreground: oklch(0.92 0.012 100);
 
-  --muted: oklch(0.28 0.008 141.5);
-  --muted-foreground: oklch(0.68 0.01 141.5);
+  --muted: oklch(0.31 0.018 145);
+  --muted-foreground: oklch(0.72 0.018 100);
 
-  --accent: oklch(0.32 0.01 141.5);
-  --accent-foreground: oklch(0.95 0.006 141.5);
+  --accent: oklch(0.36 0.03 145);
+  --accent-foreground: oklch(0.95 0.012 100);
 
   --destructive: oklch(0.65 0.16 25);
 
-  --border: oklch(0.32 0.008 141.5);
-  --input: oklch(0.3 0.008 141.5);
-  --ring: oklch(0.68 0.16 141.5);
+  --border: oklch(0.39 0.02 145);
+  --input: oklch(0.36 0.02 145);
+  --ring: oklch(0.72 0.12 145);
 
-  --avatar-1: oklch(0.68 0.1 141.5);
-  --avatar-2: oklch(0.68 0.1 195);
-  --avatar-3: oklch(0.68 0.1 245);
-  --avatar-4: oklch(0.68 0.1 100);
-  --avatar-5: oklch(0.68 0.1 300);
-  --avatar-6: oklch(0.68 0.1 40);
+  --avatar-1: oklch(0.68 0.11 145);
+  --avatar-2: oklch(0.68 0.1 205);
+  --avatar-3: oklch(0.68 0.11 255);
+  --avatar-4: oklch(0.68 0.1 105);
+  --avatar-5: oklch(0.68 0.1 305);
+  --avatar-6: oklch(0.68 0.11 45);
 
-  --chameleon-amber: oklch(0.78 0.15 70);
-  --chameleon-violet: oklch(0.68 0.18 300);
+  --chameleon-amber: oklch(0.56 0.15 74);
+  --chameleon-violet: oklch(0.55 0.19 302);
+  --chameleon-aqua: oklch(0.54 0.14 190);
 
-  --sidebar: oklch(0.22 0.006 141.5);
-  --sidebar-foreground: oklch(0.95 0.006 141.5);
-  --sidebar-primary: oklch(0.68 0.16 141.5);
-  --sidebar-primary-foreground: oklch(0.16 0.01 141.5);
-  --sidebar-accent: oklch(0.28 0.008 141.5);
-  --sidebar-accent-foreground: oklch(0.9 0.006 141.5);
-  --sidebar-border: oklch(0.32 0.008 141.5);
-  --sidebar-ring: oklch(0.68 0.16 141.5);
+  --sidebar: oklch(0.23 0.018 150);
+  --sidebar-foreground: oklch(0.95 0.012 100);
+  --sidebar-primary: oklch(0.72 0.12 145);
+  --sidebar-primary-foreground: oklch(0.19 0.02 145);
+  --sidebar-accent: oklch(0.32 0.025 145);
+  --sidebar-accent-foreground: oklch(0.92 0.012 100);
+  --sidebar-border: oklch(0.39 0.02 145);
+  --sidebar-ring: oklch(0.72 0.12 145);
 }
 
 @layer base {
@@ -179,11 +179,11 @@
     background: transparent;
   }
   ::-webkit-scrollbar-thumb {
-    background: oklch(0.7 0.01 141.5 / 0.3);
+    background: oklch(0.48 0.025 145 / 0.28);
     border-radius: 3px;
   }
   ::-webkit-scrollbar-thumb:hover {
-    background: oklch(0.6 0.01 141.5 / 0.5);
+    background: oklch(0.4 0.035 145 / 0.46);
   }
 }
 
@@ -246,35 +246,56 @@ button, [role="button"], [data-slot="button"] {
 
 /* Chameleon reveal - colour-shifting pill and card tint, evoking the animal's own trick */
 .chameleon-pill {
-  background: linear-gradient(
-    120deg,
-    var(--primary),
-    var(--chameleon-amber),
-    var(--chameleon-violet),
-    var(--primary)
+  background-image: linear-gradient(
+    118deg,
+    var(--primary) 0%,
+    var(--chameleon-aqua) 22%,
+    var(--chameleon-violet) 48%,
+    var(--chameleon-amber) 74%,
+    var(--primary) 100%
   );
-  background-size: 300% 300%;
-  animation: chameleon-shift 5s ease infinite;
+  background-size: 350% 350%;
+  box-shadow: 0 5px 14px color-mix(in oklch, var(--primary) 24%, transparent);
+  animation:
+    chameleon-shift 7s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite,
+    chameleon-glow 3.8s ease-in-out infinite;
 }
 
 .chameleon-surface {
   background: linear-gradient(
     135deg,
-    color-mix(in oklch, var(--primary) 8%, transparent),
-    color-mix(in oklch, var(--chameleon-violet) 8%, transparent)
+    color-mix(in oklch, var(--primary) 12%, var(--card)),
+    color-mix(in oklch, var(--chameleon-aqua) 10%, var(--card)) 52%,
+    color-mix(in oklch, var(--chameleon-amber) 8%, var(--card))
   );
-  border-color: color-mix(in oklch, var(--chameleon-violet) 25%, transparent);
+  border-color: color-mix(in oklch, var(--chameleon-aqua) 30%, var(--border));
 }
 
 @keyframes chameleon-shift {
   0% {
-    background-position: 0% 50%;
+    background-position: 0% 45%;
   }
-  50% {
-    background-position: 100% 50%;
+  26% {
+    background-position: 72% 20%;
+  }
+  54% {
+    background-position: 100% 80%;
+  }
+  80% {
+    background-position: 28% 100%;
   }
   100% {
-    background-position: 0% 50%;
+    background-position: 0% 45%;
+  }
+}
+
+@keyframes chameleon-glow {
+  0%,
+  100% {
+    box-shadow: 0 5px 14px color-mix(in oklch, var(--primary) 24%, transparent);
+  }
+  50% {
+    box-shadow: 0 8px 22px color-mix(in oklch, var(--chameleon-violet) 35%, transparent);
   }
 }
 

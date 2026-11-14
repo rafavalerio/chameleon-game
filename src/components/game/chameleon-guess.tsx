@@ -43,7 +43,7 @@ export function ChameleonGuess() {
     <PageContainer>
       <PageHeader className="space-y-3">
         <ScreenTitle>Chameleon&apos;s Last Chance!</ScreenTitle>
-        <ScreenSubtitle>
+        <ScreenSubtitle className="break-words">
           {chameleon?.name} was caught, but can still earn{" "}
           <span className="font-semibold text-primary">
             {GAME_CONFIG.POINTS_CHAMELEON_GUESSES_WORD} points
@@ -54,7 +54,7 @@ export function ChameleonGuess() {
 
       <PageContent className="space-y-6">
         {/* Topic hint */}
-        <Card className="border border-primary/20 bg-primary/5">
+        <Card className="border-primary/20 bg-secondary/60">
           <CardContent className="p-4 text-center">
             <Label className="mb-1">The topic was:</Label>
             <div className="flex items-center justify-center gap-2">
@@ -67,7 +67,7 @@ export function ChameleonGuess() {
         </Card>
 
         {/* Word options */}
-        <Card className="border border-border/60">
+        <Card className="border-border/80">
           <CardHeader className="pb-2">
             <CardTitle className={cn(TEXT_STYLES.prompt, "text-center flex items-center justify-center gap-2")}>
               <HelpCircle className="w-5 h-5 text-primary" />
@@ -85,7 +85,7 @@ export function ChameleonGuess() {
                   transition: { staggerChildren: 0.03 },
                 },
               }}
-              className="grid grid-cols-2 gap-2"
+              className="grid grid-cols-2 gap-3 sm:gap-4"
             >
               {wordOptions.map((word) => (
                 <motion.div
@@ -98,7 +98,7 @@ export function ChameleonGuess() {
                   <Button
                     onClick={() => handleGuess(word)}
                     variant="outline"
-                    className="w-full h-12 text-sm font-medium border border-border/60 hover:border-primary/40 hover:bg-primary/5"
+                    className="min-h-14 h-auto w-full whitespace-normal break-words border border-border/70 bg-background px-3 text-center text-sm font-semibold leading-snug hover:border-primary/40 hover:bg-secondary sm:text-base"
                   >
                     {word}
                   </Button>

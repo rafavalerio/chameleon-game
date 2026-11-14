@@ -19,8 +19,8 @@ export function PhaseProgress({ phase }: { phase: GamePhase }) {
         <span
           key={step}
           className={cn(
-            "h-1 flex-1 rounded-full transition-colors",
-            index <= currentStep ? "bg-primary" : "bg-muted"
+            "h-1.5 flex-1 rounded-full transition-colors",
+            index <= currentStep ? "bg-primary" : "bg-border"
           )}
         />
       ))}

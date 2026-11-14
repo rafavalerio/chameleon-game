@@ -10,10 +10,10 @@ export const GAME_CONFIG = {
   POINTS_CHAMELEON_CAUGHT: 10,
   
   /** Points awarded to the chameleon when they survive the vote */
-  POINTS_CHAMELEON_SURVIVES: 30,
+  POINTS_CHAMELEON_SURVIVES: 20,
   
   /** Bonus points for the chameleon if they guess the word correctly */
-  POINTS_CHAMELEON_GUESSES_WORD: 20,
+  POINTS_CHAMELEON_GUESSES_WORD: 10,
   
   /** Minimum number of players required to play */
   MIN_PLAYERS: 3,

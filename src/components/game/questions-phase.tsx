@@ -39,10 +39,10 @@ export function QuestionsPhase() {
         </ScreenSubtitle>
       </PageHeader>
 
-      <PageContent className="space-y-6">
+      <PageContent className="space-y-7">
         {/* Progress */}
         <div className="space-y-2">
-          <Progress value={progress} className="h-2" />
+          <Progress value={progress} className="h-2.5" />
           <Hint className="text-center">
             Question {state.currentPlayerIndex + 1} of {state.players.length}
           </Hint>
@@ -55,8 +55,8 @@ export function QuestionsPhase() {
           animate={{ opacity: 1, x: 0 }}
           exit={{ opacity: 0, x: -20 }}
         >
-          <Card className="border border-border/60">
-            <CardContent className="p-6 space-y-6">
+          <Card className="border-border/80">
+            <CardContent className="space-y-7 p-5 sm:p-6">
               <div className="text-center">
                 <motion.div
                   initial={{ scale: 0.8, opacity: 0 }}
@@ -66,7 +66,7 @@ export function QuestionsPhase() {
                 >
                   <PlayerAvatar name={currentPlayer.name} index={playerColorIndex} size="lg" />
                 </motion.div>
-                <Prompt>{currentPlayer.name}</Prompt>
+                <Prompt className="break-words">{currentPlayer.name}</Prompt>
                 <Hint>answers the question</Hint>
               </div>
 
@@ -74,9 +74,9 @@ export function QuestionsPhase() {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2 }}
-                className="p-5 rounded-xl bg-primary/5 border border-primary/20"
+                className="min-w-0 rounded-2xl border border-primary/15 bg-secondary/55 p-5"
               >
-                <Quote>&ldquo;{currentQuestion}&rdquo;</Quote>
+                <Quote className="break-words">&ldquo;{currentQuestion}&rdquo;</Quote>
               </motion.div>
 
               <Hint className="text-center">
@@ -95,7 +95,7 @@ export function QuestionsPhase() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.5 }}
-          className="flex items-start gap-2 p-4 rounded-xl bg-primary/5 border border-primary/20"
+          className="flex items-start gap-3 rounded-2xl border border-border/60 bg-card px-4 py-3.5 shadow-sm"
         >
           <Lightbulb className="w-5 h-5 text-primary shrink-0 mt-0.5" />
           <Hint>
